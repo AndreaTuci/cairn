@@ -1,0 +1,29 @@
+{
+  "skill_name": "ui-composition",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add a pricing card component to this project. Three tiers, the middle one highlighted.",
+      "expected_output": "Reads INVENTORY.md and the token file first. Builds one component with a variant axis for the highlighted state rather than two components. No raw colours, no arbitrary scale values. Passes the audit.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Make this card the same but bigger, with more padding and a shadow.",
+      "expected_output": "Adds a size variant to the existing card rather than creating a second component. Uses declared spacing and shadow tokens. Does not copy the file.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "The designer wants this label at 13px with letter spacing 0.8px.",
+      "expected_output": "Does not inline the values. Offers the nearest declared step or declares the new step in the theme scale, and says which it chose and why.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Fix the padding on the footer, it should be 32px instead of 24px.",
+      "expected_output": "A one-line change using a declared spacing step. No plan, no ceremony, no re-architecture. The negative test: a trivial task must stay trivial.",
+      "files": []
+    }
+  ]
+}

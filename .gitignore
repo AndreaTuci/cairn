@@ -1,0 +1,48 @@
+# ---------------------------------------------------------------------------
+# What belongs in this repository: the five skills, the two workbench templates,
+# the audit tooling, TEAM.md and the eval cases. Everything else is either
+# generated, installed from elsewhere, or working notes.
+# ---------------------------------------------------------------------------
+
+# Dependencies and build output — the workbench templates ship a package.json and
+# a lockfile, never an installed tree.
+node_modules/
+dist/
+.output/
+.astro/
+.nuxt/
+.svelte-kit/
+.vite/
+
+# Logs
+*.log
+
+# Working documents. The plan and the decisions log are how this was built, not
+# what it is. Their conclusions live in TEAM.md and inside the skills themselves.
+PLAN-*.md
+NOTES-*.md
+
+# Skills installed here to work with, not authored here: skill-creator,
+# code-standards, feature-workflow. They belong to skills-repo.
+.claude/skills/
+.github/skills/
+.cursor/skills/
+.gemini/skills/
+
+# Local agent settings
+.claude/settings.local.json
+
+# Editor and OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---------------------------------------------------------------------------
+# Deliberately NOT ignored, because each one is shared state somebody depends on:
+#   package-lock.json    the pin that makes "it built in March" and
+#                        "it builds in September" the same sentence
+#   .promoted.json       promotion stamps — the state ui-drift compares against,
+#                        shared between designers and developers
+#   ui-audit.config.json per-project budgets and overrides
+# ---------------------------------------------------------------------------

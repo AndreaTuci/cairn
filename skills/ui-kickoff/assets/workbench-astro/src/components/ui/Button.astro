@@ -1,0 +1,44 @@
+---
+/**
+ * Button - the shape every primitive in this workbench follows.
+ *
+ * One base, two variant axes, no second copy. Need a button that is not here?
+ * Add a variant. Do not add a file.
+ */
+import { cx, variants } from '../../lib/cx'
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost' | 'destructive'
+  size?: 'sm' | 'md' | 'lg'
+  href?: string
+  class?: string
+}
+
+const { variant = 'primary', size = 'md', href, class: extra } = Astro.props
+
+const BASE =
+  'inline-flex items-center justify-center gap-2 rounded-md font-semibold ' +
+  'transition-colors disabled:pointer-events-none disabled:opacity-50 ' +
+  'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+
+const VARIANTS = {
+  variant: {
+    primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+    ghost: 'text-foreground hover:bg-accent',
+    destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+  },
+  size: {
+    sm: 'h-9 px-3 text-sm',
+    md: 'h-10 px-4 text-sm',
+    lg: 'h-11 px-6 text-base',
+  },
+} as const
+
+const Tag = href ? 'a' : 'button'
+const classes = cx(BASE, variants(VARIANTS, { variant, size }, { variant: 'primary', size: 'md' }), extra)
+---
+
+<Tag class={classes} href={href}>
+  <slot />
+</Tag>

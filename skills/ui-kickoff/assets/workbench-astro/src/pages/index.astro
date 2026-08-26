@@ -1,0 +1,32 @@
+---
+/**
+ * The screen index. Every screen in the workbench is listed here, so the person
+ * reviewing the work - a colleague, a client, a developer - can find all of it
+ * without being told where to look.
+ */
+import Page from '../layouts/Page.astro'
+import Card from '../components/ui/Card.astro'
+import Button from '../components/ui/Button.astro'
+
+const screens = [
+  { href: '/articles', name: 'Articles', note: 'List, with its empty and error states' },
+]
+---
+
+<Page title="Workbench">
+  <main class="mx-auto max-w-3xl px-6 py-16">
+    <h1 class="text-2xl font-semibold">Workbench</h1>
+    <p class="mt-2 text-muted-foreground">Every screen in this project, and nothing else.</p>
+
+    <ul class="mt-8 space-y-4">
+      {screens.map((screen) => (
+        <li>
+          <Card title={screen.name}>
+            <p class="text-sm text-muted-foreground">{screen.note}</p>
+            <Button href={screen.href} size="sm" class="mt-4">Open</Button>
+          </Card>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Page>

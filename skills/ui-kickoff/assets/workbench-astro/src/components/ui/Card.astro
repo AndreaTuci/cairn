@@ -1,0 +1,25 @@
+---
+/**
+ * Card - a surface with a title and a body.
+ *
+ * Note what it does *not* do: it has no "featured" mode with its own padding,
+ * no variant that changes the heading level, no special case for the homepage.
+ * Special cases aren't special enough to break the rules; when one turns out to
+ * be genuine, it arrives as a declared variant.
+ */
+import { cx } from '../../lib/cx'
+
+interface Props {
+  title?: string
+  class?: string
+}
+
+const { title, class: extra } = Astro.props
+---
+
+<article class={cx('rounded-lg border bg-card text-card-foreground p-6 shadow-card', extra)}>
+  {title && <h3 class="text-lg font-semibold">{title}</h3>}
+  <div class={title ? 'mt-2' : ''}>
+    <slot />
+  </div>
+</article>

@@ -1,0 +1,15 @@
+{
+  "name": "design-workbench",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "design": "nuxt dev",
+    "design:check": "node .ui/ui-audit.mjs --root .",
+    "design:inventory": "node .ui/ui-inventory.mjs --root . --write",
+    "design:build": "nuxt generate"
+  },
+  "dependencies": {
+    "nuxt": "4.2.2",
+    "@nuxt/ui": "4.3.0"
+  }
+}

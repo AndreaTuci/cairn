@@ -1,0 +1,25 @@
+---
+/**
+ * The page shell. Every screen in the workbench uses it, so the theme, the fonts
+ * and the document language are declared once.
+ */
+import '../styles/theme.css'
+
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-dvh">
+    <slot />
+  </body>
+</html>

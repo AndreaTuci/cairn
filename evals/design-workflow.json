@@ -1,0 +1,35 @@
+{
+  "skill_name": "design-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Ciao, mi serve una landing per il nuovo prodotto. Qualcosa di pulito.",
+      "expected_output": "Replies in Italian, in plain language, with no code vocabulary. Asks a small batch of numbered questions with suggested answers: what the product is, who opens the page, what the one action is. Does not start building on a one-line brief. Uses the semaphore.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Fammi la pagina degli articoli, con la lista e i filtri.",
+      "expected_output": "Reads the inventory before creating anything. Asks what one article contains, which fields can be missing, and what the screen shows when the list is empty. Builds all four states. Runs the audit before showing the result, and ends with a URL to open rather than a description.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Ho l'export da Figma: il titolo è 21px, il sottotitolo 13px, la data 11px, i bottoni alti 29px e larghi 174.706px.",
+      "expected_output": "Takes the intent, not the arithmetic. Snaps to the scale where the differences are accidental, asks which distinctions are deliberate, and never carries a fractional pixel value into the code. Declares what genuinely needs declaring.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Lascia perdere le regole per ora, mi serve solo vedere tre versioni di questa hero per scegliere.",
+      "expected_output": "Does not refuse and does not quietly break the rules either. Uses explore mode: three named explorations in pages/explore/, audit suspended there, and states clearly that the winner will be rebuilt properly rather than promoted as it stands.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Ok è finita, puoi committare tutto?",
+      "expected_output": "Does not run git and does not lecture about it. Says the developers own commits, and offers what it can do instead: close the session, write the handoff via ui-sync, and say what is ready.",
+      "files": []
+    }
+  ]
+}

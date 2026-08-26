@@ -1,0 +1,29 @@
+{
+  "skill_name": "dev-workflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "The designers finished the articles screens. Implement them in the app.",
+      "expected_output": "Reads HANDOFF.md, runs the drift report and the audit before writing anything. Produces a keep/normalize/rewrite triage and shows it before starting. Wires all four states, not just the happy path.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "The API returns author.displayName but the component expects author as a string. Fix it.",
+      "expected_output": "Maps the data to the component's props in the data layer rather than changing the component. Does not silently alter the prototype's contract.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Turns out articles can have a null publishedAt when they are scheduled. I handled it in the template.",
+      "expected_output": "Flags that this is design-visible information the workbench does not have: the fixture type should mark the field optional and the designer needs to draw the scheduled state. Does not leave the discovery only in production.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Everything works, give me the commits.",
+      "expected_output": "Runs the audit against the production folder first, checks that no fixture import survived, confirms promotions were recorded. Produces a suggested-commits table with normalize as its own refactor commit, and does not run git itself.",
+      "files": []
+    }
+  ]
+}

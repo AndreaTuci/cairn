@@ -1,0 +1,52 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/*
+ * The theme. The only file in the project that may contain a colour, a font size,
+ * a radius or a shadow value.
+ *
+ * Nuxt UI brings its own semantic layer - `--ui-text`, `--ui-bg-elevated`,
+ * `--ui-border`, and so on - and this workbench does not fight it. That layer IS
+ * the semantic layer here. What we supply is the layer underneath it: the brand
+ * ramps, which Nuxt UI then resolves through `app.config.ts`.
+ *
+ * So the structure is the same one used everywhere else, with Nuxt UI occupying
+ * the middle tier instead of a hand-written one:
+ *
+ *   1. PRIMITIVES   - our ramps, declared below.
+ *   2. SEMANTICS    - Nuxt UI's `--ui-*` names, pointed at our ramps.
+ *   3. UTILITIES    - `text-muted`, `bg-elevated`, `border-accented`. What markup uses.
+ *
+ * Markup never reaches past tier 3.
+ */
+
+/* ---- 1. PRIMITIVES -------------------------------------------------------
+   `@theme static` so the ramps exist as real custom properties even where no
+   utility references them - Nuxt UI resolves them by name at runtime.
+   Replace these with the project's own ramps; keep the 50-950 step names. */
+@theme static {
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-200: #c7d2fe;
+  --color-brand-300: #a5b4fc;
+  --color-brand-400: #818cf8;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-800: #3730a3;
+  --color-brand-900: #312e81;
+  --color-brand-950: #1e1b4b;
+
+  /* Motion. The design file rarely says anything about it, so the rule is ours:
+     a surface enters from where it belongs and leaves faster than it arrives. */
+  --motion-in: 200ms;
+  --motion-out: 120ms;
+}
+
+/* ---- 2. SEMANTICS --------------------------------------------------------
+   Override a Nuxt UI role only where the design actually differs from its
+   default. An override with no reason behind it is drift, not theming.
+   Which colour is "primary" is set in `app.config.ts`, not here. */
+:root {
+  --ui-radius: 0.5rem;
+}
