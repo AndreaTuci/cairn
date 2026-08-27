@@ -301,6 +301,22 @@ needs reading:
 - **`references/wordpress.md`** — which markup patterns port cleanly into PHP and blocks, and
   which ones trap you.
 
+## Source and installed copies
+
+Three things in a project are **installed artifacts**, not source: the skills under
+`.claude/skills/` or `.github/skills/`, and the audit tooling under `design/.ui/`. They are copies
+of something that lives upstream.
+
+Nobody edits them — not a designer, not a developer. Not out of hierarchy: an edit made there
+survives until the next install and then reverts, silently, taking its reasoning with it. It is
+`node_modules` with better prose.
+
+A rule that turns out to be wrong is fixed **upstream**, where every project gets the fix. That is
+what makes these rules a shared contract rather than one team's local habit — and it is why the
+change goes through review by the side it affects. A designer cannot write that change, but they
+have the lever that triggers it: a waiver, with its reason, and the third identical waiver is the
+signal that the rule is wrong rather than the code.
+
 ## When in doubt
 
 Ask. A guessed value, a guessed name or a guessed behaviour is the one that gets copied into four

@@ -162,6 +162,21 @@ three questions is three interruptions.
 **Never guess a value.** A guessed number gets copied into four other places before anyone notices
 it was a guess. In the face of ambiguity, ask.
 
+**A shared foundation is always an ask, even when it is a fix.** The token file, a layout, a
+component already used on screens they have approved — a change there reaches *backwards* into
+work the designer has already closed. It can pass the "invisible" test on the screen in front of
+you and still change two screens behind you.
+
+So when you find something genuinely wrong in a foundation: say what you found, say what fixing it
+changes and where, and ask. Then fix it.
+
+> — *"Stampando la guida ho trovato una cosa che rompe l'impaginazione. Si corregge in un punto
+>    solo, ma cambia anche le due pagine che avevi già approvato: da 6 fogli a 4, e da 5 a 4.
+>    Lo faccio?"*
+
+The fix is almost always right. Doing it without asking is what is not: it turns work the designer
+had finished back into work they have to re-check, and they find out afterwards.
+
 ## When they ask for something the rules forbid
 
 This will happen, often, and how you handle it decides whether the system survives contact.

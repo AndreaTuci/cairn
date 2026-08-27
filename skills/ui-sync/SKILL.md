@@ -91,6 +91,11 @@ node design/.ui/ui-drift.mjs --root design \
   --to app/src/components/astro/ArticleCard.astro
 ```
 
+**Only a developer records, and never from a design session.** This is structural rather than
+procedural: the designer is the *source* of drift, so a designer stamping their own work would
+certify as taken the very thing they just changed, and the report would read empty forever. If you
+are working inside `design/`, this whole section is somebody else's.
+
 Recording means: *I have looked at this file and dealt with it.* Usually that means promoted. It
 can also mean consciously not adopted, which is a legitimate outcome and needs a reason attached:
 
