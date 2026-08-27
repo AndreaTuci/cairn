@@ -1,0 +1,30 @@
+---
+/**
+ * StepNumber — where you are in a sequence.
+ *
+ * Hung in a Section's eyebrow, the same slot RoleBadge uses, because it is the
+ * same kind of thing: a fact about the section that belongs above its title
+ * rather than buried in its prose.
+ *
+ * Zero-padded because `01` and `02` line up down a column and `1` and `2` do
+ * not, and a procedure is read as a column.
+ */
+import { cx } from '../../lib/cx'
+
+interface Props {
+  /** 1-based position in the sequence. */
+  index: number
+  /** How many steps there are, when knowing how far it goes helps. */
+  of?: number
+  class?: string
+}
+
+const { index, of, class: extra } = Astro.props
+
+const pad = (value: number) => String(value).padStart(2, '0')
+---
+
+<span class={cx('font-mono text-xs font-semibold tracking-wide text-primary', extra)}>
+  {pad(index)}
+  {of && <span class="text-muted-foreground">/ {pad(of)}</span>}
+</span>
