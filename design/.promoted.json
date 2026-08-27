@@ -3,122 +3,142 @@
     "src/components/DefinitionRow.astro": {
       "hash": "ef93812bcb4b",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/components/Figure.astro": {
       "hash": "ae0691ce1c78",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/components/LabelledList.astro": {
       "hash": "b4da5303a6ae",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/components/PageIntro.astro": {
       "hash": "007e104da909",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/components/RichText.astro": {
       "hash": "318e795c4abd",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/components/RoleBadge.astro": {
       "hash": "01a0c7c844f9",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/components/Section.astro": {
       "hash": "c573273c5a95",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/components/SiteFooter.astro": {
-      "hash": "b15b9d07e5e1",
+      "hash": "3ed10a34aacd",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/components/SiteHeader.astro": {
-      "hash": "c2cc5afe86e7",
+      "hash": "a51074819e2b",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/components/ui/Blaze.astro": {
       "hash": "c9762f85cc76",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/components/ui/Card.astro": {
       "hash": "d6ca8d492960",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/components/ui/Code.astro": {
       "hash": "16c403d86da5",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/components/ui/CodeBlock.astro": {
       "hash": "0af9a09c2894",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/components/ui/Text.astro": {
       "hash": "2f8ae0115d96",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/fixtures/audit-rules.ts": {
       "hash": "3f456dcdcad1",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/fixtures/metrics.ts": {
       "hash": "63cb841d6bbd",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/fixtures/skills.ts": {
       "hash": "d9129b466020",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/layouts/Page.astro": {
       "hash": "a44af2254606",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/lib/copy.ts": {
       "hash": "0b95d4946932",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/lib/cx.ts": {
       "hash": "093903f15e2b",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/lib/navigation.ts": {
-      "hash": "c427cce58dd1",
+      "hash": "b840f1a9c24c",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/pages/index.astro": {
       "hash": "a341022e58ad",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/pages/riferimento.astro": {
       "hash": "9d18bdede04a",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     },
     "src/styles/theme.css": {
-      "hash": "0523ef8b9e61",
+      "hash": "75416d840c61",
       "at": "2026-08-27",
-      "note": "baseline: prima sessione di design, accettata e committata"
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+    },
+    "src/components/PartsGallery.astro": {
+      "hash": "dbb320aa0501",
+      "at": "2026-08-27",
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+    },
+    "src/components/Specimen.astro": {
+      "hash": "497c476e12c4",
+      "at": "2026-08-27",
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+    },
+    "src/fixtures/inventory.ts": {
+      "hash": "39fb2de42fc4",
+      "at": "2026-08-27",
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+    },
+    "src/pages/composizione.astro": {
+      "hash": "aacc8c486d4c",
+      "at": "2026-08-27",
+      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
     }
   }
 }
