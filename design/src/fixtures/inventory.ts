@@ -13,14 +13,16 @@
 import inventory from '../../INVENTORY.json'
 import type { Metric } from './metrics'
 
-const total = inventory.components.length
+/** Every component in the guide. Exported so the page can stop spelling it out in prose. */
+export const componentCount = inventory.components.length
+
 const unused = inventory.components.filter((component) => component.uses === 0).length
 
 /** By hand until the gallery derives its own list — see handoff, open question 5. */
-const SHOWN_IN_GALLERY = 10
+const SHOWN_IN_GALLERY = 11
 
 export const composition: Metric[] = [
-  { value: String(total), label: 'Componenti in tutta la guida' },
+  { value: String(componentCount), label: 'Componenti in tutta la guida' },
   { value: String(unused), label: 'Componenti che non usa nessuno — uno solo bloccherebbe il controllo' },
   { value: String(SHOWN_IN_GALLERY), label: 'Quelli che puoi vedere funzionare qui sotto' },
 ]
@@ -33,12 +35,12 @@ export interface PageFramePart {
 }
 
 export const pageFrame: PageFramePart[] = [
-  { name: 'SiteHeader', where: 'la barra qui sopra, con il nome e le tre pagine' },
+  { name: 'SiteHeader', where: 'la barra qui sopra, con il nome e le quattro pagine' },
   { name: 'PageIntro', where: 'il titolo di questa pagina, e il primo segno appeso al filo' },
   { name: 'Section', where: 'ogni titolo che stai scorrendo, con il suo segno' },
   { name: 'SiteFooter', where: 'il link in fondo, che porta alla pagina dopo' },
-  { name: 'Specimen', where: 'la cornice di ognuna delle dieci teche qui sopra: la stai già guardando dieci volte' },
-  { name: 'PartsGallery', where: 'la griglia che le tiene tutte e dieci' },
+  { name: 'Specimen', where: 'la cornice di ognuna delle teche qui sopra: la stai già guardando undici volte' },
+  { name: 'PartsGallery', where: 'la griglia che le tiene tutte e undici' },
 ]
 
 export interface StateAnswer {
@@ -60,7 +62,7 @@ export const statesNotDrawn: StateAnswer[] = [
   },
   {
     name: 'in caricamento',
-    why: "Non c'è niente da aspettare. Le tre pagine sono HTML già scritto, senza una riga di JavaScript.",
+    why: "Non c'è niente da aspettare. Le pagine sono HTML già scritto, senza una riga di JavaScript.",
   },
   { name: 'in errore', why: "Stesso motivo: non c'è niente che possa fallire." },
 ]

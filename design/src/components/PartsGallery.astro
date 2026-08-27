@@ -7,7 +7,7 @@
  * open before asking for a new one. Kept out of the page so that the page stays
  * an argument and this stays a list.
  *
- * Six of the sixteen are missing on purpose. `SiteHeader`, `PageIntro`,
+ * Six of the seventeen are missing on purpose. `SiteHeader`, `PageIntro`,
  * `Section`, `SiteFooter`, `Specimen` and `PartsGallery` *are* the page around
  * this — the last two are the case itself, and the reader is already looking at
  * ten of them. Drawing any of the six in a box here would be the duplication the
@@ -24,6 +24,7 @@ import Code from './ui/Code.astro'
 import CodeBlock from './ui/CodeBlock.astro'
 import Card from './ui/Card.astro'
 import Blaze from './ui/Blaze.astro'
+import StepNumber from './ui/StepNumber.astro'
 import { auditRules } from '../fixtures/audit-rules'
 import { metrics } from '../fixtures/metrics'
 import { cx } from '../lib/cx'
@@ -85,6 +86,14 @@ const { class: extra } = Astro.props
 
     <Specimen name="CodeBlock" note="Comandi e output, esatti fino allo spazio.">
       <CodeBlock label="un comando" code="npm run design:check" />
+    </Specimen>
+
+    <Specimen name="StepNumber" note="Dove sei in una sequenza. Lo zero davanti perché in colonna `01` e `02` si allineano e `1` e `2` no.">
+      <div class="flex items-center gap-6">
+        <StepNumber index={1} of={4} />
+        <StepNumber index={4} of={4} />
+        <StepNumber index={12} />
+      </div>
     </Specimen>
 
     <Specimen name="RichText" note="Le frasi che arrivano dai dati, coi termini tecnici già al posto giusto.">
