@@ -15,6 +15,22 @@
 | **Token file** | `design/src/styles/theme.css` |
 | **Production token file** | `<path>` — or `n/a` until the project exists |
 
+## Where things land
+
+The map from the workbench to production. Decided once, here, so that no promotion ever has to
+guess it and no two developers guess differently.
+
+`ui-sync` reads this when it promotes, and `ui-drift --to` records against it. Leave it empty only
+when the workbench *is* the deliverable and there is no production copy — and say so, rather than
+leaving the reader wondering whether somebody forgot.
+
+| Workbench | Production |
+|---|---|
+| `design/src/components/` | |
+| `design/src/layouts/` | |
+| `design/src/styles/theme.css` | |
+| `design/src/fixtures/` | *(nothing — fixtures are replaced by real data, never promoted)* |
+
 ## Pinned versions
 
 Exact, not floated. A workbench that built in March must build in September.

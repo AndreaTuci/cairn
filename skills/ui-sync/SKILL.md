@@ -77,6 +77,10 @@ nobody expected.
 renamed or restructured on the way in, that is its own `refactor(...)` commit — so the diff stays
 readable and so the change can be explained back to the designer without archaeology.
 
+**Where things land is already decided.** `design/UI-STACK.md` carries the map from workbench
+folders to production folders, written once at kickoff. Read it rather than deriving it: two
+developers deriving it separately is how a project ends up with components in two places.
+
 Stack-specific procedures, one file each:
 `references/promotion-astro.md` · `references/promotion-nuxt.md` · `references/promotion-wordpress.md`
 
@@ -163,7 +167,11 @@ designer adds a token, it lands in both, in the same shape, in the same commit.
 ## What this skill does not do
 
 - **It does not commit.** It proposes; the human runs every `git add` and `git commit`.
-- **It does not edit `design/`** except to normalize markup before a WordPress port — and then it
-  says so to the designer, because their copy is supposed to match what shipped.
+- **It does not edit `design/` on its own initiative.** Two exceptions, and both get announced:
+  answering an **open question in the handoff addressed to developers** — that is what those rows
+  are for, and the answer usually lives in `design/` — and normalizing markup before a WordPress
+  port. Close the row you answered, saying what you did, and tell the designer — their copy is
+  supposed to match what shipped. Anything beyond those two is the designer's folder, and finding
+  your edits unannounced is how trust in the arrangement ends.
 - **It does not write `INVENTORY.md`.** That is generated. Handoff and inventory answer different
   questions and neither should restate the other.

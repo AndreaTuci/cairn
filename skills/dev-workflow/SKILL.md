@@ -69,6 +69,29 @@ designer. Two shapes for one component is where the arrangement starts costing m
 prototype, and skipping them is how a product ends up with three different empty states. Keep the
 branch order: pending, error, empty, ready.
 
+## Before changing anything shared
+
+A designer's mistake reaches the screen they are on. Yours reaches every project.
+
+So before editing something that ships beyond this repository — the audit tooling, a skill, a
+workbench template — **stop and ask which project will use it.** If the honest answer is "this
+one", it belongs in this project, not in the shared thing.
+
+This is the three-tier rule from `ui-composition` one floor up. A primitive that knows what an
+article is has been put on the wrong tier; a tool that knows the name of one project's component
+has made the same mistake, and it is wrong in every other project at once — silently, because
+nobody there asked for it.
+
+It has happened once already, and it is worth knowing what it looked like, because it did not look
+like a mistake: the task was to derive a number instead of hand-typing it, the reasoning was
+right, and the three lines went into the tool simply because that is where the file was already
+open. No audit catches this. The audit reads the project's code, never its own.
+
+The vendored copies are protected by permissions in a client project, so the version of this that
+bites is subtler: adding a flag "just for us", widening a rule to fit today's case, teaching a
+script one project's folder names. Each one is defensible alone. Together they are how a shared
+tool stops being shared.
+
 ## What production learns goes back
 
 The half everybody skips, and the half that decides whether this works in six months.
