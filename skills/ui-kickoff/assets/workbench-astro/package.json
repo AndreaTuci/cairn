@@ -8,10 +8,13 @@
     "design:inventory": "node .ui/ui-inventory.mjs --root . --write",
     "design:build": "astro build"
   },
-  "//": "Versions are pinned exactly, not floated with ^. A designer who opens this folder in three months must get the same build that was tested, not whatever upstream shipped since. Astro 6.4 pulls Vite 8 (rolldown), which @tailwindcss/vite 4.3 does not yet support - the exact failure this pin exists to prevent. ui-kickoff re-verifies the build after scaffolding.",
+  "//": "Versions are pinned exactly, not floated with ^. A designer who opens this folder in three months must get the same build that was tested, not whatever upstream shipped since. Astro 6.4 pulls Vite 8 (rolldown), which @tailwindcss/vite 4.3 does not yet support - the exact failure this pin exists to prevent. The `overrides` block pins Vite itself: without it npm hoists a second, newer Vite for @tailwindcss/vite, Astro falls back to its own nested copy, and every `npm run design` starts with a warning a designer has no way to read. ui-kickoff re-verifies the build after scaffolding.",
   "dependencies": {
     "astro": "6.1.6",
     "tailwindcss": "4.2.2",
     "@tailwindcss/vite": "4.2.2"
+  },
+  "overrides": {
+    "vite": "7.3.6"
   }
 }
