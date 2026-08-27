@@ -1,0 +1,27 @@
+---
+/**
+ * Figure — one measured number and what was counted.
+ *
+ * The numbers are the most convincing thing on the page, so the number is the
+ * thing you see: set large, in the mark's own red, in a monospace that lines the
+ * digits up down the column. The sentence beside it stays ordinary body text.
+ */
+import RichText from './RichText.astro'
+import { cx } from '../lib/cx'
+
+interface Props {
+  value: string
+  /** Authored copy; backticked terms are set as code. */
+  label: string
+  class?: string
+}
+
+const { value, label, class: extra } = Astro.props
+---
+
+<div class={cx('flex items-baseline gap-6 border-b border-rule py-4', extra)}>
+  <span class="w-20 shrink-0 text-right font-mono text-xl font-semibold tabular-nums text-primary">
+    {value}
+  </span>
+  <span class="text-base text-foreground"><RichText copy={label} /></span>
+</div>

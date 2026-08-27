@@ -1,0 +1,46 @@
+---
+/**
+ * SiteHeader — the name, and the two pages there are.
+ *
+ * The current page is derived from the URL rather than passed in as a prop: a
+ * prop is one more thing to keep true, and it is wrong the day somebody copies
+ * a page to start a third one.
+ */
+import Blaze from './ui/Blaze.astro'
+import { pages, normalise } from '../lib/navigation'
+import { cx } from '../lib/cx'
+
+const current = normalise(Astro.url.pathname)
+---
+
+<header class="border-b border-rule">
+  <div class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-x-8 gap-y-4 px-6 py-5">
+    <a href="/" class="flex items-center gap-3 rounded-xs">
+      <Blaze size="sm" />
+      <span class="font-display text-lg font-semibold text-foreground">cairn</span>
+    </a>
+
+    <nav aria-label="Pagine della guida">
+      <ul class="flex items-center gap-6">
+        {
+          pages.map((page) => (
+            <li>
+              <a
+                href={page.href}
+                aria-current={page.href === current ? 'page' : undefined}
+                class={cx(
+                  'rounded-xs pb-1 text-sm font-medium transition-colors',
+                  page.href === current
+                    ? 'border-b-2 border-primary text-foreground'
+                    : 'text-muted-foreground hover:text-foreground',
+                )}
+              >
+                {page.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

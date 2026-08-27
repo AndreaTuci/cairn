@@ -1,0 +1,4 @@
+{
+  "tokenFile": "src/styles/theme.css",
+  "budgets": { "component": 150, "page": 250 }
+}

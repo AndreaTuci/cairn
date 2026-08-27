@@ -1,0 +1,42 @@
+---
+/**
+ * DefinitionRow — a term and what it means, as a row in a list.
+ *
+ * The same shape serves the five skills and the ten audit rules, which is the
+ * whole argument for it existing: two lists that look alike are one component
+ * with different data, not two components that drift apart the first time
+ * somebody adjusts the spacing on one of them.
+ */
+import { cx, variants } from '../lib/cx'
+
+interface Props {
+  term: string
+  /** `strong` is for the row that carries more weight than its neighbours. */
+  emphasis?: 'default' | 'strong'
+  class?: string
+}
+
+const { term, emphasis = 'default', class: extra } = Astro.props
+const hasAside = Astro.slots.has('aside')
+
+const VARIANTS = {
+  emphasis: {
+    default: 'border-rule',
+    strong: 'border-foreground/25 bg-muted',
+  },
+} as const
+---
+
+<div
+  class={cx(
+    'grid gap-x-8 gap-y-2 border-b px-3 py-4 sm:grid-cols-3',
+    variants(VARIANTS, { emphasis }, { emphasis: 'default' }),
+    extra,
+  )}
+>
+  <dt class="font-mono text-sm font-medium text-foreground">{term}</dt>
+  <dd class="sm:col-span-2">
+    {hasAside && <div class="mb-2"><slot name="aside" /></div>}
+    <span class="text-base text-foreground"><slot /></span>
+  </dd>
+</div>

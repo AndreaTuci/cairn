@@ -1,0 +1,229 @@
+@import "tailwindcss";
+
+/*
+ * The theme. This is the only file in the project that may contain a colour, a
+ * font size, a radius or a shadow value. Everything else references what is
+ * declared here.
+ *
+ * Two layers, and the order matters:
+ *
+ *   1. PRIMITIVES  - the raw ramps. Nothing outside this file uses them directly.
+ *   2. SEMANTICS   - names for *roles*, each pointing at a primitive. This is the
+ *                    layer the design speaks in, and the layer components use.
+ *
+ * A colour therefore moves in exactly one place. Change --primary once and every
+ * mark, link and focus ring follows.
+ *
+ * The names match the shadcn convention, which is what the Figma library is built
+ * on: `--background` / `--foreground` pairs, so a surface and the text on it are
+ * always chosen together and never drift out of contrast.
+ *
+ * ---- The direction, in one paragraph -------------------------------------
+ *
+ * Stone and a painted trail mark. The page is warm paper the colour of rock in
+ * daylight; the text is the near-black of wet stone; the one bright thing on it
+ * is the oxide red of a segnavia - the red-white-red blaze painted on boulders
+ * so whoever comes next finds the way without a guide standing there. Distant
+ * ridges give the second accent, a cold slate blue, and the two accents carry
+ * the two audiences: red is the designer, blue the developer.
+ *
+ * Every pairing below is at or above 6:1 on the page background. That is not
+ * taste - the brief requires the page to survive being printed and projected in
+ * a meeting room, and a muted-on-muted pairing is a bug here, not a preference.
+ */
+
+:root {
+  /* ---- 1. PRIMITIVES -------------------------------------------------------
+     Replace these ramps with the project's own. Keep the step names: 50 is the
+     lightest, 900 the darkest, and code elsewhere assumes that. */
+
+  /* Stone. Warm, never blue-grey - this is rock in sunlight, not concrete. */
+  --stone-50: #faf8f4;
+  --stone-100: #f2eee7;
+  --stone-200: #e5dfd4;
+  --stone-300: #cdc5b7;
+  --stone-400: #ada28f;
+  --stone-500: #8d8271;
+  --stone-600: #6d6355;
+  --stone-700: #524a3f;
+  --stone-800: #3a342c;
+  --stone-900: #1f1b16;
+
+  /* Blaze. The oxide red of paint on rock - dry, not a warning light. */
+  --blaze-100: #f6e1dc;
+  --blaze-600: #a83527;
+  --blaze-700: #85291e;
+
+  /* Ridge. The cold blue distance reads as, and the only cool note here. */
+  --ridge-100: #dfe7ee;
+  --ridge-700: #2f4d68;
+  --ridge-800: #223a50;
+
+  /* ---- 2. SEMANTICS --------------------------------------------------------
+     Roles, not colours. "What is this for?", never "what shade is it?".
+     Every value here points at a primitive above. */
+
+  --background: var(--stone-50);
+  --foreground: var(--stone-900);
+
+  --card: #ffffff;
+  --card-foreground: var(--stone-900);
+
+  --muted: var(--stone-100);
+  --muted-foreground: var(--stone-700); /* 8.9:1 on the page - never grey on grey */
+
+  --primary: var(--blaze-600);
+  --primary-foreground: var(--stone-50);
+
+  --secondary: var(--stone-100);
+  --secondary-foreground: var(--stone-900);
+
+  --accent: var(--stone-100);
+  --accent-foreground: var(--stone-900);
+
+  --destructive: var(--blaze-700);
+  --destructive-foreground: var(--stone-50);
+
+  --border: var(--stone-300);
+  --rule: var(--stone-200); /* the hairline of the trail itself, quieter than a border */
+  --input: var(--stone-300);
+  --ring: var(--blaze-600);
+
+  /* The two audiences. The page is read by designers and by developers at the
+     same time, and each has to see at a glance which part is theirs. Named for
+     the role so the colour can change without the meaning moving. */
+  --designer: var(--blaze-600);
+  --designer-surface: var(--blaze-100);
+  --developer: var(--ridge-700);
+  --developer-surface: var(--ridge-100);
+
+  /* ---- Shape, motion, elevation -------------------------------------------
+     Declared here so nobody has to invent one inline. If a component needs a
+     value that is not here, the value is missing from the design - add it.
+
+     The radius is nearly square on purpose: stone is cut, not moulded. */
+
+  --radius: 0.25rem;
+  --elevation-card: 0 1px 2px 0 rgb(31 27 22 / 0.05);
+  --elevation-overlay: 0 12px 32px -8px rgb(31 27 22 / 0.18);
+  --motion-in: 200ms;
+  --motion-out: 120ms;
+}
+
+/*
+ * The Tailwind surface. Everything below turns the semantic layer into utility
+ * classes: `bg-primary`, `text-muted-foreground`, `rounded-md`, `shadow-card`.
+ * These are the only names markup is allowed to use.
+ *
+ * Note what is *not* exposed: the ramps. `bg-stone-600` does not exist, and that
+ * is the point - markup asks for a role, never for a shade.
+ */
+@theme inline {
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-plex-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-display: var(--font-serif);
+
+  /* The type scale. Six steps, and six is enough: every one-off font size in a
+     project is a step somebody needed and nobody declared.
+
+     Base is 18px rather than the usual 16. The brief asks for a body size that
+     holds up printed and projected across a meeting room, and that is a real
+     constraint rather than a preference. */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.4;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.55;
+  --text-base: 1.125rem;
+  --text-base--line-height: 1.65;
+  --text-lg: 1.375rem;
+  --text-lg--line-height: 1.5;
+  --text-xl: 2rem;
+  --text-xl--line-height: 1.2;
+  --text-2xl: 3rem;
+  --text-2xl--line-height: 1.1;
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+
+  --shadow-card: var(--elevation-card);
+  --shadow-overlay: var(--elevation-overlay);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-rule: var(--rule);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-designer: var(--designer);
+  --color-designer-surface: var(--designer-surface);
+  --color-developer: var(--developer);
+  --color-developer-surface: var(--developer-surface);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  /* A visible focus ring, everywhere, by default. Removing it is a decision
+     somebody has to make on purpose - it is never the starting point. */
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background-color: var(--designer-surface);
+  }
+}
+
+/*
+ * Printing is a requirement here, not an afterthought: this guide gets printed
+ * and read on a projector, and both are worse than a laptop screen. So the page
+ * drops to true white, keeps the accents, and refuses to break a section in half.
+ */
+@media print {
+  :root {
+    --background: #ffffff;
+    --rule: var(--stone-300);
+  }
+  body {
+    font-size: 11pt;
+  }
+  section {
+    break-inside: avoid;
+  }
+  pre {
+    break-inside: avoid;
+    white-space: pre-wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

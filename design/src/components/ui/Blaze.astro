@@ -1,0 +1,46 @@
+---
+/**
+ * Blaze — the signature mark of this project, and the reason the page reads as a
+ * path rather than as a document.
+ *
+ * It is a segnavia: the red-white-red stripe painted on a boulder so that
+ * whoever walks the trail next finds the way with nobody standing there to point
+ * it out. That is the whole idea the guide is about, so it is the one shape the
+ * design is remembered by. Marks sit on the hairline running down the left of
+ * every page, one per section; the reader follows them the way a walker follows
+ * the paint.
+ *
+ * Three stacked bands rather than an SVG, so it prints as solid ink.
+ */
+import { cx } from '../../lib/cx'
+
+interface Props {
+  size?: 'sm' | 'md'
+  /** Whose trail this is. The two audiences read the same page and need to see
+      at a glance which part is theirs. */
+  tone?: 'default' | 'designer' | 'developer'
+  class?: string
+}
+
+const { size = 'md', tone = 'default', class: extra } = Astro.props
+
+const SIZES = {
+  sm: { mark: 'h-6 w-2.5', band: 'h-1' },
+  md: { mark: 'h-8 w-3.5', band: 'h-1.5' },
+} as const
+
+const TONES = {
+  default: 'bg-primary',
+  designer: 'bg-designer',
+  developer: 'bg-developer',
+} as const
+
+const { mark, band } = SIZES[size]
+const paint = TONES[tone]
+---
+
+<span class={cx('flex flex-col rounded-xs', mark, extra)} aria-hidden="true">
+  <span class={cx('flex-1', paint)}></span>
+  <span class={cx('bg-background', band)}></span>
+  <span class={cx('flex-1', paint)}></span>
+</span>

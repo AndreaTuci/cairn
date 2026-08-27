@@ -1,0 +1,31 @@
+---
+/**
+ * Text — body copy, in the three weights this project actually has.
+ *
+ * It exists so that twenty paragraphs across two pages do not each carry their
+ * own class string. The moment they do, changing the reading size means finding
+ * all twenty; here it means changing one line.
+ */
+import { cx, variants } from '../../lib/cx'
+
+interface Props {
+  variant?: 'lead' | 'body' | 'note'
+  as?: 'p' | 'div'
+  class?: string
+}
+
+const { variant = 'body', as = 'p', class: extra } = Astro.props
+
+const VARIANTS = {
+  variant: {
+    lead: 'text-lg text-foreground',
+    body: 'text-base text-foreground',
+    note: 'text-sm text-muted-foreground',
+  },
+} as const
+
+const Tag = as
+const classes = cx(variants(VARIANTS, { variant }, { variant: 'body' }), extra)
+---
+
+<Tag class={classes}><slot /></Tag>

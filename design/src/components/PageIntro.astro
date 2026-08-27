@@ -1,0 +1,27 @@
+---
+/**
+ * PageIntro — the trailhead.
+ *
+ * The first mark on the rail, and the only h1 a page gets. Sections hang their
+ * own marks below it; this one is larger, because the start of a path is the one
+ * you have to find without help.
+ */
+import Blaze from './ui/Blaze.astro'
+import Text from './ui/Text.astro'
+
+interface Props {
+  title: string
+  lead: string
+}
+
+const { title, lead } = Astro.props
+---
+
+<div class="relative pb-4">
+  <Blaze class="absolute -left-6 top-2 -translate-x-1/2 md:-left-12" />
+
+  <h1 class="max-w-2xl font-display text-2xl font-semibold text-foreground">{title}</h1>
+  <Text variant="lead" class="mt-5 max-w-2xl">{lead}</Text>
+
+  <slot />
+</div>

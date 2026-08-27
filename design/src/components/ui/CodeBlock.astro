@@ -1,0 +1,48 @@
+---
+/**
+ * CodeBlock — commands and tool output, shown verbatim.
+ *
+ * The content arrives as a prop rather than a slot on purpose: whitespace in a
+ * code sample is meaning, and a slot picks up the indentation of whatever markup
+ * happens to surround it.
+ *
+ * `wrap` exists because two different things end up in here. Tool output is a
+ * fixed-width report — wrapping it would break the columns it is made of, so it
+ * scrolls. A single long line of code is just a long line, and wrapping it is
+ * what an editor does anyway. Printing wraps both, because paper does not
+ * scroll; that rule lives in the theme.
+ */
+import { cx, variants } from '../../lib/cx'
+
+interface Props {
+  code: string
+  /** What the reader is looking at, when that is not obvious from the code. */
+  label?: string
+  wrap?: 'none' | 'soft'
+  class?: string
+}
+
+const { code, label, wrap = 'none', class: extra } = Astro.props
+
+const VARIANTS = {
+  wrap: {
+    none: 'overflow-x-auto',
+    soft: 'whitespace-pre-wrap',
+  },
+} as const
+---
+
+<figure class={cx('overflow-hidden rounded-md border bg-card', extra)}>
+  {
+    label && (
+      <figcaption class="border-b bg-muted px-4 py-2 font-mono text-xs text-muted-foreground">
+        {label}
+      </figcaption>
+    )
+  }
+  <pre
+    class={cx(
+      'p-4 font-mono text-xs text-foreground',
+      variants(VARIANTS, { wrap }, { wrap: 'none' }),
+    )}><code>{code}</code></pre>
+</figure>

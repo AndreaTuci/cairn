@@ -1,0 +1,148 @@
+---
+/**
+ * Guida — what cairn is, why it exists, and what each role does with it.
+ *
+ * Read by designers and developers at the same time, which is why the two
+ * sections that belong to one of them carry that role's mark: a reader should be
+ * able to find their own stretch of the page without reading the other one.
+ */
+import Page from '../layouts/Page.astro'
+import PageIntro from '../components/PageIntro.astro'
+import Section from '../components/Section.astro'
+import Figure from '../components/Figure.astro'
+import LabelledList from '../components/LabelledList.astro'
+import RoleBadge from '../components/RoleBadge.astro'
+import Text from '../components/ui/Text.astro'
+import Code from '../components/ui/Code.astro'
+import CodeBlock from '../components/ui/CodeBlock.astro'
+import { metrics } from '../fixtures/metrics'
+
+const DESIGN_COMMANDS = `npm run design         # lo vedi nel browser, si aggiorna mentre lavori
+npm run design:check   # lo controlla contro le regole di casa
+npm run design:build   # HTML statico da mandare a un cliente`
+
+const DEV_COMMANDS = `cat design/HANDOFF.md                        # cosa è vero e cosa è finto
+node design/.ui/ui-drift.mjs --root design   # cosa si è mosso dall'ultima volta
+node design/.ui/ui-audit.mjs --root design --all`
+
+const NOT_YOUR_JOB = [
+  'Come si chiama un componente.',
+  'Dove va un file.',
+  "Cos'è un token, una prop, una variante.",
+  'Git.',
+]
+
+const ASKED_INSTEAD = [
+  'A cosa serve questa schermata.',
+  'Chi la apre e cosa sta cercando di fare.',
+  'Le parole vere sui bottoni.',
+  'Cosa succede al click.',
+  'Cosa si vede quando la lista è vuota, mentre carica, e quando qualcosa va storto.',
+]
+---
+
+<Page
+  title="Segni sul percorso — cairn"
+  description="cairn è l'insieme di regole e strumenti che permette a chi progetta di scrivere frontend che chi sviluppa vuole ereditare."
+>
+  <PageIntro
+    title="Segni sul percorso"
+    lead="cairn è l'insieme di regole e strumenti che permette a chi progetta di scrivere frontend che chi sviluppa vuole ereditare."
+  >
+    <Text class="mt-6 max-w-2xl">
+      I designer producono codice. Quel codice diventa il punto di partenza degli sviluppatori — e
+      il contesto che leggono i loro agenti. Se è disordinato, il disordine si paga due volte.
+      cairn mette i binari prima, non le pezze dopo.
+    </Text>
+  </PageIntro>
+
+  <div class="mt-16 space-y-16">
+    <Section title="Un progetto non si rompe di colpo">
+      <Text class="max-w-2xl">
+        Si rompe per accumulo. Un <Code>13px</Code> scritto a mano, un componente copiato e
+        ritoccato, un colore che era più veloce incollare che nominare. Ognuno difendibile da solo.
+        Insieme producono un progetto dove niente si cambia in un punto solo, e dove chi arriva
+        dopo — persona o agente — non ha modo di distinguere la regola dall'eccezione.
+      </Text>
+
+      <div class="mt-8 border-t border-rule">
+        {metrics.map((metric) => <Figure value={metric.value} label={metric.label} />)}
+      </div>
+
+      <Text variant="lead" class="mt-8 max-w-2xl font-display">
+        Nessuna di queste è incompetenza. È l'assenza di una regola.
+      </Text>
+    </Section>
+
+    <Section title="Una cartella che gira da sola">
+      <Text class="max-w-2xl">
+        I designer lavorano in <Code>design/</Code>, un progetto autonomo che parte con un comando:
+        niente backend, niente database, niente docker. Gli sviluppatori portano quei componenti nel
+        progetto vero. Entrambi seguono le stesse regole di composizione, perché stanno costruendo
+        la stessa cosa.
+      </Text>
+
+      <Text class="mt-5 max-w-2xl">
+        <Code>design/</Code> non è una fase, è permanente. I designer continuano a correggere mentre
+        lo sviluppo va avanti — funziona così, ed è inutile fingere il contrario. Quindi è una
+        sorgente viva, e la produzione è una copia che se ne allontana. Uno script dice di quanto.
+        Nessuno lo cerca a occhio.
+      </Text>
+
+      <CodeBlock class="mt-8" label="i tre comandi" code={DESIGN_COMMANDS} />
+    </Section>
+
+    <Section title="Se progetti" tone="designer">
+      <RoleBadge slot="eyebrow" role="designer" />
+
+      <Text class="max-w-2xl">
+        Apri la cartella <Code>design/</Code> e scrivi <Code>/design-workflow</Code>. Descrivi cosa
+        vuoi. Ti verranno fatte domande a cui sai rispondere — a cosa serve la schermata, cosa dice,
+        cosa si vede quando non c'è ancora niente — e mai domande sul codice.
+      </Text>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        <LabelledList title="cosa non ti serve sapere" items={NOT_YOUR_JOB} tone="designer" />
+        <LabelledList title="cosa ti viene chiesto invece" items={ASKED_INSTEAD} tone="designer" />
+      </div>
+
+      <Text class="mt-8 max-w-2xl">
+        Tutto quello che sta fuori da <Code>design/</Code> è degli sviluppatori. Se ti serve qualcosa
+        là fuori è una conversazione di due minuti, non un problema da aggirare.
+      </Text>
+    </Section>
+
+    <Section title="Se sviluppi" tone="developer">
+      <RoleBadge slot="eyebrow" role="developer" />
+
+      <Text class="max-w-2xl">
+        Il design non è un'immagine: è codice che gira, che non hai scritto tu e che non sei libero
+        di ignorare. È questo che rende il flusso più veloce dei mockup — e resta più veloce solo
+        finché le due copie continuano a corrispondere.
+      </Text>
+
+      <CodeBlock class="mt-8" label="prima di scrivere qualsiasi cosa" code={DEV_COMMANDS} />
+
+      <Text class="mt-8 max-w-2xl">
+        Poi il triage, prima di toccare niente: tieni, normalizza, riscrivi. È una tabella da due
+        minuti ed è il momento più economico per scoprire che quattro file vanno riscritti.
+      </Text>
+
+      <Text class="mt-5 max-w-2xl">
+        Quello che la produzione impara torna indietro. Un campo che può essere vuoto, contenuti
+        reali più lunghi di qualsiasi dato di prova, uno stato che nessuno aveva disegnato. Se non
+        torna, <Code>design/</Code> diventa finzione in due mesi — e un workbench di cui nessuno si
+        fida è un workbench che nessuno mantiene.
+      </Text>
+    </Section>
+
+    <Section title="Come si parte">
+      <Text class="max-w-2xl">
+        Uno sviluppatore lancia <Code>ui-kickoff</Code> una volta, all'inizio del progetto. Quattro
+        domande, poi prepara <Code>design/</Code>, imposta i colori veri del progetto, scrive le
+        istruzioni per Claude e per Copilot, installa il controllo e verifica che tutto compili. Da
+        quel momento chi progetta apre la cartella e lavora.
+      </Text>
+    </Section>
+  </div>
+</Page>

@@ -1,0 +1,129 @@
+---
+/**
+ * Riferimento — the five skills, the four rules, and what the gate actually
+ * checks.
+ *
+ * Everything on this page that repeats is data. The skills and the audit rules
+ * are the same shape rendered by the same row component, which is the point:
+ * two lists that look alike are one component with different data, not two
+ * components waiting to drift.
+ */
+import Page from '../layouts/Page.astro'
+import PageIntro from '../components/PageIntro.astro'
+import Section from '../components/Section.astro'
+import DefinitionRow from '../components/DefinitionRow.astro'
+import RoleBadge from '../components/RoleBadge.astro'
+import RichText from '../components/RichText.astro'
+import Text from '../components/ui/Text.astro'
+import Code from '../components/ui/Code.astro'
+import CodeBlock from '../components/ui/CodeBlock.astro'
+import Card from '../components/ui/Card.astro'
+import { skills } from '../fixtures/skills'
+import { auditRules } from '../fixtures/audit-rules'
+
+const HOUSE_RULES = [
+  "Ogni colore, misura, raggio e ombra viene dal file dei token. Ce n'è uno per progetto.",
+  'Un valore usato due volte è un token. Una forma usata due volte è un componente.',
+  'Ogni schermata risponde per i suoi quattro stati: pronta, vuota, in caricamento, in errore.',
+  'Il controllo è bloccante. Una deroga richiede una motivazione scritta sulla riga sopra.',
+]
+
+const AUDIT_OUTPUT = `  arbitrary-scale - 135 in 43 places
+  An arbitrary value on a scale property. It is a scale step nobody declared.
+   27 x  text-[13px]        components/AppSidebarItem.astro:34 +26
+   14 x  rounded-[8px]      components/AppSidebarItem.astro:34 +13
+  -> Add it to the theme scale, then use the named step.`
+
+const WAIVER = `<!-- ui-audit-allow: inline-style — embed di terze parti, lo stile lo mette il fornitore -->`
+---
+
+<Page
+  title="Riferimento — cairn"
+  description="Le cinque skill di cairn, le quattro regole di composizione e le dieci regole che il controllo intercetta."
+>
+  <PageIntro
+    title="Riferimento"
+    lead="Cinque skill. Una la leggono entrambi i ruoli, ed è quella che tiene insieme il resto."
+  />
+
+  <div class="mt-16 space-y-16">
+    <Section title="Le cinque skill">
+      <dl class="border-t border-rule">
+        {
+          skills.map((skill) => (
+            <DefinitionRow
+              term={skill.name}
+              emphasis={skill.readBy === 'both' ? 'strong' : 'default'}
+            >
+              <RoleBadge slot="aside" role={skill.readBy} />
+              {skill.when}
+            </DefinitionRow>
+          ))
+        }
+      </dl>
+
+      <Text variant="note" class="mt-6 max-w-2xl">
+        <Code>ui-composition</Code> è condivisa apposta. Due copie della stessa legge divergerebbero
+        entro un mese, e le regole che divergono sono il problema che questo sistema esiste per
+        risolvere.
+      </Text>
+    </Section>
+
+    <Section title="Le regole, in quattro righe">
+      <div class="grid gap-4 md:grid-cols-2">
+        {
+          HOUSE_RULES.map((rule, index) => (
+            <Card elevation="flat">
+              <span class="font-mono text-xs font-semibold tracking-wide text-primary">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <Text variant="lead" class="mt-3 font-display">
+                {rule}
+              </Text>
+            </Card>
+          ))
+        }
+      </div>
+    </Section>
+
+    <Section title="Cosa controlla il gate">
+      <Text class="max-w-2xl">
+        Il controllo non ha opinioni sul bello. Vede solo quello che è meccanico — ed è già
+        abbastanza.
+      </Text>
+
+      <dl class="mt-8 border-t border-rule">
+        {
+          auditRules.map((rule) => (
+            <DefinitionRow term={rule.id}>
+              <RichText copy={rule.catches} />
+            </DefinitionRow>
+          ))
+        }
+      </dl>
+
+      <CodeBlock class="mt-8" label="esempio di output" code={AUDIT_OUTPUT} />
+
+      <Text variant="note" class="mt-6 max-w-2xl">
+        135 segnalazioni sono in realtà 43 decisioni. Il report raggruppa apposta: una lista lunga
+        si ignora, una lista di quaranta scelte si affronta in un pomeriggio.
+      </Text>
+    </Section>
+
+    <Section title="Quando una regola è sbagliata">
+      <Text class="max-w-2xl">
+        Prima o poi lo sarà. Si prende la deroga, si scrive il motivo sulla riga sopra, e si
+        registra nel contratto del progetto. Se la stessa deroga viene presa una terza volta, è
+        sbagliata la regola, non il codice — lo si dice, e la regola cambia.
+      </Text>
+
+      <CodeBlock class="mt-8" code={WAIVER} wrap="soft" />
+
+      <blockquote class="mt-16 border-l-2 border-primary pl-6">
+        <Text variant="lead" class="max-w-2xl font-display italic">
+          Errors should never pass silently. Unless explicitly silenced.
+        </Text>
+      </blockquote>
+    </Section>
+  </div>
+</Page>

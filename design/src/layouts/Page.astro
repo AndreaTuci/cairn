@@ -1,0 +1,46 @@
+---
+/**
+ * The page shell. Every screen in the workbench uses it, so the theme, the fonts
+ * and the document language are declared once.
+ *
+ * The hairline down the left of the content is the trail. It is declared here,
+ * not per page, because it has to be unbroken from the first section to the last
+ * — and because the marks that hang on it measure their offset against this
+ * padding. Change the padding, change `Section` and `PageIntro` with it.
+ */
+import '../styles/theme.css'
+import { Font } from 'astro:assets'
+import SiteHeader from '../components/SiteHeader.astro'
+import SiteFooter from '../components/SiteFooter.astro'
+
+interface Props {
+  title: string
+  description: string
+}
+
+const { title, description } = Astro.props
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <Font cssVariable="--font-plex-serif" preload />
+    <Font cssVariable="--font-plex-sans" preload />
+    <Font cssVariable="--font-plex-mono" />
+  </head>
+  <body class="flex min-h-dvh flex-col">
+    <SiteHeader />
+
+    <main class="mx-auto w-full max-w-3xl grow px-6 pt-12 pb-24 md:pt-16">
+      <div class="border-l border-rule pl-6 md:pl-12">
+        <slot />
+      </div>
+    </main>
+
+    <SiteFooter />
+  </body>
+</html>

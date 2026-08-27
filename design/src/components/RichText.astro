@@ -1,0 +1,18 @@
+---
+/**
+ * RichText — a sentence from a fixture, with its backticked terms set as code.
+ *
+ * Thin on purpose. It exists so that every place rendering copy from a fixture
+ * treats a code term the same way, instead of each one deciding for itself.
+ */
+import Code from './ui/Code.astro'
+import { segments } from '../lib/copy'
+
+interface Props {
+  copy: string
+}
+
+const { copy } = Astro.props
+---
+
+{segments(copy).map((segment) => (segment.code ? <Code>{segment.text}</Code> : segment.text))}

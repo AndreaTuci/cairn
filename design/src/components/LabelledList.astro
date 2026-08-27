@@ -1,0 +1,41 @@
+---
+/**
+ * LabelledList — a short heading over a list of plain statements.
+ *
+ * Used for the two halves of the designer's side of the bargain: what nobody
+ * will ask you, and what everybody will. They are only legible next to each
+ * other, so they are built once and shown twice.
+ */
+import { cx } from '../lib/cx'
+
+interface Props {
+  title: string
+  items: string[]
+  tone?: 'default' | 'designer' | 'developer'
+  class?: string
+}
+
+const { title, items, tone = 'default', class: extra } = Astro.props
+
+const TONES = {
+  default: 'bg-primary',
+  designer: 'bg-designer',
+  developer: 'bg-developer',
+} as const
+---
+
+<div class={cx('rounded-lg border bg-card p-6', extra)}>
+  <h3 class="font-mono text-xs font-semibold tracking-wide uppercase text-muted-foreground">
+    {title}
+  </h3>
+  <ul class="mt-4 space-y-3">
+    {
+      items.map((item) => (
+        <li class="flex gap-3 text-base text-foreground">
+          <span class={cx('mt-2.5 h-1 w-4 shrink-0 rounded-xs', TONES[tone])} aria-hidden="true" />
+          <span>{item}</span>
+        </li>
+      ))
+    }
+  </ul>
+</div>

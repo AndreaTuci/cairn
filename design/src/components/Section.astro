@@ -1,0 +1,35 @@
+---
+/**
+ * Section — one stop on the trail.
+ *
+ * Every section hangs a blaze on the hairline that runs down the left of the
+ * page, so the page reads as a sequence of marks along a path rather than as a
+ * stack of headings. The mark can take the colour of an audience, which is how
+ * a designer and a developer tell at a glance which stretch is theirs.
+ *
+ * The negative offsets match the rail padding declared in the page layout. If
+ * one moves, the other moves with it.
+ */
+import Blaze from './ui/Blaze.astro'
+import { cx } from '../lib/cx'
+
+interface Props {
+  title: string
+  id?: string
+  tone?: 'default' | 'designer' | 'developer'
+  class?: string
+}
+
+const { title, id, tone = 'default', class: extra } = Astro.props
+const hasEyebrow = Astro.slots.has('eyebrow')
+---
+
+<section id={id} class={cx('relative scroll-mt-24', extra)}>
+  <Blaze tone={tone} class="absolute -left-6 top-1 -translate-x-1/2 md:-left-12" />
+
+  {hasEyebrow && <div class="mb-3 flex flex-wrap items-center gap-3"><slot name="eyebrow" /></div>}
+
+  <h2 class="font-display text-xl font-semibold text-foreground">{title}</h2>
+
+  <div class="mt-6"><slot /></div>
+</section>

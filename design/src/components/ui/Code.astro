@@ -1,0 +1,19 @@
+---
+/**
+ * Code — a term shown as what it literally is: a file name, a command, a class.
+ *
+ * Inline, never a block. The block is CodeBlock, and keeping them apart is what
+ * stops one component growing a `block` prop and two layouts.
+ */
+import { cx } from '../../lib/cx'
+
+interface Props {
+  class?: string
+}
+
+const { class: extra } = Astro.props
+---
+
+<code class={cx('rounded-xs bg-muted px-1 py-0.5 font-mono text-sm whitespace-nowrap text-foreground', extra)}
+  ><slot /></code
+>
