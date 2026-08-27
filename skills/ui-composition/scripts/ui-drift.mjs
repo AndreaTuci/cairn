@@ -30,6 +30,8 @@ const DEFAULT_ROOT = 'design'
 /** Drift covers more than the audit does: a token change is the highest-impact drift there is. */
 const TRACKED_EXTENSIONS = ['.astro', '.vue', '.html', '.css', '.ts']
 const HASH_LENGTH = 12
+/** Past this, one --record line per file is longer than it is useful. */
+const MAX_PATHS_IN_COMMAND = 5
 
 const USAGE = [
   'usage: node ui-drift.mjs [options]',
@@ -136,9 +138,43 @@ function render({ changed, added, removed, unchanged }, root) {
     `${unchanged.length} unchanged.`,
     '',
     'For what changed inside a file, use git - this tells you which files, not which lines.',
-    'After promoting: node ui-drift.mjs --record <path> --to <production path>',
+    '',
+    'Once a developer has dealt with these, stamp them, or the next report repeats',
+    'itself until nobody reads it. Ready to paste:',
+    '',
+    ...recordCommand([...changed, ...added].map((entry) => entry.path), root),
   )
   return lines.join('\n')
+}
+
+/**
+ * The command, already filled in - not a template to complete.
+ *
+ * A report ending in `<path>` and `<production path>` asks its reader to recall a
+ * syntax they use once a fortnight, which is how stamping quietly stops happening
+ * and the whole report turns to noise. So the paths are already in it.
+ */
+function recordCommand(paths, root) {
+  const workbench = root.split('/').at(-1)
+  const script = `node ${workbench}/.ui/ui-drift.mjs --root ${workbench}`
+
+  if (paths.length > MAX_PATHS_IN_COMMAND) {
+    return [
+      `  ${script} --record-all \\`,
+      '    --note "<what happened to all of these>"',
+      '',
+      '  Or one at a time, when they landed in different places:',
+      `  ${script} --record <path> --to <production path>`,
+    ]
+  }
+
+  return [
+    ...paths.map((path) => `  ${script} --record ${path} \\`),
+    '    --to <where it landed in production>',
+    '',
+    '  Drop --to when there is no production copy yet. Add --note when the answer',
+    '  was "we are not taking this" - a record without its reason is a small lie.',
+  ]
 }
 
 function record(root, state, paths, { to, note }, current) {
