@@ -2,13 +2,13 @@
 /**
  * SiteFooter — the next mark on the trail.
  *
- * A two-page guide read end to end needs one thing at the bottom: the other
- * page. Anything more is furniture.
+ * A guide read end to end needs one thing at the bottom: where to go next.
+ * Anything more is furniture.
  */
 import Blaze from './ui/Blaze.astro'
-import { otherPage } from '../lib/navigation'
+import { nextPage } from '../lib/navigation'
 
-const next = otherPage(Astro.url.pathname)
+const next = nextPage(Astro.url.pathname)
 ---
 
 <footer class="border-t border-rule">
