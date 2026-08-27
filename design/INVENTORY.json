@@ -4,7 +4,7 @@
       "name": "Text",
       "path": "components/ui/Text.astro",
       "lines": 32,
-      "uses": 39,
+      "uses": 53,
       "props": [
         "variant?",
         "as?"
@@ -18,7 +18,7 @@
       "name": "Section",
       "path": "components/Section.astro",
       "lines": 36,
-      "uses": 16,
+      "uses": 21,
       "props": [
         "title",
         "id?",
@@ -32,7 +32,7 @@
       "name": "Code",
       "path": "components/ui/Code.astro",
       "lines": 20,
-      "uses": 13,
+      "uses": 15,
       "props": [],
       "variants": []
     },
@@ -40,7 +40,7 @@
       "name": "Specimen",
       "path": "components/Specimen.astro",
       "lines": 61,
-      "uses": 12,
+      "uses": 13,
       "props": [
         "name",
         "note?",
@@ -51,15 +51,42 @@
       ]
     },
     {
+      "name": "CodeBlock",
+      "path": "components/ui/CodeBlock.astro",
+      "lines": 49,
+      "uses": 10,
+      "props": [
+        "code",
+        "label?",
+        "wrap?"
+      ],
+      "variants": [
+        "wrap: none · soft"
+      ]
+    },
+    {
       "name": "RoleBadge",
       "path": "components/RoleBadge.astro",
       "lines": 55,
-      "uses": 9,
+      "uses": 10,
       "props": [
         "role"
       ],
       "variants": [
         "role: designer · developer · both"
+      ]
+    },
+    {
+      "name": "DefinitionRow",
+      "path": "components/DefinitionRow.astro",
+      "lines": 43,
+      "uses": 9,
+      "props": [
+        "term",
+        "emphasis?"
+      ],
+      "variants": [
+        "emphasis: default · strong"
       ]
     },
     {
@@ -77,47 +104,10 @@
       ]
     },
     {
-      "name": "DefinitionRow",
-      "path": "components/DefinitionRow.astro",
-      "lines": 43,
-      "uses": 8,
-      "props": [
-        "term",
-        "emphasis?"
-      ],
-      "variants": [
-        "emphasis: default · strong"
-      ]
-    },
-    {
-      "name": "CodeBlock",
-      "path": "components/ui/CodeBlock.astro",
-      "lines": 49,
-      "uses": 7,
-      "props": [
-        "code",
-        "label?",
-        "wrap?"
-      ],
-      "variants": [
-        "wrap: none · soft"
-      ]
-    },
-    {
-      "name": "RichText",
-      "path": "components/RichText.astro",
-      "lines": 19,
-      "uses": 6,
-      "props": [
-        "copy"
-      ],
-      "variants": []
-    },
-    {
       "name": "LabelledList",
       "path": "components/LabelledList.astro",
       "lines": 42,
-      "uses": 5,
+      "uses": 7,
       "props": [
         "title",
         "items",
@@ -126,6 +116,38 @@
       "variants": [
         "tone: default · designer · developer"
       ]
+    },
+    {
+      "name": "RichText",
+      "path": "components/RichText.astro",
+      "lines": 19,
+      "uses": 7,
+      "props": [
+        "copy"
+      ],
+      "variants": []
+    },
+    {
+      "name": "StepNumber",
+      "path": "components/ui/StepNumber.astro",
+      "lines": 31,
+      "uses": 7,
+      "props": [
+        "index",
+        "of?"
+      ],
+      "variants": []
+    },
+    {
+      "name": "PageIntro",
+      "path": "components/PageIntro.astro",
+      "lines": 28,
+      "uses": 4,
+      "props": [
+        "title",
+        "lead"
+      ],
+      "variants": []
     },
     {
       "name": "Card",
@@ -152,20 +174,9 @@
       "variants": []
     },
     {
-      "name": "PageIntro",
-      "path": "components/PageIntro.astro",
-      "lines": 28,
-      "uses": 3,
-      "props": [
-        "title",
-        "lead"
-      ],
-      "variants": []
-    },
-    {
       "name": "PartsGallery",
       "path": "components/PartsGallery.astro",
-      "lines": 112,
+      "lines": 121,
       "uses": 1,
       "props": [],
       "variants": []

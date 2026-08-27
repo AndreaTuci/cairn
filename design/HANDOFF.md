@@ -6,11 +6,11 @@
 > This document does not track who has promoted what — that lives in `.promoted.json` and is read
 > with `node .ui/ui-drift.mjs --root .`. Two places holding the same fact is how both become wrong.
 
-Last updated: 2026-08-27 (second design session — the third page)
+Last updated: 2026-08-27 (third design session — the fourth page)
 
 Read `UI-STACK.md` first for the one thing that changes how you use this file: **there is no
 production frontend to promote into.** The workbench *is* the deliverable. `npm run design:build`
-produces the three pages as static HTML in `dist/`, with no client JavaScript at all — zero
+produces the four pages as static HTML in `dist/`, with no client JavaScript at all — zero
 `<script>` tags on any page — and that output is what ships. Everything below is written for the day
 that changes.
 
@@ -20,7 +20,12 @@ that changes.
 |---|---|---|---|
 | `/` | What cairn is, why it exists, and what each of the two roles does with it | ready | empty · loading · error all n/a — static document, no fetching, no list that can be empty |
 | `/riferimento` | The five skills, the four composition rules, the ten rules the gate enforces | ready | same: n/a for the other three |
+| `/come-si-parte` | The order of things: who does what, when, and how components reach production | ready | same: n/a for the other three |
 | `/composizione` | How the guide itself is built: the components it is made of, and the situations it had to answer for | ready | same: n/a for the other three |
+
+Reading order is the nav order — `/` argues, `/come-si-parte` instructs, `/riferimento` lists,
+`/composizione` shows the workings. `/`'s closing section used to restate the kickoff summary and
+is now a short bridge that hands off to the second page instead.
 
 The four states were asked and answered rather than skipped. Every page renders content that is
 present at build time; nothing is fetched, nothing can arrive late, and no list can come back
@@ -61,7 +66,8 @@ Two kinds, and the distinction is the whole point of the table.
 | `RichText` | — | both | Renders fixture copy, setting its backticked terms as code |
 | `SiteHeader` · `SiteFooter` | — | all | Current page derived from `Astro.url.pathname`, never passed as a prop. `SiteFooter` now uses `nextPage()`, not `otherPage()` — see below |
 | `Specimen` | layout | `/composizione` | The frame around a live example. Borrows `CodeBlock`'s anatomy — labelled bar over content — because it makes the same promise. Its body sits on `bg-background`, not `bg-card`, so a white surface put inside it is still visible as one |
-| `PartsGallery` | — | `/composizione` | Ten `Specimen`s in a grid: the catalogue of this project's own components. Zero props on purpose — it is a list, and it grows by one entry every time the project does |
+| `PartsGallery` | — | `/composizione` | Eleven `Specimen`s in a grid: the catalogue of this project's own components. Zero props on purpose — it is a list, and it grows by one entry every time the project does |
+| `StepNumber` | — | `/come-si-parte` | `01 / 04`, hung in a `Section`'s eyebrow — the same slot `RoleBadge` uses, because it is the same kind of fact. Zero-padded so the numbers line up down a column |
 
 **Placeholders** — put there to make a screen work, not designed.
 
@@ -79,10 +85,16 @@ Three coupling points worth knowing before you move anything:
 - **`navigation.ts` changed shape.** `otherPage()` — "the page you are not on" — only has one
   answer while there are two pages, so it is gone. `nextPage()` replaces it: next in file order,
   wrapping at the end. File order is reading order, which is why it is not alphabetical.
-- `PartsGallery` shows ten of the sixteen components. The other six — `SiteHeader`, `PageIntro`,
-  `Section`, `SiteFooter`, `Specimen`, `PartsGallery` — *are* the page around it, and the page
-  points at them instead of drawing them twice. Add a component and the gallery does not update
-  itself; see Open questions, row 4.
+- **`DefinitionRow` terms can now wrap.** `break-words` was added to the `dt` this session, after
+  `design/src/styles/theme.css` overran its third of the row and printed on top of the description.
+  Anything much past ~20 characters now wraps instead of overlapping. The promotion fixture also
+  drops the redundant `design/` prefix for the same reason.
+- `PartsGallery` shows eleven of the seventeen components. The other six — `SiteHeader`,
+  `PageIntro`, `Section`, `SiteFooter`, `Specimen`, `PartsGallery` — *are* the page around it, and
+  the page points at them instead of drawing them twice. Add a component and the gallery does not
+  update itself; see Open questions, row 5.
+- `navigation.ts` now holds four pages. `nextPage()` wraps, so the last page leads back to the
+  first; nothing else needs touching to add a fifth.
 - `Card`, `Button` and the rest of the kickoff scaffold: `Button.astro` was **deleted**. Neither
   page has a button on it, and an unused component is a blocking audit finding rather than a
   convenience. It comes back the day a screen needs one.
@@ -155,12 +167,14 @@ New this session, and the only fixture on the seam between the guide and its own
 
 | Export | Shape | Notes |
 |---|---|---|
-| `composition` | `Metric[]` | The counts on `/composizione`: 16 components, 0 unused, 10 shown. Reuses `Metric` rather than declaring a second `{value,label}` |
-| `pageFrame` | `{ name, where }[]` | The six components that are the page itself, and where on the page the reader is already looking at each one |
+| `composition` | `Metric[]` | The counts on `/composizione`. The first two are **derived from `INVENTORY.json`** rather than typed. Reuses `Metric` rather than declaring a second `{value,label}` |
+| `componentCount` | `number` | The total, exported so the page stops spelling it out in prose. The lead, the meta description and the "ne restano 6 dei 17" line all read it |
+| `pageFrame` | `{ name, where }[]` | The six components that are the page itself, and where on the page the reader is already looking at each one. Its `.length` feeds the prose, so the two cannot disagree |
 | `statesNotDrawn` | `{ name, why }[]` | Empty, loading, error — and the reason each does not exist here. The handoff's answer, rendered |
 
-**These numbers are typed by hand from `INVENTORY.md`.** They were true when written and they are
-the first thing on the page that can lie. See Open questions, row 4.
+**Only `SHOWN_IN_GALLERY` is still typed**, and it is the one that went stale inside a single
+session: adding `StepNumber` made the page claim ten where eleven are shown. Everything else on that
+page now derives. See Open questions, row 5.
 
 **Behaviour the design assumes**
 
@@ -171,9 +185,31 @@ the first thing on the page that can lie. See Open questions, row 4.
 | Empty | n/a — a guide with no components in it does not have this page |
 | Error | n/a |
 
+### `PromotionRoute` — `src/fixtures/promotion.ts`
+
+New this session. The map from the workbench to production, mirroring the "Where things land" table
+`ui-kickoff` writes into `UI-STACK.md`.
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `from` | string | yes | A workbench folder, **relative to `design/`**. The contract writes them in full; the page says the prefix once in prose because the column has no width to spare. Longest: 20 characters (`src/styles/theme.css`) |
+| `to` | string | yes | **A description, not a path.** The production path belongs to the project and this guide has no business inventing one. Backticked terms are set as code |
+
+The load-bearing row is `src/fixtures/` → *nothing*: fixtures are replaced by real data, never
+promoted. A developer reading only the first three rows would promote the mock data.
+
+**Behaviour the design assumes**
+
+| | |
+|---|---|
+| Ordering | components, layouts, tokens, fixtures — the order the contract lists them |
+| Volume | 4 |
+| Empty | n/a — a project with no targets yet has an empty right column, not an empty table. That is this project, and `UI-STACK.md` now says so where the template asks it to |
+| Error | n/a |
+
 ### Not a fixture
 
-`src/lib/navigation.ts` holds the three pages the site has. It is real structure, not mock data —
+`src/lib/navigation.ts` holds the four pages the site has. It is real structure, not mock data —
 the header and the footer both read it so they cannot disagree about which page you are on. Adding
 a fourth page means adding a row here and nothing else.
 
@@ -194,9 +230,10 @@ deleted.
 |---|---|---|---|
 | — | — | none taken. `npm run design:check` reports no blocking findings | — |
 
-One standing advisory, not a waiver: `pages/composizione.astro` is 208 lines against a 250-line
-budget. The gallery was already lifted out into `PartsGallery.astro` for exactly this reason. A
-seventh situation on that page needs another extraction, not a bigger budget.
+Two standing advisories, neither a waiver: `pages/composizione.astro` at 208 lines against 250,
+and `components/PartsGallery.astro` at 121 against 150. Both are the same pressure from the same
+place — the gallery grows every time the project does. The next component added to it wants a split
+(primitives and composed, most likely), not a bigger budget.
 
 ## Islands and interactivity
 
@@ -213,7 +250,8 @@ for body, Mono for code and numbers — are downloaded at build time into `dist/
 | # | Question | Waiting on |
 |---|---|---|
 | 1 | The five skills and the ten audit rules are typed by hand here, and both already exist in the repo — the skills as folders under `skills/`, the rules in `.ui/lib/rules-*.mjs`. Should the page generate them from source instead? If yes, the empty and error states become real and need designing | a developer |
-| 2 | The type scale has no step between 22px and 32px. The third page has now been written and still did not need one, so the gap is real rather than an oversight. Add it as a declared step the day something does, never inline | whoever writes the fourth page |
+| 2 | The type scale has no step between 22px and 32px. Four pages in, nothing has needed one, so the gap is real rather than an oversight. Add it as a declared step the day something does, never inline | whoever writes the fifth page |
 | 3 | ~~The install resolved Vite 8.2.2 against Astro 6.1.6's Vite 7.~~ **Resolved.** `package.json` carries `overrides: { vite: "7.3.6" }` and the installed tree is 7.3.6. Worth one confirmation on a clean `npm ci` | closed |
 | 4 | ~~The counts on `/composizione` were typed into `src/fixtures/inventory.ts` by hand.~~ **Two of three closed.** `npm run design:inventory` now writes `INVENTORY.json` beside `INVENTORY.md`, and the fixture reads *components* and *unused* out of it. **`shown` is still by hand** — the gallery lists its components as markup, so there is nothing to count without restructuring it, and that is a design decision rather than a developer's. It rolls into row 5 | partly closed |
-| 5 | `PartsGallery` lists ten components by hand for the same reason, and a new component silently does not appear in it. The `unused-component` rule catches a component nobody imports, but nothing catches one the catalogue forgot. Same fix as row 4, or a check of its own | a developer |
+| 5 | `PartsGallery` lists its components as markup, so `SHOWN_IN_GALLERY` stays typed and a new component silently does not appear in the case. **This already bit once**: `StepNumber` was added this session and the page claimed ten. The `unused-component` rule catches a component nobody imports; nothing catches one the catalogue forgot | a developer, then a designer |
+| 6 | `/come-si-parte` prints `npx @lotrek/cairn install` and that package does not exist — the closing section says so plainly, and the real `cp -r` commands are shown beside it. When it is published, that section is deleted and nothing else on the page changes | whoever publishes the package |
