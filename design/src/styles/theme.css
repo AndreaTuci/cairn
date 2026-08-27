@@ -209,11 +209,22 @@
   body {
     font-size: 11pt;
   }
-  section {
+  /* Keep the small things whole — a specimen, a code block, a row of a list —
+     rather than a whole section. A section taller than a sheet cannot be kept
+     whole anyway: asking for it wastes the page before it and then splits it
+     regardless, which is worse on both counts. */
+  figure,
+  dl > div,
+  li {
     break-inside: avoid;
   }
+  /* A heading alone at the foot of a page is a heading on the wrong page. */
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+  }
   pre {
-    break-inside: avoid;
     white-space: pre-wrap;
   }
 }
