@@ -5,9 +5,11 @@
 
 ## What we are building
 
-An internal guide to cairn: two static pages, `/` and `/riferimento`. Read by designers who do
-not write code and by developers, on the same page. The brief lives at `design/BRIEF-guida.md`
-and holds the real copy — it is content to use, not a list of topics to rewrite.
+An internal guide to cairn: three static pages, `/`, `/riferimento` and `/composizione`. Read by
+designers who do not write code and by developers, on the same page. The brief lives at
+`design/BRIEF-guida.md` and holds the real copy — it is content to use, not a list of topics to
+rewrite. The brief covers the first two pages; the third was asked for in the session of
+2026-08-27 and is described in Decisions, row 12.
 
 | | |
 |---|---|
@@ -19,9 +21,9 @@ and holds the real copy — it is content to use, not a list of topics to rewrit
 | **Token file** | `design/src/styles/theme.css` |
 | **Production token file** | n/a — the workbench *is* the deliverable for this project |
 
-There is no production frontend to promote into. The two pages ship as the static HTML that
+There is no production frontend to promote into. The pages ship as the static HTML that
 `npm run design:build` produces. `HANDOFF.md` and `.promoted.json` still apply the day that
-changes; until then the drift report will simply say nothing has been promoted.
+changes.
 
 ## Pinned versions
 
@@ -36,10 +38,9 @@ Exact, not floated. A workbench that built in March must build in September.
 Node: **≥ 22.19** on paper. Verified building on **v22.14.0**, the version on this machine — see
 Decisions, row 4. Nothing was unpinned to make that work.
 
-**The pins did not fully hold.** As installed, `node_modules/vite` is **8.2.2**, and Astro 6.1.6
-warns about it on every dev start. Nothing is broken — build, Tailwind, audit and both pages are
-fine — but the warning is real and it is a developer's decision, not a designer's. See
-`HANDOFF.md`, Open questions row 3.
+**The pins hold.** An earlier session recorded Vite resolving to 8.2.2 despite them; the
+`overrides` block in `package.json` fixed it, and the installed tree is **7.3.6** as intended.
+Verified 2026-08-27.
 
 ## Budgets
 
@@ -92,6 +93,7 @@ number to watch move. The workbench itself is audited clean at kickoff — see D
 |---|---|---|---|
 | 2026-08-27 | 0 | 0 | scaffold as shipped, before any real screen |
 | 2026-08-27 | 0 | 0 | both pages built: `/` and `/riferimento`, 14 components, 3 fixtures |
+| 2026-08-27 | 0 | 1 | `/composizione` added: 16 components, 4 fixtures. The advisory is the page at 208 of 250 lines |
 
 ## Waivers
 
@@ -114,8 +116,13 @@ Anything a later session would otherwise have to guess.
 | 4 | Node is v22.14.0, below the ≥22.19 the template asks for | Left alone. Install, build, audit and inventory all pass on 22.14. Revisit only if something actually breaks | 2026-08-27 |
 | 5 | Which folders are developer-owned? | `skills/` and `evals/`. Denied to Edit/Write in `.claude/settings.json`; reading stays open | 2026-08-27 |
 | 6 | Does the demo screen stay? | No. `src/pages/index.astro` and `articles.astro` are the template's demo and get deleted at the first real screen | 2026-08-27 |
-| 7 | Page language? | The two pages are in Italian, for the team. Everything else in the repo stays English | 2026-08-27 |
+| 7 | Page language? | The pages are in Italian, for the team. Everything else in the repo stays English | 2026-08-27 |
 | 8 | What is the visual direction? | *Segnavia* — stone and a painted trail mark. See Brand above; the full reasoning is a comment at the top of `theme.css` | 2026-08-27 |
 | 9 | Fonts from a CDN or self-hosted? | Self-hosted, through Astro's `fonts` config. The guide is printed and projected, and a font that arrives over the wire is a font that sometimes does not | 2026-08-27 |
 | 10 | What happened to `Button.astro`? | Deleted with the demo screens. Neither page has a button on it, and an unused component is a blocking audit finding, not a convenience. It comes back when a screen needs one | 2026-08-27 |
-| 11 | Are the four states answered? | Yes, and the answer is n/a for three of them: both pages are static documents with no fetching and no list that can be empty. Recorded in `HANDOFF.md` rather than left open | 2026-08-27 |
+| 11 | Are the four states answered? | Yes, and the answer is n/a for three of them: every page is a static document with no fetching and no list that can be empty. Recorded in `HANDOFF.md`, and `/composizione` renders the reasoning from `statesNotDrawn` rather than filing it | 2026-08-27 |
+| 12 | What is the third page? | `/composizione` — how the guide itself is built. Two movements: a gallery of the components, then the situations the project had to answer for. Read by whoever is about to inherit the components or ask for a new one. Organisation, reader and name were the designer's call, taken in the session of 2026-08-27 | 2026-08-27 |
+| 13 | Are the examples on `/composizione` live or drawn? | Live — the real components, imported. A page arguing for composition using screenshots of composition would refute itself. It also means the page cannot go stale, which is the property to protect in any rework | 2026-08-27 |
+| 14 | Six of the sixteen components are the page itself. Draw them anyway? | No. `SiteHeader`, `PageIntro`, `Section`, `SiteFooter`, `Specimen` and `PartsGallery` are pointed at, not redrawn. Drawing them twice is the duplication the guide exists to prevent | 2026-08-27 |
+| 15 | `otherPage()` breaks at three pages | Replaced with `nextPage()` — next in file order, wrapping at the end. File order is reading order | 2026-08-27 |
+| 16 | Print regressed when a section grew taller than a sheet | `section { break-inside: avoid }` replaced with per-unit avoidance (`figure`, list rows) plus `break-after: avoid` on headings. All three pages print shorter: 6→4, 5→4, and the new one at 7 | 2026-08-27 |
