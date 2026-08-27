@@ -1,144 +1,159 @@
 {
   "promoted": {
     "src/components/DefinitionRow.astro": {
-      "hash": "ef93812bcb4b",
+      "hash": "5b526f3bf79a",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/Figure.astro": {
       "hash": "ae0691ce1c78",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/LabelledList.astro": {
       "hash": "b4da5303a6ae",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/PageIntro.astro": {
       "hash": "007e104da909",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/RichText.astro": {
       "hash": "318e795c4abd",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/RoleBadge.astro": {
       "hash": "01a0c7c844f9",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/Section.astro": {
       "hash": "c573273c5a95",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/SiteFooter.astro": {
       "hash": "3ed10a34aacd",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/SiteHeader.astro": {
       "hash": "a51074819e2b",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/ui/Blaze.astro": {
       "hash": "c9762f85cc76",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/ui/Card.astro": {
       "hash": "d6ca8d492960",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/ui/Code.astro": {
       "hash": "16c403d86da5",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/ui/CodeBlock.astro": {
       "hash": "0af9a09c2894",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/ui/Text.astro": {
       "hash": "2f8ae0115d96",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/fixtures/audit-rules.ts": {
       "hash": "3f456dcdcad1",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/fixtures/metrics.ts": {
       "hash": "63cb841d6bbd",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/fixtures/skills.ts": {
       "hash": "d9129b466020",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/layouts/Page.astro": {
       "hash": "a44af2254606",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/lib/copy.ts": {
       "hash": "0b95d4946932",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/lib/cx.ts": {
       "hash": "093903f15e2b",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/lib/navigation.ts": {
-      "hash": "b840f1a9c24c",
+      "hash": "24e115796a13",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/pages/index.astro": {
-      "hash": "a341022e58ad",
+      "hash": "76a8af8860a0",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/pages/riferimento.astro": {
       "hash": "9d18bdede04a",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/styles/theme.css": {
       "hash": "75416d840c61",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/PartsGallery.astro": {
-      "hash": "dbb320aa0501",
+      "hash": "cec2cecc5074",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/components/Specimen.astro": {
       "hash": "497c476e12c4",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/fixtures/inventory.ts": {
-      "hash": "39fb2de42fc4",
+      "hash": "5aef8d99c135",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     },
     "src/pages/composizione.astro": {
-      "hash": "aacc8c486d4c",
+      "hash": "1b04975d8541",
       "at": "2026-08-27",
-      "note": "Terza pagina aggiunta, navigazione aggiornata, stampa corretta; workbench confermato come deliverable statico."
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
+    },
+    "src/components/ui/StepNumber.astro": {
+      "hash": "845873143f28",
+      "at": "2026-08-27",
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
+    },
+    "src/fixtures/promotion.ts": {
+      "hash": "81240419f249",
+      "at": "2026-08-27",
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
+    },
+    "src/pages/come-si-parte.astro": {
+      "hash": "347963e8ee11",
+      "at": "2026-08-27",
+      "note": "quarta pagina: Come si parte, mappa cartelle, wrap del termine lungo"
     }
   }
 }
