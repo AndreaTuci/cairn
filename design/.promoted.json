@@ -1,3 +1,124 @@
 {
-  "promoted": {}
+  "promoted": {
+    "src/components/DefinitionRow.astro": {
+      "hash": "ef93812bcb4b",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/components/Figure.astro": {
+      "hash": "ae0691ce1c78",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/components/LabelledList.astro": {
+      "hash": "b4da5303a6ae",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/components/PageIntro.astro": {
+      "hash": "007e104da909",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/components/RichText.astro": {
+      "hash": "318e795c4abd",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/components/RoleBadge.astro": {
+      "hash": "01a0c7c844f9",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/components/Section.astro": {
+      "hash": "c573273c5a95",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/components/SiteFooter.astro": {
+      "hash": "b15b9d07e5e1",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/components/SiteHeader.astro": {
+      "hash": "c2cc5afe86e7",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/components/ui/Blaze.astro": {
+      "hash": "c9762f85cc76",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/components/ui/Card.astro": {
+      "hash": "d6ca8d492960",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/components/ui/Code.astro": {
+      "hash": "16c403d86da5",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/components/ui/CodeBlock.astro": {
+      "hash": "0af9a09c2894",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/components/ui/Text.astro": {
+      "hash": "2f8ae0115d96",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/fixtures/audit-rules.ts": {
+      "hash": "3f456dcdcad1",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/fixtures/metrics.ts": {
+      "hash": "63cb841d6bbd",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/fixtures/skills.ts": {
+      "hash": "d9129b466020",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/layouts/Page.astro": {
+      "hash": "a44af2254606",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/lib/copy.ts": {
+      "hash": "0b95d4946932",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/lib/cx.ts": {
+      "hash": "093903f15e2b",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/lib/navigation.ts": {
+      "hash": "c427cce58dd1",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/pages/index.astro": {
+      "hash": "a341022e58ad",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/pages/riferimento.astro": {
+      "hash": "9d18bdede04a",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    },
+    "src/styles/theme.css": {
+      "hash": "0523ef8b9e61",
+      "at": "2026-08-27",
+      "note": "baseline: prima sessione di design, accettata e committata"
+    }
+  }
 }
