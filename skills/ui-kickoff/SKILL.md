@@ -141,6 +141,24 @@ of the project. Later sessions read this file rather than asking again.
 It lives inside `design/` on purpose — that is the folder a designer has open, so it has to be
 reachable from there.
 
+### 4b. Write `design/BRIEF.md`
+
+From `assets/BRIEF.template.md`, and leave it almost empty. `UI-STACK.md` is the technical
+contract; this is the product one, and it belongs to the designers: what this is, who opens it, how
+it speaks, what the words are.
+
+It exists to kill the repetition — the questions an agent would otherwise ask at the start of every
+single session. **Nobody is asked to fill it in.** `design-workflow` reads it, asks once for
+whatever is missing and relevant, and writes the answer back. Over three or four sessions it fills
+itself.
+
+Fill in now only what the kickoff already told you — usually the product in one sentence, and the
+visual direction if question 3 had an answer. Leave the rest.
+
+**Translate the headings into the team's working language.** This is the one file in the system a
+designer is expected to read and possibly edit by hand, so it is written in the language they think
+in. Everything else stays English.
+
 ### 5. Write the instruction trio
 
 `AGENTS.md` at the repository root is the single source. `CLAUDE.md` and
@@ -153,24 +171,56 @@ place to edit.
 Templates: `assets/AGENTS-section.template.md`, `assets/CLAUDE.template.md`,
 `assets/copilot-instructions.template.md`.
 
-### 6. Give the designer their own entry point
+### 6. Give both sides an entry point
 
-Write `design/CLAUDE.md` — short, and addressed to a person rather than a machine: what this
-folder is, the three commands, and the one thing to type (`/design-workflow`).
+**Two installations, not one.** Missing the second is a silent failure: the instruction files point
+at skills that are not there, the agent follows a dead path, and it carries on without the rules
+rather than stopping. It has happened once already — and it lands on the developers, who are the
+ones least likely to be using the agent this was first tested on.
 
-Then put the three skills a designer needs inside the folder they open:
+**The designer's side** — inside the folder they open:
 
 ```bash
 mkdir -p design/.claude/skills
 cp -r <skills-source>/{ui-composition,design-workflow,ui-sync} design/.claude/skills/
 ```
 
-`<skills-source>` is wherever this project keeps them — `.claude/skills/` if a developer installed
-them at the repository root, or a checkout of the skills repository. A plain copy, deliberately:
-the workbench must work on a machine that has nothing installed but Node.
-
 Add `frontend-design` too if the project has no visual direction yet — `design-workflow` reaches
 for it once, in step 2.
+
+Then write `design/CLAUDE.md`: short, addressed to a person rather than a machine — what this
+folder is, the three commands, and the one thing to type (`/design-workflow`).
+
+**The developers' side** — at the repository root, for whichever agents the team actually uses:
+
+```bash
+mkdir -p .claude/skills .github/skills
+cp -r <skills-source>/{ui-composition,dev-workflow,ui-sync} .claude/skills/
+cp -r <skills-source>/{ui-composition,dev-workflow,ui-sync} .github/skills/
+```
+
+`<skills-source>` is a checkout of the skills repository. A plain copy, deliberately: everything
+here must work on a machine with nothing installed but Node.
+
+**Give Copilot the slash commands too.** A folder of skills is not something Copilot reaches for on
+its own; a prompt file is. One thin file per skill, each a pointer rather than a copy:
+
+```markdown
+---
+agent: agent
+description: Build production frontend from a designer's prototype.
+---
+
+Read `.github/skills/dev-workflow/SKILL.md` and follow it for this task.
+```
+
+Saved as `.github/prompts/dev-workflow.prompt.md`, that makes `/dev-workflow` real in Copilot Chat.
+Do the same for `ui-composition` and `ui-sync`.
+
+This is what gives the two roles the same shape: a designer types `/design-workflow`, a developer
+types `/dev-workflow`, and neither has to hope an agent inferred the right thing from a pointer
+file. `AGENTS.md` still carries the rules for every session — the slash command is how somebody
+*starts* one deliberately.
 
 ### 7. Draw the boundary
 

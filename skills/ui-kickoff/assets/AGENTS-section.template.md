@@ -7,11 +7,16 @@ Both follow the same composition rules — there is one law, not two.
 the four screen states and the accessibility floor. The contract for *this* project — stack,
 kit, budgets, pinned versions, waivers — is in `design/UI-STACK.md`.
 
-| You are | Read | Then |
+Each role has one thing to type, and they are deliberately the same shape:
+
+| You are | Type | What it does |
 |---|---|---|
-| A designer | `design-workflow` | Work only inside `design/`. Type `/design-workflow` |
-| A developer, building UI | `ui-composition` + `dev-workflow` | `design/HANDOFF.md` is the source of truth for anything the designers built |
-| A developer, taking a prototype into production | `ui-sync` | Triage first — keep / normalize / rewrite — then promote |
+| A designer | `/design-workflow` | Brief, tokens, inventory, then one screen at a time. Work only inside `design/` |
+| A developer, building UI a designer prototyped | `/dev-workflow` | Handoff, drift, triage, then promote — in that order |
+| A developer, promoting or re-syncing | `/ui-sync` | Triage first — keep / normalize / rewrite — then promote and record it |
+
+`ui-composition` is the law underneath all three and needs no invoking: it is read whenever UI is
+written. `design/HANDOFF.md` is the source of truth for anything the designers built.
 
 ### The workbench
 

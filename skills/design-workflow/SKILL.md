@@ -54,15 +54,37 @@ asked to reason about it is a designer about to have a bad afternoon.
 
 ### 1. Brief 🔴
 
-Before anything, three answers. If they are already in the message, do not ask again.
+**Read `BRIEF.md` first, every time.** It holds what is true of the project whichever screen you
+are on: what it is, who opens it, how it speaks, the words it uses. Never ask for something that is
+already in there.
+
+**And keep it up to date, because that is your job rather than theirs.** When this screen needs
+something the brief does not answer — the name for a thing, the register, whether it goes on a
+phone — ask it once, then **write the answer into `BRIEF.md`**. A blank section is a question
+nobody has been asked yet; `n/a` means asked and genuinely not applicable. Over a few sessions the
+file fills itself and the questions stop.
+
+Do not hand a designer an empty template and wait. Nobody fills in a form to start working.
+
+**Any other written brief also wins.** A client document, notes from a meeting, a `BRIEF-*.md`
+dropped in the folder: its words are used as written rather than rephrased. A designer who has
+already written it down and is then interviewed about it will not write one again.
+
+Then, three answers about *this screen*. If they are already in the message, do not ask again.
 
 1. **What is this screen?** Name it in one sentence.
 2. **Who opens it, and what are they trying to do?**
 3. **What is the one thing they should be able to do here?** If there are three answers, there are
    probably three screens — say so.
 
+A brief is welcome and never required. Requiring a document before work can start is how a tool
+stops being opened.
+
 Read `UI-STACK.md` and `INVENTORY.md` before you start. If either is missing, the workbench was
 never set up: stop and say a developer needs to run `ui-kickoff` first.
+
+**Never ask a designer about the stack.** It was decided once, by a developer, at kickoff, and it
+is written in `UI-STACK.md`. Read it there.
 
 ### 2. Visual direction — once per project 🟡
 
