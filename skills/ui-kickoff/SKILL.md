@@ -230,13 +230,22 @@ Two layers, because the first one is the real mechanism and the second only catc
 access to the folder it was started in, so this is enforcement rather than instruction, and it
 needs no configuration at all. Say it plainly in `design/README.md` and in the onboarding note.
 
-**Fallback: two deny lists, and they are not the same kind of thing.** Putting them in one file is
-the mistake — it was made once already, and it locked a developer out of their own source code.
+**Fallback: three lists, and they are not the same kind of thing.** Putting them in one file is the
+mistake — it was made once already, and it locked a developer out of their own source code. Ask of
+each rule: *is this true of the project, or of the person?*
 
 | What it protects | Which file | Why there |
 |---|---|---|
-| Installed skills and the vendored `design/.ui/` — nobody edits an installed artifact | `.claude/settings.json`, **committed** | A property of the *project*. It applies to everyone equally, developers included |
+| Installed skills and the vendored `design/.ui/` — nobody edits an installed artifact | `.claude/settings.json`, **committed** | A property of the *project*. Applies to everyone equally, developers included |
+| The four commands the workbench needs, and nothing else | `design/.claude/settings.json`, **committed** — already in the workbench template | Also a property of the project: nobody working in that folder needs more, whichever role they are |
 | The developers' folders — `app/`, `backend/`, `backoffice/` | `.claude/settings.local.json`, **per machine**, gitignored | A property of *who is sitting there*. A developer on the same repository must not inherit it |
+
+The second one ships with the workbench and needs nothing from you. What it buys is worth
+understanding, because it is not a wall: a shell can always reach further, and everything written
+in a skill is a request rather than enforcement. What it buys is **attention**. Today every command
+prompts, so nothing stands out and a non-technical reader clicks through the tenth prompt of the
+day without reading it. With the four normal commands silent, anything else becomes the only prompt
+of the session.
 
 Write only the first one here, from `assets/settings.template.json`:
 
