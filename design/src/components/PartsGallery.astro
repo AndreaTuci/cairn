@@ -1,0 +1,110 @@
+---
+/**
+ * PartsGallery — every component of this guide that can be put in a case, in one.
+ *
+ * It is a catalogue rather than a piece of the page it sits on: it grows by one
+ * entry every time the project grows by one component, and it is the thing to
+ * open before asking for a new one. Kept out of the page so that the page stays
+ * an argument and this stays a list.
+ *
+ * Four of the fourteen are missing on purpose. `SiteHeader`, `PageIntro`,
+ * `Section` and `SiteFooter` *are* the page around this, and drawing them again
+ * in a box here would be the duplication the whole guide is against — so the
+ * page points at them instead.
+ */
+import Specimen from './Specimen.astro'
+import Figure from './Figure.astro'
+import DefinitionRow from './DefinitionRow.astro'
+import LabelledList from './LabelledList.astro'
+import RoleBadge from './RoleBadge.astro'
+import RichText from './RichText.astro'
+import Text from './ui/Text.astro'
+import Code from './ui/Code.astro'
+import CodeBlock from './ui/CodeBlock.astro'
+import Card from './ui/Card.astro'
+import Blaze from './ui/Blaze.astro'
+import { auditRules } from '../fixtures/audit-rules'
+import { metrics } from '../fixtures/metrics'
+import { cx } from '../lib/cx'
+
+/**
+ * The samples come from the fixtures rather than being written here, so they
+ * cannot drift from the real thing — and because a `RichText` example with no
+ * backticked term in it would be demonstrating nothing at all.
+ */
+const sample = auditRules.find((rule) => rule.id === 'arbitrary-scale') ?? auditRules[0]
+const counted = metrics[0]
+const sentenceWithTerms = metrics.find((metric) => metric.label.includes('`--')) ?? metrics[0]
+
+const NOT_YOUR_JOB = ['Come si chiama un componente.', 'Dove va un file.', 'Git.']
+
+interface Props {
+  class?: string
+}
+
+const { class: extra } = Astro.props
+---
+
+  <div class={cx('grid gap-4 sm:grid-cols-2', extra)}>
+    <Specimen name="Text" note="Il testo. Tre livelli di voce, e nessuno se li riscrive da solo.">
+      <Text variant="lead">Apertura</Text>
+      <Text>Il testo che stai leggendo adesso.</Text>
+      <Text variant="note">Una nota a margine.</Text>
+    </Specimen>
+
+    <Specimen name="Code" note="Un termine tecnico dentro una frase: un comando, un file, una classe.">
+      <Text>Apri <Code>design/</Code> e scrivi <Code>/design-workflow</Code>.</Text>
+    </Specimen>
+
+    <Specimen name="Blaze" note="Il segno di questo progetto. Due misure, e il colore di chi legge.">
+      <div class="flex items-end gap-4">
+        <Blaze />
+        <Blaze size="sm" />
+        <Blaze tone="designer" />
+        <Blaze tone="developer" />
+      </div>
+    </Specimen>
+
+    <Specimen name="Figure" note="Un numero misurato, e cosa è stato contato. Dalla pagina Guida, senza ricopiarlo.">
+      <Figure value={counted.value} label={counted.label} />
+    </Specimen>
+
+    <Specimen name="RoleBadge" note="Per chi è una cosa. Il terzo caso è due segni, non un terzo colore.">
+      <div class="flex flex-wrap gap-2">
+        <RoleBadge role="designer" />
+        <RoleBadge role="developer" />
+        <RoleBadge role="both" />
+      </div>
+    </Specimen>
+
+    <Specimen name="Card" note="Una superficie. In rilievo, o piatta come la carta.">
+      <Card><Text variant="note">In rilievo: bianca, con un'ombra sotto.</Text></Card>
+      <Card elevation="flat"><Text variant="note">Piatta: su carta non galleggia niente.</Text></Card>
+    </Specimen>
+
+    <Specimen name="CodeBlock" note="Comandi e output, esatti fino allo spazio.">
+      <CodeBlock label="un comando" code="npm run design:check" />
+    </Specimen>
+
+    <Specimen name="RichText" note="Le frasi che arrivano dai dati, coi termini tecnici già al posto giusto.">
+      <Text><RichText copy={sentenceWithTerms.label} /></Text>
+    </Specimen>
+
+    <Specimen
+      name="DefinitionRow"
+      class="sm:col-span-2"
+      note="Un termine e cosa vuol dire. Una riga sola, per due liste che non hanno altro in comune."
+    >
+      <dl class="border-t border-rule">
+        <DefinitionRow term={sample.id}><RichText copy={sample.catches} /></DefinitionRow>
+      </dl>
+    </Specimen>
+
+    <Specimen
+      name="LabelledList"
+      class="sm:col-span-2"
+      note="Un titolo corto sopra affermazioni semplici. Leggibile solo accanto al suo opposto."
+    >
+      <LabelledList title="cosa non ti serve sapere" items={NOT_YOUR_JOB} tone="designer" />
+    </Specimen>
+  </div>

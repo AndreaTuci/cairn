@@ -1,0 +1,207 @@
+---
+/**
+ * Composizione — how this guide is built, shown with the guide's own components.
+ *
+ * The third page, and the only self-referential one. Every example on it is the
+ * real component imported and rendered, never a picture of one: a page that
+ * argued for composition using screenshots of composition would be the joke
+ * about itself.
+ *
+ * Two movements. First the parts, small and all together, so somebody about to
+ * ask for a new one can see what already exists. Then the situations the project
+ * actually had to answer for, at full size, because those are the part a list of
+ * components cannot tell you.
+ */
+import Page from '../layouts/Page.astro'
+import PageIntro from '../components/PageIntro.astro'
+import PartsGallery from '../components/PartsGallery.astro'
+import Specimen from '../components/Specimen.astro'
+import Section from '../components/Section.astro'
+import Figure from '../components/Figure.astro'
+import DefinitionRow from '../components/DefinitionRow.astro'
+import LabelledList from '../components/LabelledList.astro'
+import RoleBadge from '../components/RoleBadge.astro'
+import RichText from '../components/RichText.astro'
+import Text from '../components/ui/Text.astro'
+import Code from '../components/ui/Code.astro'
+import CodeBlock from '../components/ui/CodeBlock.astro'
+import { composition, pageFrame, statesNotDrawn } from '../fixtures/inventory'
+import { skills } from '../fixtures/skills'
+import { auditRules } from '../fixtures/audit-rules'
+
+/** The rows the examples are built from, taken from the fixtures so they cannot drift. */
+const sharedSkill = skills.find((skill) => skill.readBy === 'both') ?? skills[0]
+const oneSkill = skills.find((skill) => skill.readBy !== 'both') ?? skills[0]
+const oneRule = auditRules.find((rule) => rule.id === 'arbitrary-scale') ?? auditRules[0]
+
+const AUDIT_OUTPUT = `  arbitrary-scale - 135 in 43 places
+   27 x  text-[13px]        components/AppSidebarItem.astro:34 +26
+   14 x  rounded-[8px]      components/AppSidebarItem.astro:34 +13`
+
+const WAIVER = `<!-- ui-audit-allow: inline-style — embed di terze parti, lo stile lo mette il fornitore -->`
+
+const PRINT_CHANGES = [
+  'Lo sfondo diventa bianco vero: la pietra calda su carta è una macchia sporca.',
+  'Il corpo del testo scende a 11pt, che su carta è ancora generoso.',
+  'I blocchi di codice vanno a capo, perché la carta non scorre.',
+  'Una sezione non si spezza a metà fra due pagine.',
+]
+
+const PRINT_KEPT = [
+  'I due accenti: sono come si riconosce di chi è una parte della pagina.',
+  'Il filo verticale e i segni appesi.',
+  'Il contrasto pieno. Niente grigio su grigio, che stampato sparisce.',
+]
+---
+
+<Page
+  title="Composizione — cairn"
+  description="Come è fatta questa guida: i sedici componenti che la compongono, e le situazioni che ha dovuto risolvere."
+>
+  <PageIntro
+    title="Composizione"
+    lead="Questa guida è fatta di sedici pezzi. Sono qui sotto, quelli veri, che girano."
+  >
+    <Text class="mt-6 max-w-2xl">
+      Se stai per ereditare questi componenti, o per chiederne uno nuovo, questa pagina ti dice cosa
+      esiste già. Gli esempi non sono immagini: sono i componenti veri, importati. Se uno cambia,
+      cambia anche qui — e non può invecchiare di nascosto.
+    </Text>
+  </PageIntro>
+
+  <div class="mt-16 space-y-16">
+    <Section title="I pezzi">
+      <Text class="max-w-2xl">
+        Cinque primitivi — il testo, il codice, il segno, il blocco, la scheda — e undici componenti
+        fatti con quelli. Nessuno esiste in due copie leggermente diverse, ed è la cosa che il
+        controllo non lascia passare senza una firma.
+      </Text>
+
+      <div class="mt-8 border-t border-rule">
+        {composition.map((count) => <Figure value={count.value} label={count.label} />)}
+      </div>
+
+      <PartsGallery class="mt-8" />
+    </Section>
+
+    <Section title="Sei pezzi che non stanno in una teca">
+      <Text class="max-w-2xl">
+        Restano sei dei sedici, e non si possono mettere in una scatola qui in mezzo: sono la pagina
+        che stai leggendo. Disegnarli di nuovo dentro una teca vorrebbe dire farli due volte, che è
+        esattamente la cosa che questa guida esiste per evitare. Quindi li indichiamo.
+      </Text>
+
+      <dl class="mt-8 border-t border-rule">
+        {pageFrame.map((part) => <DefinitionRow term={part.name}>{part.where}</DefinitionRow>)}
+      </dl>
+    </Section>
+
+    <Section title="Una cosa che vale per tutti e due" tone="designer">
+      <RoleBadge slot="eyebrow" role="both" />
+
+      <Text class="max-w-2xl">
+        Delle cinque skill, due le leggono entrambi i ruoli. La strada breve è dargli un terzo
+        colore. Ma non è un terzo caso della stessa cosa: è i due insieme, e un colore inventato lo
+        nasconderebbe invece di dirlo. Quindi il segno diventa due segni, e la riga pesa di più.
+      </Text>
+
+      <Specimen
+        name="RoleBadge · DefinitionRow"
+        layout="full"
+        class="mt-8"
+        note="La riga di `ui-composition`, la stessa che sta sulla pagina Riferimento."
+      >
+        <dl class="border-t border-rule">
+          <DefinitionRow term={sharedSkill.name} emphasis="strong">
+            <RoleBadge slot="aside" role={sharedSkill.readBy} />
+            {sharedSkill.when}
+          </DefinitionRow>
+        </dl>
+      </Specimen>
+
+      <Text class="mt-8 max-w-2xl">
+        Due casi su cinque sono così. Una pagina provata solo su designer e su sviluppatore sarebbe
+        andata in stampa senza accorgersene.
+      </Text>
+    </Section>
+
+    <Section title="Due liste diverse, la stessa riga">
+      <Text class="max-w-2xl">
+        Le cinque skill e le dieci regole del controllo non hanno niente in comune, tranne la forma:
+        un termine, e cosa vuol dire. Quindi non sono due pezzi, è un pezzo solo con dentro dati
+        diversi.
+      </Text>
+
+      <Specimen
+        name="DefinitionRow"
+        layout="full"
+        class="mt-8"
+        note="Sopra una skill, sotto una regola del controllo. Stesso componente, due sorgenti."
+      >
+        <dl class="border-t border-rule">
+          <DefinitionRow term={oneSkill.name}>
+            <RoleBadge slot="aside" role={oneSkill.readBy} />
+            {oneSkill.when}
+          </DefinitionRow>
+          <DefinitionRow term={oneRule.id}><RichText copy={oneRule.catches} /></DefinitionRow>
+        </dl>
+      </Specimen>
+
+      <Text class="mt-8 max-w-2xl">
+        Scritte due volte divergerebbero al primo che aggiusta la spaziatura su una delle due. Ci
+        vogliono settimane e nessuno si accorge di quando è successo.
+      </Text>
+    </Section>
+
+    <Section title="Più largo della riga" tone="developer">
+      <Text class="max-w-2xl">
+        L'output di uno strumento è fatto di colonne, e mandarlo a capo lo rompe: quindi scorre. Una
+        riga di codice lunga è soltanto lunga, e va a capo come farebbe qualsiasi editor. Sono due
+        comportamenti dello stesso pezzo, non due pezzi.
+      </Text>
+
+      <div class="mt-8 space-y-4">
+        <CodeBlock label="output di uno strumento: scorre" code={AUDIT_OUTPUT} />
+        <CodeBlock label="una riga sola: va a capo" code={WAIVER} wrap="soft" />
+      </div>
+
+      <Text variant="note" class="mt-6 max-w-2xl">
+        Stampati vanno a capo tutti e due, perché la carta non scorre. Quella riga sta nel file dei
+        colori, non qui.
+      </Text>
+    </Section>
+
+    <Section title="Vuoto, in caricamento, in errore">
+      <Text class="max-w-2xl">
+        Ogni schermata deve rispondere per i suoi quattro stati. Qui la risposta a tre di loro è che
+        non esistono — e la differenza fra questo e averli dimenticati è che c'è scritto perché.
+      </Text>
+
+      <dl class="mt-8 border-t border-rule">
+        {statesNotDrawn.map((state) => <DefinitionRow term={state.name}>{state.why}</DefinitionRow>)}
+      </dl>
+
+      <Text class="mt-8 max-w-2xl">
+        Il giorno in cui queste liste smettessero di essere scritte a mano e venissero lette dalle
+        cartelle vere del progetto, i tre stati diventano veri, e non sono disegnati. Quel giorno è
+        già segnato nella consegna, con il numero della domanda aperta.
+      </Text>
+    </Section>
+
+    <Section title="Sulla carta">
+      <Text class="max-w-2xl">
+        Questa guida viene stampata, e proiettata in riunione: due schermi peggiori di un portatile.
+        Quindi la stampa è un formato progettato, non quello che esce per caso.
+      </Text>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        <LabelledList title="cosa cambia stampando" items={PRINT_CHANGES} />
+        <LabelledList title="cosa resta com'è" items={PRINT_KEPT} />
+      </div>
+
+      <Text variant="note" class="mt-6 max-w-2xl">
+        Provalo adesso: Cmd+P, guarda l'anteprima, e chiudila senza stampare niente.
+      </Text>
+    </Section>
+  </div>
+</Page>

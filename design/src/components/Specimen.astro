@@ -1,0 +1,60 @@
+---
+/**
+ * Specimen — a component shown running, inside a frame that says "this is an
+ * exhibit, not part of the page".
+ *
+ * A guide about composition that described its own components in prose would be
+ * making the argument it exists to refute. So every example here is the real
+ * component, imported and rendered: when one of them changes, this page changes
+ * with it, and it cannot go quietly out of date the way a screenshot does.
+ *
+ * The frame borrows CodeBlock's anatomy — a labelled bar over the content —
+ * because it makes the same promise: what is inside is the thing itself, shown
+ * verbatim. The body sits on the page colour rather than on card, so that a
+ * white surface put inside it is still visible as one.
+ */
+import Text from './ui/Text.astro'
+import RichText from './RichText.astro'
+import { cx, variants } from '../lib/cx'
+
+interface Props {
+  /** The component being shown, set as code. Two names when the point is the pair. */
+  name: string
+  /** One line on what it is for. Backticked terms are set as code. */
+  note?: string
+  /** `compact` is a cell in the grid of everything; `full` is one example on its own. */
+  layout?: 'compact' | 'full'
+  class?: string
+}
+
+const { name, note, layout = 'compact', class: extra } = Astro.props
+
+const VARIANTS = {
+  layout: {
+    compact: 'p-4',
+    full: 'p-6',
+  },
+} as const
+---
+
+<figure class={cx('flex h-full flex-col overflow-hidden rounded-md border bg-background', extra)}>
+  <figcaption class="border-b bg-muted px-4 py-2 font-mono text-xs text-muted-foreground">
+    {name}
+  </figcaption>
+
+  <div
+    class={cx(
+      'flex grow flex-col justify-between gap-4',
+      variants(VARIANTS, { layout }, { layout: 'compact' }),
+    )}
+  >
+    <div class="space-y-3"><slot /></div>
+    {
+      note && (
+        <Text variant="note">
+          <RichText copy={note} />
+        </Text>
+      )
+    }
+  </div>
+</figure>
