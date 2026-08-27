@@ -180,19 +180,37 @@ Two layers, because the first one is the real mechanism and the second only catc
 access to the folder it was started in, so this is enforcement rather than instruction, and it
 needs no configuration at all. Say it plainly in `design/README.md` and in the onboarding note.
 
-**Fallback: a deny list at the repository root**, for the day somebody opens the repository root
-anyway. From `assets/settings.template.json`, with the developer folders from question 4:
+**Fallback: two deny lists, and they are not the same kind of thing.** Putting them in one file is
+the mistake — it was made once already, and it locked a developer out of their own source code.
+
+| What it protects | Which file | Why there |
+|---|---|---|
+| Installed skills and the vendored `design/.ui/` — nobody edits an installed artifact | `.claude/settings.json`, **committed** | A property of the *project*. It applies to everyone equally, developers included |
+| The developers' folders — `app/`, `backend/`, `backoffice/` | `.claude/settings.local.json`, **per machine**, gitignored | A property of *who is sitting there*. A developer on the same repository must not inherit it |
+
+Write only the first one here, from `assets/settings.template.json`:
 
 ```json
 {
   "permissions": {
-    "deny": ["Edit(./app/**)", "Write(./app/**)", "Edit(./backend/**)", "Write(./backend/**)"]
+    "deny": [
+      "Edit(./.claude/skills/**)", "Write(./.claude/skills/**)",
+      "Edit(./.github/skills/**)", "Write(./.github/skills/**)",
+      "Edit(./design/.ui/**)",     "Write(./design/.ui/**)"
+    ]
   }
 }
 ```
 
-Reading is left alone. A designer looking at how a developer built something is doing the right
-thing; the boundary is about who changes what.
+The second belongs to **designer onboarding**, on the designer's own laptop, alongside installing
+Node and the skills. It cannot be scaffolded from here — this runs on a developer's machine — so
+say in the handover that it is a step somebody has to do there.
+
+Reading is left alone everywhere. A designer looking at how a developer built something is doing
+the right thing; the boundary is about who changes what.
+
+Note what the first list does *not* stop: replacing a vendored copy wholesale. Reinstalling is
+correct and stays possible; editing in place is what silently reverts on the next install.
 
 ### 8. Verify, and do not skip this
 

@@ -1,11 +1,15 @@
 {
-  "//": "Fallback boundary. The real mechanism is that designers open the design/ folder itself, which confines file access without any configuration. This catches the case where someone opens the repository root instead. Reading is deliberately left alone: a designer looking at how a developer built something is doing the right thing.",
+  "//": "Project-wide, and it applies to everyone equally. Installed skills and the vendored audit tooling are build artifacts: a fix belongs upstream in the cairn repository, where every project gets it. Edited in place it survives until the next install and then silently reverts. Note that replacing a copy wholesale still works - this stops editing, not reinstalling. The other restriction - keeping a designer out of the developers' folders - is a property of who is sitting at the machine rather than of the project, so it lives in .claude/settings.local.json on their laptop and never in this file, which everybody shares.",
   "permissions": {
     "deny": [
-      "Edit(./skills/**)",
-      "Write(./skills/**)",
-      "Edit(./evals/**)",
-      "Write(./evals/**)"
+      "Edit(./.claude/skills/**)",
+      "Write(./.claude/skills/**)",
+      "Edit(./.github/skills/**)",
+      "Write(./.github/skills/**)",
+      "Edit(./design/.claude/skills/**)",
+      "Write(./design/.claude/skills/**)",
+      "Edit(./design/.ui/**)",
+      "Write(./design/.ui/**)"
     ]
   }
 }
