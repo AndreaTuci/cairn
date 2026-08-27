@@ -25,7 +25,7 @@ import RichText from '../components/RichText.astro'
 import Text from '../components/ui/Text.astro'
 import Code from '../components/ui/Code.astro'
 import CodeBlock from '../components/ui/CodeBlock.astro'
-import { composition, pageFrame, statesNotDrawn } from '../fixtures/inventory'
+import { componentCount, composition, pageFrame, statesNotDrawn } from '../fixtures/inventory'
 import { skills } from '../fixtures/skills'
 import { auditRules } from '../fixtures/audit-rules'
 
@@ -56,11 +56,11 @@ const PRINT_KEPT = [
 
 <Page
   title="Composizione — cairn"
-  description="Come è fatta questa guida: i sedici componenti che la compongono, e le situazioni che ha dovuto risolvere."
+  description={`Come è fatta questa guida: i ${componentCount} componenti che la compongono, e le situazioni che ha dovuto risolvere.`}
 >
   <PageIntro
     title="Composizione"
-    lead="Questa guida è fatta di sedici pezzi. Sono qui sotto, quelli veri, che girano."
+    lead={`Questa guida è fatta di ${componentCount} pezzi. Sono qui sotto, quelli veri, che girano.`}
   >
     <Text class="mt-6 max-w-2xl">
       Se stai per ereditare questi componenti, o per chiederne uno nuovo, questa pagina ti dice cosa
@@ -72,9 +72,9 @@ const PRINT_KEPT = [
   <div class="mt-16 space-y-16">
     <Section title="I pezzi">
       <Text class="max-w-2xl">
-        Cinque primitivi — il testo, il codice, il segno, il blocco, la scheda — e undici componenti
-        fatti con quelli. Nessuno esiste in due copie leggermente diverse, ed è la cosa che il
-        controllo non lascia passare senza una firma.
+        I primitivi sono questi: il testo, il codice, il segno, il blocco, la scheda, il numero.
+        Tutto il resto è fatto con quelli, e nessuno esiste in due copie leggermente diverse — è la
+        cosa che il controllo non lascia passare senza una firma.
       </Text>
 
       <div class="mt-8 border-t border-rule">
@@ -84,10 +84,10 @@ const PRINT_KEPT = [
       <PartsGallery class="mt-8" />
     </Section>
 
-    <Section title="Sei pezzi che non stanno in una teca">
+    <Section title="I pezzi che non stanno in una teca">
       <Text class="max-w-2xl">
-        Restano sei dei sedici, e non si possono mettere in una scatola qui in mezzo: sono la pagina
-        che stai leggendo. Disegnarli di nuovo dentro una teca vorrebbe dire farli due volte, che è
+        Ne restano {pageFrame.length} dei {componentCount}, e non si possono mettere in una scatola
+        qui in mezzo: sono la pagina che stai leggendo. Disegnarli di nuovo dentro una teca vorrebbe dire farli due volte, che è
         esattamente la cosa che questa guida esiste per evitare. Quindi li indichiamo.
       </Text>
 
