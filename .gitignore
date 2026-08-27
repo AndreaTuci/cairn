@@ -32,6 +32,12 @@ NOTES-*.md
 # Local agent settings
 .claude/settings.local.json
 
+# In THIS repository only. `design/.ui/` is a vendored copy of
+# skills/ui-composition/scripts/, which lives ten lines away in the same tree.
+# In a client project it is the only copy of the tooling and MUST be committed —
+# ui-kickoff puts it there for exactly that reason.
+design/.ui/
+
 # Editor and OS noise
 .vscode/
 .idea/
