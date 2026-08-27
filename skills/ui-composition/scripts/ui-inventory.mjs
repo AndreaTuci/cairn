@@ -20,6 +20,7 @@ import { resolveConfig } from './lib/config.mjs'
 import { collectFiles } from './lib/scan.mjs'
 
 const OUTPUT_FILE = 'INVENTORY.md'
+const DATA_FILE = 'INVENTORY.json'
 const DEFAULT_ROOT = 'design'
 const PROPS_BLOCK = /(?:interface\s+Props\s*\{|defineProps<\s*\{)([\s\S]*?)\n\s*\}/
 const PROP_LINE = /^\s*(\w+)(\?)?\s*:\s*(.+?);?\s*$/
@@ -157,6 +158,22 @@ function render(components) {
   ].join('\n')
 }
 
+/**
+ * The same inventory, machine-readable, for a project that wants to render its
+ * own components on a page or count them somewhere.
+ *
+ * Deliberately generic: this file ships to every project, so it knows nothing
+ * about any of them. A project derives what it needs from this; the moment the
+ * tool starts looking for a component by name, it has learned something about
+ * one codebase and it is wrong everywhere else.
+ *
+ * No timestamp, so regenerating an unchanged project produces an unchanged file
+ * rather than a diff nobody asked for.
+ */
+function renderData(components) {
+  return `${JSON.stringify({ components }, null, 2)}\n`
+}
+
 /** Astro keeps sources in `src/`, Nuxt in `app/`. Fall back to the root itself. */
 function sourceRoot(root) {
   for (const candidate of ['src', 'app']) {
@@ -180,8 +197,10 @@ function main() {
   const markdown = render(components)
   if (options.write) {
     const target = join(root, OUTPUT_FILE)
+    const dataTarget = join(root, DATA_FILE)
     writeFileSync(target, markdown)
-    console.log(`ui-inventory: wrote ${components.length} components to ${target}`)
+    writeFileSync(dataTarget, renderData(components))
+    console.log(`ui-inventory: wrote ${components.length} components to ${target} and ${dataTarget}`)
   } else {
     console.log(markdown)
   }
