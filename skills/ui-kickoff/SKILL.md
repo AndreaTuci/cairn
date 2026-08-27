@@ -158,11 +158,19 @@ Templates: `assets/AGENTS-section.template.md`, `assets/CLAUDE.template.md`,
 Write `design/CLAUDE.md` — short, and addressed to a person rather than a machine: what this
 folder is, the three commands, and the one thing to type (`/design-workflow`).
 
-Then install the designer's skills into `design/.claude/skills/`:
+Then put the three skills a designer needs inside the folder they open:
 
 ```bash
-get-skills.sh -t claude -s ui-composition,design-workflow,ui-sync -d ./design -y
+mkdir -p design/.claude/skills
+cp -r <skills-source>/{ui-composition,design-workflow,ui-sync} design/.claude/skills/
 ```
+
+`<skills-source>` is wherever this project keeps them — `.claude/skills/` if a developer installed
+them at the repository root, or a checkout of the skills repository. A plain copy, deliberately:
+the workbench must work on a machine that has nothing installed but Node.
+
+Add `frontend-design` too if the project has no visual direction yet — `design-workflow` reaches
+for it once, in step 2.
 
 ### 7. Draw the boundary
 
