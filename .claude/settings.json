@@ -1,0 +1,11 @@
+{
+  "//": "Fallback boundary. The real mechanism is that designers open the design/ folder itself, which confines file access without any configuration. This catches the case where someone opens the repository root instead. Reading is deliberately left alone: a designer looking at how a developer built something is doing the right thing.",
+  "permissions": {
+    "deny": [
+      "Edit(./skills/**)",
+      "Write(./skills/**)",
+      "Edit(./evals/**)",
+      "Write(./evals/**)"
+    ]
+  }
+}
