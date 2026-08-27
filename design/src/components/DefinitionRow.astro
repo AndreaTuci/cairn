@@ -34,7 +34,7 @@ const VARIANTS = {
     extra,
   )}
 >
-  <dt class="font-mono text-sm font-medium text-foreground">{term}</dt>
+  <dt class="font-mono text-sm font-medium break-words text-foreground">{term}</dt>
   <dd class="sm:col-span-2">
     {hasAside && <div class="mb-2"><slot name="aside" /></div>}
     <span class="text-base text-foreground"><slot /></span>
