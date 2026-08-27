@@ -1,7 +1,7 @@
 /**
  * The whole site, in one array.
  *
- * Three pages, and the header and the footer both need to know which one you are
+ * Four pages, and the header and the footer both need to know which one you are
  * on. Written twice they would disagree the first time a page is renamed.
  */
 
@@ -12,6 +12,7 @@ export interface NavItem {
 
 export const pages: NavItem[] = [
   { href: '/', label: 'Guida' },
+  { href: '/come-si-parte', label: 'Come si parte' },
   { href: '/riferimento', label: 'Riferimento' },
   { href: '/composizione', label: 'Composizione' },
 ]
