@@ -31,7 +31,7 @@ Built from the primitives, for this project.
 | [`LabelledList`](components/LabelledList.astro) | tone: default · designer · developer | title, items, tone? | 5 | 42 |
 | [`Figure`](components/Figure.astro) | — | value, label | 3 | 28 |
 | [`PageIntro`](components/PageIntro.astro) | — | title, lead | 3 | 28 |
-| [`PartsGallery`](components/PartsGallery.astro) | — | — | 1 | 111 |
+| [`PartsGallery`](components/PartsGallery.astro) | — | — | 1 | 112 |
 | [`SiteFooter`](components/SiteFooter.astro) | — | — | 1 | 27 |
 | [`SiteHeader`](components/SiteHeader.astro) | — | — | 1 | 47 |
 

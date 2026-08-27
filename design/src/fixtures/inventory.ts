@@ -1,18 +1,28 @@
 /**
  * What this guide is made of, counted.
  *
- * The counts are produced by `npm run design:inventory` into `INVENTORY.md` and
- * typed back in here by hand, which means they can go stale the day somebody
- * adds a component. That is an open question in the handoff, not an oversight:
- * the page could read the generated file instead, and the day it does, the empty
- * and error states stop being n/a.
+ * `npm run design:inventory` writes `INVENTORY.json` beside `INVENTORY.md`, and
+ * the first two numbers are read out of it rather than typed here. The labels
+ * stay, because they are page copy.
+ *
+ * The third one, `shown`, is still by hand. The gallery lists its components as
+ * markup, so there is nothing to count without restructuring it — which is a
+ * design decision, not a developer's. It is open question 5 in the handoff, and
+ * it stays open rather than being quietly rounded off here.
  */
+import inventory from '../../INVENTORY.json'
 import type { Metric } from './metrics'
 
+const total = inventory.components.length
+const unused = inventory.components.filter((component) => component.uses === 0).length
+
+/** By hand until the gallery derives its own list — see handoff, open question 5. */
+const SHOWN_IN_GALLERY = 10
+
 export const composition: Metric[] = [
-  { value: '16', label: 'Componenti in tutta la guida' },
-  { value: '0', label: 'Componenti che non usa nessuno — uno solo bloccherebbe il controllo' },
-  { value: '10', label: 'Quelli che puoi vedere funzionare qui sotto' },
+  { value: String(total), label: 'Componenti in tutta la guida' },
+  { value: String(unused), label: 'Componenti che non usa nessuno — uno solo bloccherebbe il controllo' },
+  { value: String(SHOWN_IN_GALLERY), label: 'Quelli che puoi vedere funzionare qui sotto' },
 ]
 
 export interface PageFramePart {
