@@ -38,7 +38,7 @@ npm run design:check               # the audit gate — blocking
 npm run design:build               # static HTML in dist/, for a client review
 ```
 
-For this project the workbench is also the deliverable: the two guide pages ship as the static
+For this project the workbench is also the deliverable: the four guide pages ship as the static
 HTML that `design:build` produces. There is no production frontend to promote into yet.
 
 ### Auditing production code

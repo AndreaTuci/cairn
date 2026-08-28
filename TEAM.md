@@ -40,7 +40,7 @@ drifting rules are the problem this exists to solve.
 
 ## Starting a project — developer
 
-Run `ui-kickoff`. Four questions, then it scaffolds `design/`, seeds the tokens with the real
+Run `ui-kickoff`. Five questions, then it scaffolds `design/`, seeds the tokens with the real
 brand, writes `AGENTS.md` and the pointers for Claude and Copilot, installs the audit, and verifies
 that the whole thing builds. Do this before any designer opens the repository.
 

@@ -42,30 +42,28 @@ Read [TEAM.md](TEAM.md) for how the two roles actually work together.
 
 ## Install
 
-Copy the skill folders where your agent looks for them. That is the whole installation — no
-package, no build step.
-
-**Claude Code**
-
 ```bash
-mkdir -p .claude/skills
-cp -r /path/to/cairn/skills/* .claude/skills/
+npx @lotrek/cairn install
 ```
 
-**GitHub Copilot**
+Run it inside the project you want to set up. It puts the skill folders where the agents look —
+`.claude/skills/` for Claude, `.github/skills/` for Copilot — and does nothing else.
+
+From a checkout, that is a plain copy and you can do it by hand:
 
 ```bash
-mkdir -p .github/skills
+mkdir -p .claude/skills .github/skills
+cp -r /path/to/cairn/skills/* .claude/skills/
 cp -r /path/to/cairn/skills/* .github/skills/
 ```
 
-Then, in the project you want to set up:
+Then, in the project:
 
 ```
 /ui-kickoff
 ```
 
-Four questions, and it scaffolds `design/`, seeds the token file, writes `AGENTS.md` with pointers
+Five questions, and it scaffolds `design/`, seeds the token file, writes `AGENTS.md` with pointers
 for Claude and Copilot, installs the audit and verifies that the whole thing builds.
 
 ## Requirements
