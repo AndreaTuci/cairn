@@ -31,6 +31,10 @@ NOTES-*.md
 **/.cursor/skills/
 **/.gemini/skills/
 
+# Copilot slash commands, installed the same way. The source is assets/prompts/,
+# which is what the package ships and what the installer copies from.
+.github/prompts/
+
 # Local agent settings. Note that `.claude/settings.json` is NOT ignored: the
 # permission rules it carries are project facts and belong in the repository.
 **/.claude/settings.local.json
@@ -40,6 +44,9 @@ NOTES-*.md
 # In a client project it is the only copy of the tooling and MUST be committed —
 # ui-kickoff puts it there for exactly that reason.
 design/.ui/
+
+# The tarball `npm pack` leaves behind. The package is published, not committed.
+*.tgz
 
 # Editor and OS noise
 .vscode/
