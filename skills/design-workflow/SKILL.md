@@ -336,6 +336,12 @@ One question, and it changes everything that follows:
 | **A comp** — a finished visual design | both — but snap every value to the scale | anything the scale does not have. That is a token decision to raise, not a number to copy |
 | **An existing screen** — the product as it is today | what exists, and the words it already uses | treat it as a constraint, not a target, unless they say otherwise |
 
+**A Figma frame is absolutely positioned; a page is not.** Every element in an export carries an
+x and a y, and carrying those across produces a layout that is correct at exactly one width and
+broken at every other. Read the *arrangement* — what is beside what, what wraps, what is a row and
+what is a column — and rebuild it in ordinary document flow, grid or flexbox. This is the single
+most expensive thing to undo later, because by the time it shows it is in every screen.
+
 **Never measure an image.** Reading pixel values off a screenshot is exactly where
 `w-[174.706px]` comes from — and a screenshot is worse than a Figma export, because the export was
 at least authoritative about something. Read proportion and hierarchy instead: *"the image takes

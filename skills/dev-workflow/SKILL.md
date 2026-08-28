@@ -61,9 +61,17 @@ prototype on day one and every later sync is archaeology.
 + const articles = (await getArticles()).map(toArticle)
 ```
 
+**Keep that mapping pure.** It takes the payload and returns the shape the component wants, and it
+does nothing else: no fetching, no globals, no environment, no reading the clock. Anything
+time-dependent is passed in. A mapper that reaches for `new Date()` is a component that renders
+differently on the server and in the browser, and the bug surfaces as a hydration mismatch three
+screens away from the cause.
+
 If a prop shape genuinely has to change — the design asked for something the data cannot provide —
 that is not a quiet edit. Change it in the workbench too, in the same piece of work, and tell the
 designer. Two shapes for one component is where the arrangement starts costing more than it saves.
+**Every call site moves in the same change**, or the contract has two versions and the compiler
+only knows about one of them.
 
 **Wire every state the designer drew.** They are in the handoff, they exist as branches in the
 prototype, and skipping them is how a product ends up with three different empty states. Keep the
