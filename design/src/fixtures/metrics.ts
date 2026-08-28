@@ -15,9 +15,9 @@ export interface Metric {
 }
 
 export const metrics: Metric[] = [
-  { value: '27', label: '`text-[13px]` scritto a mano' },
-  { value: '14', label: '`rounded-[8px]`, mentre `--radius-lg` esisteva inutilizzato' },
-  { value: '12', label: "Un'ombra riscritta per esteso" },
-  { value: '85%', label: 'Due form di autenticazione strutturalmente identici' },
-  { value: '2', label: 'Componenti importati da nessuno' },
+  { value: '27', label: '`text-[13px]` typed by hand' },
+  { value: '14', label: '`rounded-[8px]`, while `--radius-lg` sat unused' },
+  { value: '12', label: 'One shadow spelled out in full' },
+  { value: '85%', label: 'Two authentication forms, structurally identical' },
+  { value: '2', label: 'Components imported by nobody' },
 ]

@@ -11,13 +11,13 @@ export interface NavItem {
 }
 
 export const pages: NavItem[] = [
-  { href: '/', label: 'Guida' },
-  { href: '/come-si-parte', label: 'Come si parte' },
-  { href: '/riferimento', label: 'Riferimento' },
-  { href: '/composizione', label: 'Composizione' },
+  { href: '/', label: 'Guide' },
+  { href: '/getting-started', label: 'Getting started' },
+  { href: '/reference', label: 'Reference' },
+  { href: '/composition', label: 'Composition' },
 ]
 
-/** `/riferimento/` and `/riferimento` are the same page; the router is relaxed about it. */
+/** `/reference/` and `/reference` are the same page; the router is relaxed about it. */
 export function normalise(pathname: string): string {
   return pathname.length > 1 ? pathname.replace(/\/$/, '') : pathname
 }

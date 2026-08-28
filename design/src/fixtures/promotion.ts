@@ -20,14 +20,14 @@ export interface PromotionRoute {
 }
 
 export const promotionRoutes: PromotionRoute[] = [
-  { from: 'src/components/', to: 'la cartella dei componenti del progetto' },
-  { from: 'src/layouts/', to: 'i layout, dove il progetto li tiene' },
+  { from: 'src/components/', to: "the project's own components folder" },
+  { from: 'src/layouts/', to: 'the layouts, wherever the project keeps them' },
   {
     from: 'src/styles/theme.css',
-    to: 'il file dei colori di produzione — uno solo, con gli stessi valori',
+    to: 'the production token file — one of them, holding the same values',
   },
   {
     from: 'src/fixtures/',
-    to: 'niente. I dati finti vengono sostituiti da dati veri, non promossi',
+    to: 'nothing. Mock data is replaced by real data, never promoted',
   },
 ]

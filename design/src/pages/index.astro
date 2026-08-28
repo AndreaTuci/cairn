@@ -1,10 +1,14 @@
 ---
 /**
- * Guida — what cairn is, why it exists, and what each role does with it.
+ * Guide — what cairn is, why it exists, and what each role does with it.
  *
  * Read by designers and developers at the same time, which is why the two
  * sections that belong to one of them carry that role's mark: a reader should be
  * able to find their own stretch of the page without reading the other one.
+ *
+ * This page argues. Every command in the system lives on `/getting-started`,
+ * which instructs — the one exception is the designer's three commands below,
+ * because "it runs on its own" is a claim, and they are the evidence for it.
  */
 import Page from '../layouts/Page.astro'
 import PageIntro from '../components/PageIntro.astro'
@@ -17,52 +21,48 @@ import Code from '../components/ui/Code.astro'
 import CodeBlock from '../components/ui/CodeBlock.astro'
 import { metrics } from '../fixtures/metrics'
 
-const DESIGN_COMMANDS = `npm run design         # lo vedi nel browser, si aggiorna mentre lavori
-npm run design:check   # lo controlla contro le regole di casa
-npm run design:build   # HTML statico da mandare a un cliente`
-
-const DEV_COMMANDS = `cat design/HANDOFF.md                        # cosa è vero e cosa è finto
-node design/.ui/ui-drift.mjs --root design   # cosa si è mosso dall'ultima volta
-node design/.ui/ui-audit.mjs --root design --all`
+const DESIGN_COMMANDS = `npm run design         # see it in the browser, reloading as you work
+npm run design:check   # check it against the house rules
+npm run design:build   # static HTML to send to a client`
 
 const NOT_YOUR_JOB = [
-  'Come si chiama un componente.',
-  'Dove va un file.',
-  "Cos'è un token, una prop, una variante.",
+  'What a component is called.',
+  'Where a file goes.',
+  'What a token, a prop or a variant is.',
   'Git.',
 ]
 
 const ASKED_INSTEAD = [
-  'A cosa serve questa schermata.',
-  'Chi la apre e cosa sta cercando di fare.',
-  'Le parole vere sui bottoni.',
-  'Cosa succede al click.',
-  'Cosa si vede quando la lista è vuota, mentre carica, e quando qualcosa va storto.',
+  'What this screen is for.',
+  'Who opens it, and what they are trying to do.',
+  'The real words on the buttons.',
+  'What happens on click.',
+  'What is on screen when the list is empty, while it loads, and when something breaks.',
 ]
 ---
 
 <Page
-  title="Segni sul percorso — cairn"
-  description="cairn è l'insieme di regole e strumenti che permette a chi progetta di scrivere frontend che chi sviluppa vuole ereditare."
+  title="Marks on the trail — cairn"
+  description="cairn is the set of rules and tools that lets the people who design write frontend the people who build want to inherit."
 >
   <PageIntro
-    title="Segni sul percorso"
-    lead="cairn è l'insieme di regole e strumenti che permette a chi progetta di scrivere frontend che chi sviluppa vuole ereditare."
+    title="Marks on the trail"
+    lead="cairn is the set of rules and tools that lets the people who design write frontend the people who build want to inherit."
   >
     <Text class="mt-6 max-w-2xl">
-      I designer producono codice. Quel codice diventa il punto di partenza degli sviluppatori — e
-      il contesto che leggono i loro agenti. Se è disordinato, il disordine si paga due volte.
-      cairn mette i binari prima, non le pezze dopo.
+      Designers produce code. That code becomes the developers' starting point — and the context
+      their agents read. If it is disordered, the disorder is paid for twice. cairn lays the rails
+      first instead of patching afterwards.
     </Text>
   </PageIntro>
 
   <div class="mt-16 space-y-16">
-    <Section title="Un progetto non si rompe di colpo">
+    <Section title="A project does not break all at once">
       <Text class="max-w-2xl">
-        Si rompe per accumulo. Un <Code>13px</Code> scritto a mano, un componente copiato e
-        ritoccato, un colore che era più veloce incollare che nominare. Ognuno difendibile da solo.
-        Insieme producono un progetto dove niente si cambia in un punto solo, e dove chi arriva
-        dopo — persona o agente — non ha modo di distinguere la regola dall'eccezione.
+        It breaks by accumulation. A <Code>13px</Code> typed by hand, a component copied and
+        adjusted, a colour it was quicker to paste than to name. Each defensible on its own.
+        Together they produce a project where nothing can be changed in one place, and where
+        whoever arrives next — person or agent — has no way to tell the rule from the exception.
       </Text>
 
       <div class="mt-8 border-t border-rule">
@@ -70,80 +70,74 @@ const ASKED_INSTEAD = [
       </div>
 
       <Text variant="lead" class="mt-8 max-w-2xl font-display">
-        Nessuna di queste è incompetenza. È l'assenza di una regola.
+        None of this is incompetence. It is the absence of a rule.
       </Text>
     </Section>
 
-    <Section title="Una cartella che gira da sola">
+    <Section title="A folder that runs on its own">
       <Text class="max-w-2xl">
-        I designer lavorano in <Code>design/</Code>, un progetto autonomo che parte con un comando:
-        niente backend, niente database, niente docker. Gli sviluppatori portano quei componenti nel
-        progetto vero. Entrambi seguono le stesse regole di composizione, perché stanno costruendo
-        la stessa cosa.
+        Designers work in <Code>design/</Code>, a standalone project that starts with one command:
+        no backend, no database, no docker. Developers take those components into the real project.
+        Both follow the same composition rules, because they are building the same thing.
       </Text>
 
       <Text class="mt-5 max-w-2xl">
-        <Code>design/</Code> non è una fase, è permanente. I designer continuano a correggere mentre
-        lo sviluppo va avanti — funziona così, ed è inutile fingere il contrario. Quindi è una
-        sorgente viva, e la produzione è una copia che se ne allontana. Uno script dice di quanto.
-        Nessuno lo cerca a occhio.
+        <Code>design/</Code> is not a phase, it is permanent. Designers keep correcting it while
+        development runs — that is how it goes, and pretending otherwise helps nobody. So it is a
+        living source, and production is a copy that drifts from it. A script says how far. Nobody
+        hunts for it by eye.
       </Text>
 
-      <CodeBlock class="mt-8" label="i tre comandi" code={DESIGN_COMMANDS} />
+      <CodeBlock class="mt-8" label="the three commands" code={DESIGN_COMMANDS} />
     </Section>
 
-    <Section title="Se progetti" tone="designer">
+    <Section title="If you design" tone="designer">
       <RoleBadge slot="eyebrow" role="designer" />
 
       <Text class="max-w-2xl">
-        Apri la cartella <Code>design/</Code> e scrivi <Code>/design-workflow</Code>. Descrivi cosa
-        vuoi. Ti verranno fatte domande a cui sai rispondere — a cosa serve la schermata, cosa dice,
-        cosa si vede quando non c'è ancora niente — e mai domande sul codice.
+        Open the <Code>design/</Code> folder and type <Code>/design-workflow</Code>. Describe what
+        you want. You will be asked questions you can answer — what the screen is for, what it
+        says, what is on it before there is anything — and never questions about code.
       </Text>
 
       <div class="mt-8 grid gap-6 md:grid-cols-2">
-        <LabelledList title="cosa non ti serve sapere" items={NOT_YOUR_JOB} tone="designer" />
-        <LabelledList title="cosa ti viene chiesto invece" items={ASKED_INSTEAD} tone="designer" />
+        <LabelledList title="what you do not need to know" items={NOT_YOUR_JOB} tone="designer" />
+        <LabelledList title="what you are asked instead" items={ASKED_INSTEAD} tone="designer" />
       </div>
 
       <Text class="mt-8 max-w-2xl">
-        Tutto quello che sta fuori da <Code>design/</Code> è degli sviluppatori. Se ti serve qualcosa
-        là fuori è una conversazione di due minuti, non un problema da aggirare.
+        Everything outside <Code>design/</Code> belongs to the developers. Needing something out
+        there is a two-minute conversation, not a problem to work around.
       </Text>
     </Section>
 
-    <Section title="Se sviluppi" tone="developer">
+    <Section title="If you develop" tone="developer">
       <RoleBadge slot="eyebrow" role="developer" />
 
       <Text class="max-w-2xl">
-        Il design non è un'immagine: è codice che gira, che non hai scritto tu e che non sei libero
-        di ignorare. È questo che rende il flusso più veloce dei mockup — e resta più veloce solo
-        finché le due copie continuano a corrispondere.
-      </Text>
-
-      <CodeBlock class="mt-8" label="prima di scrivere qualsiasi cosa" code={DEV_COMMANDS} />
-
-      <Text class="mt-8 max-w-2xl">
-        Poi il triage, prima di toccare niente: tieni, normalizza, riscrivi. È una tabella da due
-        minuti ed è il momento più economico per scoprire che quattro file vanno riscritti.
+        The design is not a picture: it is code that runs, that you did not write, and that you are
+        not free to ignore. That is what makes this faster than working from mockups — and it stays
+        faster only while the two copies keep matching.
       </Text>
 
       <Text class="mt-5 max-w-2xl">
-        Quello che la produzione impara torna indietro. Un campo che può essere vuoto, contenuti
-        reali più lunghi di qualsiasi dato di prova, uno stato che nessuno aveva disegnato. Se non
-        torna, <Code>design/</Code> diventa finzione in due mesi — e un workbench di cui nessuno si
-        fida è un workbench che nessuno mantiene.
+        So you read the handoff, then triage before touching anything: keep, normalize, rewrite. It
+        is a two-minute table and the cheapest moment there is to discover that four files need
+        rewriting.
+      </Text>
+
+      <Text class="mt-5 max-w-2xl">
+        And what production learns travels back. A field that can be empty, real content longer
+        than any fixture, a state nobody drew. If it does not travel, <Code>design/</Code> becomes
+        fiction within two months — and a workbench nobody trusts is a workbench nobody maintains.
       </Text>
     </Section>
 
-    <Section title="L'ordine delle cose">
+    <Section title="The order of things">
       <Text class="max-w-2xl">
-        Resta da dire in che ordine succede tutto questo: chi fa cosa, quando, quali sono i due
-        comandi da dare una volta sola, e come i componenti passano dal banco al progetto vero.
-      </Text>
-
-      <Text class="mt-5 max-w-2xl">
-        È il segno qui sotto, ed è la pagina da tenere aperta il primo giorno di un progetto nuovo.
+        Who does what, when, the commands given once, and how a component gets from the workbench
+        into the real project: that is the next mark on the trail, and the page to keep open on the
+        first day of a new project.
       </Text>
     </Section>
   </div>

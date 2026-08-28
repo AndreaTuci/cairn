@@ -26,26 +26,26 @@ export const skills: Skill[] = [
   {
     name: 'ui-kickoff',
     readBy: 'developer',
-    when: "una volta, all'inizio del progetto",
+    when: 'once, when the project starts',
   },
   {
     name: 'ui-composition',
     readBy: 'both',
-    when: 'ogni volta che si scrive o si rivede UI',
+    when: 'every time any UI is written or reviewed',
   },
   {
     name: 'design-workflow',
     readBy: 'designer',
-    when: 'ogni sessione di design',
+    when: 'every design session',
   },
   {
     name: 'dev-workflow',
     readBy: 'developer',
-    when: 'quando si implementa UI prototipata da un designer',
+    when: 'implementing UI a designer prototyped',
   },
   {
     name: 'ui-sync',
     readBy: 'both',
-    when: 'il designer scrive la consegna, lo sviluppatore la usa e promuove',
+    when: 'the designer writes the handoff, the developer uses it and promotes',
   },
 ]

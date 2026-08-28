@@ -15,20 +15,20 @@ export interface AuditRule {
 }
 
 export const auditRules: AuditRule[] = [
-  { id: 'raw-color', catches: 'un colore scritto a mano fuori dal file dei token, attributi SVG compresi' },
-  { id: 'default-palette', catches: 'le scale di Tailwind al posto dei token semantici' },
+  { id: 'raw-color', catches: 'a colour typed outside the token file, SVG attributes included' },
+  { id: 'default-palette', catches: "Tailwind's own scales in place of the semantic tokens" },
   {
     id: 'arbitrary-scale',
-    catches: 'un valore arbitrario su una proprietà di scala: uno step che nessuno ha dichiarato',
+    catches: 'an arbitrary value on a scale property: a step nobody declared',
   },
-  { id: 'arbitrary-color', catches: 'un colore nascosto dentro un valore arbitrario' },
-  { id: 'arbitrary-repeated', catches: 'un valore scritto a mano usato più di una volta' },
-  { id: 'inline-style', catches: 'uno stile inline statico, invisibile al sistema dei token' },
-  { id: 'file-budget', catches: 'un componente oltre 150 righe, una pagina oltre 250' },
-  { id: 'duplicate-block', catches: 'due file strutturalmente quasi identici' },
-  { id: 'unused-component', catches: 'definito, importato da nessuno, mostrato da nessuna parte' },
+  { id: 'arbitrary-color', catches: 'a colour hidden inside an arbitrary value' },
+  { id: 'arbitrary-repeated', catches: 'a hand-written value used more than once' },
+  { id: 'inline-style', catches: 'a static inline style, invisible to the token system' },
+  { id: 'file-budget', catches: 'a component past 150 lines, a page past 250' },
+  { id: 'duplicate-block', catches: 'two files that are structurally near-identical' },
+  { id: 'unused-component', catches: 'defined, imported by nobody, shown nowhere' },
   {
     id: 'a11y',
-    catches: 'alt mancante, controllo senza nome accessibile, gerarchia dei titoli rotta, focus rimosso',
+    catches: 'a missing alt, a control with no accessible name, a broken heading order, a removed focus ring',
   },
 ]

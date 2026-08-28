@@ -1,0 +1,208 @@
+---
+/**
+ * Composition — how this guide is built, shown with the guide's own components.
+ *
+ * The fourth page, and the only self-referential one. Every example on it is the
+ * real component imported and rendered, never a picture of one: a page that
+ * argued for composition using screenshots of composition would be the joke
+ * about itself.
+ *
+ * Two movements. First the parts, small and all together, so somebody about to
+ * ask for a new one can see what already exists. Then the situations the project
+ * actually had to answer for, at full size, because those are the part a list of
+ * components cannot tell you.
+ */
+import Page from '../layouts/Page.astro'
+import PageIntro from '../components/PageIntro.astro'
+import PartsGallery from '../components/PartsGallery.astro'
+import Specimen from '../components/Specimen.astro'
+import Section from '../components/Section.astro'
+import Figure from '../components/Figure.astro'
+import DefinitionRow from '../components/DefinitionRow.astro'
+import LabelledList from '../components/LabelledList.astro'
+import RoleBadge from '../components/RoleBadge.astro'
+import RichText from '../components/RichText.astro'
+import Text from '../components/ui/Text.astro'
+import CodeBlock from '../components/ui/CodeBlock.astro'
+import { componentCount, composition, pageFrame, statesNotDrawn } from '../fixtures/inventory'
+import { skills } from '../fixtures/skills'
+import { auditRules } from '../fixtures/audit-rules'
+
+/** The rows the examples are built from, taken from the fixtures so they cannot drift. */
+const sharedSkill = skills.find((skill) => skill.readBy === 'both') ?? skills[0]
+const oneSkill = skills.find((skill) => skill.readBy !== 'both') ?? skills[0]
+const oneRule = auditRules.find((rule) => rule.id === 'arbitrary-scale') ?? auditRules[0]
+
+const AUDIT_OUTPUT = `  arbitrary-scale - 135 in 43 places
+   27 x  text-[13px]        components/AppSidebarItem.astro:34 +26
+   14 x  rounded-[8px]      components/AppSidebarItem.astro:34 +13`
+
+const WAIVER = `<!-- ui-audit-allow: inline-style — third-party embed, the vendor sets the style -->`
+
+const PRINT_CHANGES = [
+  'The background becomes true white: warm stone on paper is a dirty smudge.',
+  'Body text drops to 11pt, which on paper is still generous.',
+  'Code blocks wrap, because paper does not scroll.',
+  'The small things stay whole — a case, a code block, a row — and no heading is left alone at the foot of a page.',
+]
+
+const PRINT_KEPT = [
+  'The two accents: they are how you tell whose stretch of the page a part is.',
+  'The vertical rail, and the marks hung on it.',
+  'Full contrast. No grey on grey, which printed disappears.',
+]
+---
+
+<Page
+  title="Composition — cairn"
+  description={`How this guide is built: the ${componentCount} components it is made of, and the situations it had to answer for.`}
+>
+  <PageIntro
+    title="Composition"
+    lead={`This guide is made of ${componentCount} parts. They are below — the real ones, running.`}
+  >
+    <Text class="mt-6 max-w-2xl">
+      If you are about to inherit these components, or to ask for a new one, this page tells you
+      what already exists. The examples are not pictures: they are the real components, imported.
+      When one changes, this changes with it — and it cannot go quietly out of date.
+    </Text>
+  </PageIntro>
+
+  <div class="mt-16 space-y-16">
+    <Section title="The parts">
+      <Text class="max-w-2xl">
+        The primitives are these: the text, the code, the mark, the block, the card, the number.
+        Everything else is built from them, and none of them exists as two slightly different
+        copies — which is the thing the check will not let past without a signature.
+      </Text>
+
+      <div class="mt-8 border-t border-rule">
+        {composition.map((count) => <Figure value={count.value} label={count.label} />)}
+      </div>
+
+      <PartsGallery class="mt-8" />
+    </Section>
+
+    <Section title="The parts that do not fit in a case">
+      <Text class="max-w-2xl">
+        That leaves {pageFrame.length} of the {componentCount}, and they cannot be put in a box
+        halfway down the page: they are the page you are reading. Drawing them again inside a case
+        would mean building them twice, which is exactly what this guide exists to avoid. So it
+        points at them instead.
+      </Text>
+
+      <dl class="mt-8 border-t border-rule">
+        {pageFrame.map((part) => <DefinitionRow term={part.name}>{part.where}</DefinitionRow>)}
+      </dl>
+    </Section>
+
+    <Section title="One thing that belongs to both" tone="designer">
+      <RoleBadge slot="eyebrow" role="both" />
+
+      <Text class="max-w-2xl">
+        Two of the five skills are read by both roles. The short road is to give them a third
+        colour. But this is not a third case of the same thing: it is the two at once, and an
+        invented colour would hide that rather than say it. So the mark becomes two marks, and the
+        row carries more weight.
+      </Text>
+
+      <Specimen
+        name="RoleBadge · DefinitionRow"
+        layout="full"
+        class="mt-8"
+        note="The `ui-composition` row, the same one on the Reference page."
+      >
+        <dl class="border-t border-rule">
+          <DefinitionRow term={sharedSkill.name} emphasis="strong">
+            <RoleBadge slot="aside" role={sharedSkill.readBy} />
+            {sharedSkill.when}
+          </DefinitionRow>
+        </dl>
+      </Specimen>
+
+      <Text class="mt-8 max-w-2xl">
+        Two of the five rows are like this. A page tested only on designer and on developer would
+        have gone to print without noticing.
+      </Text>
+    </Section>
+
+    <Section title="Two different lists, the same row">
+      <Text class="max-w-2xl">
+        The five skills and the ten audit rules have nothing in common but their shape: a term, and
+        what it means. So they are not two parts, they are one part holding different data.
+      </Text>
+
+      <Specimen
+        name="DefinitionRow"
+        layout="full"
+        class="mt-8"
+        note="A skill above, an audit rule below. Same component, two sources."
+      >
+        <dl class="border-t border-rule">
+          <DefinitionRow term={oneSkill.name}>
+            <RoleBadge slot="aside" role={oneSkill.readBy} />
+            {oneSkill.when}
+          </DefinitionRow>
+          <DefinitionRow term={oneRule.id}><RichText copy={oneRule.catches} /></DefinitionRow>
+        </dl>
+      </Specimen>
+
+      <Text class="mt-8 max-w-2xl">
+        Written twice they would diverge the first time somebody adjusted the spacing on one of
+        them. It takes weeks, and nobody notices when it happened.
+      </Text>
+    </Section>
+
+    <Section title="Wider than the line" tone="developer">
+      <Text class="max-w-2xl">
+        A tool's output is made of columns, and wrapping it breaks them: so it scrolls. A long line
+        of code is only long, and it wraps the way any editor would. Two behaviours of one part,
+        not two parts.
+      </Text>
+
+      <div class="mt-8 space-y-4">
+        <CodeBlock label="tool output: it scrolls" code={AUDIT_OUTPUT} />
+        <CodeBlock label="a single line: it wraps" code={WAIVER} wrap="soft" />
+      </div>
+
+      <Text variant="note" class="mt-6 max-w-2xl">
+        Printed, both wrap, because paper does not scroll. That rule lives in the token file, not
+        here.
+      </Text>
+    </Section>
+
+    <Section title="Empty, loading, error">
+      <Text class="max-w-2xl">
+        Every screen has to answer for its four states. Here the answer to three of them is that
+        they do not exist — and the difference between that and forgetting them is that the reason
+        is written down.
+      </Text>
+
+      <dl class="mt-8 border-t border-rule">
+        {statesNotDrawn.map((state) => <DefinitionRow term={state.name}>{state.why}</DefinitionRow>)}
+      </dl>
+
+      <Text class="mt-8 max-w-2xl">
+        The day these lists stop being typed by hand and get read from the project's own folders,
+        all three states become real, and none of them is drawn. That day is already noted in the
+        handoff, with the number of the open question.
+      </Text>
+    </Section>
+
+    <Section title="On paper">
+      <Text class="max-w-2xl">
+        This guide gets printed, and projected in meetings: two surfaces worse than a laptop
+        screen. So print is a designed format here, not whatever comes out by accident.
+      </Text>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        <LabelledList title="what changes in print" items={PRINT_CHANGES} />
+        <LabelledList title="what stays as it is" items={PRINT_KEPT} />
+      </div>
+
+      <Text variant="note" class="mt-6 max-w-2xl">
+        Try it now: Cmd+P, look at the preview, and close it without printing anything.
+      </Text>
+    </Section>
+  </div>
+</Page>

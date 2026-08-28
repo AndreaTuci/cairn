@@ -1,6 +1,6 @@
 ---
 /**
- * Riferimento — the five skills, the four rules, and what the gate actually
+ * Reference — the five skills, the four rules, and what the gate actually
  * checks.
  *
  * Everything on this page that repeats is data. The skills and the audit rules
@@ -22,10 +22,10 @@ import { skills } from '../fixtures/skills'
 import { auditRules } from '../fixtures/audit-rules'
 
 const HOUSE_RULES = [
-  "Ogni colore, misura, raggio e ombra viene dal file dei token. Ce n'è uno per progetto.",
-  'Un valore usato due volte è un token. Una forma usata due volte è un componente.',
-  'Ogni schermata risponde per i suoi quattro stati: pronta, vuota, in caricamento, in errore.',
-  'Il controllo è bloccante. Una deroga richiede una motivazione scritta sulla riga sopra.',
+  'Every colour, size, radius and shadow comes from the token file. There is one per project.',
+  'A value used twice is a token. A shape used twice is a component.',
+  'Every screen answers for its four states: ready, empty, loading, error.',
+  'The audit is blocking. A waiver needs a reason written on the line above it.',
 ]
 
 const AUDIT_OUTPUT = `  arbitrary-scale - 135 in 43 places
@@ -34,20 +34,20 @@ const AUDIT_OUTPUT = `  arbitrary-scale - 135 in 43 places
    14 x  rounded-[8px]      components/AppSidebarItem.astro:34 +13
   -> Add it to the theme scale, then use the named step.`
 
-const WAIVER = `<!-- ui-audit-allow: inline-style — embed di terze parti, lo stile lo mette il fornitore -->`
+const WAIVER = `<!-- ui-audit-allow: inline-style — third-party embed, the vendor sets the style -->`
 ---
 
 <Page
-  title="Riferimento — cairn"
-  description="Le cinque skill di cairn, le quattro regole di composizione e le dieci regole che il controllo intercetta."
+  title="Reference — cairn"
+  description="The five cairn skills, the four composition rules, and the ten rules the gate intercepts."
 >
   <PageIntro
-    title="Riferimento"
-    lead="Cinque skill. Una la leggono entrambi i ruoli, ed è quella che tiene insieme il resto."
+    title="Reference"
+    lead="Five skills. Two are read by both roles, and one of those is what holds the rest together."
   />
 
   <div class="mt-16 space-y-16">
-    <Section title="Le cinque skill">
+    <Section title="The five skills">
       <dl class="border-t border-rule">
         {
           skills.map((skill) => (
@@ -63,13 +63,12 @@ const WAIVER = `<!-- ui-audit-allow: inline-style — embed di terze parti, lo s
       </dl>
 
       <Text variant="note" class="mt-6 max-w-2xl">
-        <Code>ui-composition</Code> è condivisa apposta. Due copie della stessa legge divergerebbero
-        entro un mese, e le regole che divergono sono il problema che questo sistema esiste per
-        risolvere.
+        <Code>ui-composition</Code> is shared deliberately. Two copies of one law would drift within
+        a month, and drifting rules are the problem this system exists to solve.
       </Text>
     </Section>
 
-    <Section title="Le regole, in quattro righe">
+    <Section title="The rules, in four lines">
       <div class="grid gap-4 md:grid-cols-2">
         {
           HOUSE_RULES.map((rule, index) => (
@@ -86,10 +85,10 @@ const WAIVER = `<!-- ui-audit-allow: inline-style — embed di terze parti, lo s
       </div>
     </Section>
 
-    <Section title="Cosa controlla il gate">
+    <Section title="What the gate checks">
       <Text class="max-w-2xl">
-        Il controllo non ha opinioni sul bello. Vede solo quello che è meccanico — ed è già
-        abbastanza.
+        The check has no opinion about beauty. It sees only what is mechanical — and that is
+        already enough.
       </Text>
 
       <dl class="mt-8 border-t border-rule">
@@ -102,19 +101,19 @@ const WAIVER = `<!-- ui-audit-allow: inline-style — embed di terze parti, lo s
         }
       </dl>
 
-      <CodeBlock class="mt-8" label="esempio di output" code={AUDIT_OUTPUT} />
+      <CodeBlock class="mt-8" label="sample output" code={AUDIT_OUTPUT} />
 
       <Text variant="note" class="mt-6 max-w-2xl">
-        135 segnalazioni sono in realtà 43 decisioni. Il report raggruppa apposta: una lista lunga
-        si ignora, una lista di quaranta scelte si affronta in un pomeriggio.
+        135 findings are really 43 decisions. The report groups them on purpose: a long list gets
+        ignored, forty choices get made in an afternoon.
       </Text>
     </Section>
 
-    <Section title="Quando una regola è sbagliata">
+    <Section title="When a rule is wrong">
       <Text class="max-w-2xl">
-        Prima o poi lo sarà. Si prende la deroga, si scrive il motivo sulla riga sopra, e si
-        registra nel contratto del progetto. Se la stessa deroga viene presa una terza volta, è
-        sbagliata la regola, non il codice — lo si dice, e la regola cambia.
+        Sooner or later one will be. Take the waiver, write the reason on the line above it, and
+        record it in the project contract. If the same waiver is taken a third time, the rule is
+        wrong rather than the code — say so, and the rule changes.
       </Text>
 
       <CodeBlock class="mt-8" code={WAIVER} wrap="soft" />
