@@ -155,6 +155,22 @@ itself.
 Fill in now only what the kickoff already told you — usually the product in one sentence, and the
 visual direction if question 3 had an answer. Leave the rest.
 
+**Also create `design/context/`, empty, with a one-line README.** It is where the material the
+project was given goes: the brand manual, the functional requirements, the content model, meeting
+notes, a competitor teardown. Anything a designer would have read before drawing.
+
+The distinction is worth keeping sharp, because it is what stops the brief becoming a dumping
+ground:
+
+| | What it holds | Who writes it |
+|---|---|---|
+| `context/` | what we were **given** — raw, long, unedited | the client and the team. Dropped in as files |
+| `BRIEF.md` | what we **concluded** from it — one page, decided | the agent, maintained over the sessions |
+
+An agent re-reading sixty pages of brand manual at the start of every session is waste; re-reading
+a one-page distillate is the point. So when documents land in `context/`, they are read once, and
+what matters out of them is written into `BRIEF.md`, with a pointer back to the file it came from.
+
 **Translate the headings into the team's working language.** This is the one file in the system a
 designer is expected to read and possibly edit by hand, so it is written in the language they think
 in. Everything else stays English.
