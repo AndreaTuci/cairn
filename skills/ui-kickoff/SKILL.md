@@ -89,8 +89,14 @@ Work in this order. Each step depends on the one before it.
 ### 1. Scaffold the workbench
 
 ```bash
-cp -r <skills-source>/ui-kickoff/assets/workbench-astro design    # NOT workbench-astro/* — see below
+cp -r <skills-source>/ui-kickoff/assets/workbench-<flavour> design    # NOT .../* — see below
 ```
+
+`<flavour>` is the answer to question 1 — `workbench-astro` or `workbench-nuxt`, the two folders
+under `assets/`. It used to be written out as `workbench-astro`, and a fenced command is what an
+agent copies: a dashboard project got the Astro workbench, every later gate passed, and the
+designer prototyped `.astro` components for a Nuxt UI app — the exact failure the nuxt flavour
+exists to prevent.
 
 **No trailing glob.** `cp -r .../workbench-astro/* design/` silently drops every dotfile, and the
 template's are load-bearing: `.claude/settings.json` carries the command allowlist, `.gitignore`
@@ -102,7 +108,8 @@ dependency versions exactly as they are — they are pinned because the floating
 version genuinely needs moving, move it, then verify the build in step 8 and record it in
 `UI-STACK.md`.
 
-**Then set the document language.** `src/layouts/Page.astro` ships `lang="en"`. A page that lies
+**Then set the document language** — `src/layouts/Page.astro` on the astro flavour,
+`nuxt.config.ts` under `app.head.htmlAttrs.lang` on the nuxt one. Both ship `en`. A page that lies
 about its language is read wrong by a screen reader and indexed wrong by a search engine, and
 nothing else in the system ever surfaces it.
 
@@ -122,9 +129,8 @@ because Claude and Copilot install skills to different directories and the desig
 check from inside the single folder they have open.
 
 ```bash
-# whichever of these exists on this machine
-cp -r .claude/skills/ui-composition/scripts   design/.ui
-cp -r .github/skills/ui-composition/scripts   design/.ui
+cp -r .claude/skills/ui-composition/scripts design/.ui \
+  || cp -r .github/skills/ui-composition/scripts design/.ui
 ```
 
 Copy, never edit in place: `design/.ui/` is a build artifact of the skill, and a fix belongs
@@ -180,6 +186,14 @@ itself.
 Fill in now only what the kickoff already told you — usually the product in one sentence, and the
 visual direction if question 3 had an answer. Leave the rest.
 
+**Create `design/HANDOFF.md`, empty.** `AGENTS.md` is about to point developers at it, and a
+pointer to a file that does not exist reads as a broken scaffold rather than as an empty one.
+`ui-sync` fills it at the end of the first design session.
+
+```bash
+: > design/HANDOFF.md
+```
+
 **Also create `design/context/`, empty, with a one-line README.** It is where the material the
 project was given goes: the brand manual, the functional requirements, the content model, meeting
 notes, a competitor teardown. Anything a designer would have read before drawing.
@@ -224,16 +238,16 @@ ones least likely to be using the agent this was first tested on.
 ```bash
 mkdir -p design/.claude/skills
 cp -r <skills-source>/{ui-composition,design-workflow,ui-sync} design/.claude/skills/
-cp -r <skills-source>/frontend-design design/.claude/skills/
 ```
 
-`frontend-design` is on the second line rather than in a sentence, because a sentence is what gets
-skipped. It is the whole of step 2 in `design-workflow` — the step whose only job is to make the
-first screen look designed — and if it is missing that step quietly becomes a no-op. Copy it
-whenever the project has no visual direction yet, which is almost always.
+Three skills, and only these three. `design-workflow` step 2 — the visual direction — is a
+conversation with the designer and needs nothing installed to happen; a fourth folder copied here
+"because it helps with design" is a fourth rule system in the room, and the first thing that
+happens is that it disagrees with one of these.
 
-Then write `design/CLAUDE.md`: short, addressed to a person rather than a machine — what this
-folder is, the three commands, and the one thing to type (`/design-workflow`).
+Then write `design/CLAUDE.md` from `assets/design-CLAUDE.template.md`: short, addressed to a
+person rather than a machine — what this folder is, the three commands, and the one thing to type
+(`/design-workflow`).
 
 **The developers' side** — at the repository root, for whichever agents the team actually uses:
 
@@ -286,29 +300,18 @@ each rule: *is this true of the project, or of the person?*
 | What it protects | Which file | Why there |
 |---|---|---|
 | Installed skills and the vendored `design/.ui/` — nobody edits an installed artifact | `.claude/settings.json`, **committed** | A property of the *project*. Applies to everyone equally, developers included |
-| The four commands the workbench needs, and nothing else | `design/.claude/settings.json`, **committed** — already in the workbench template | Also a property of the project: nobody working in that folder needs more, whichever role they are |
+| The five commands the workbench needs, and nothing else | `design/.claude/settings.json`, **committed** — already in the workbench template | Also a property of the project: nobody working in that folder needs more, whichever role they are |
 | The developers' folders — `app/`, `backend/`, `backoffice/` | `.claude/settings.local.json`, **per machine**, gitignored | A property of *who is sitting there*. A developer on the same repository must not inherit it |
 
 The second one ships with the workbench and needs nothing from you. What it buys is worth
 understanding, because it is not a wall: a shell can always reach further, and everything written
 in a skill is a request rather than enforcement. What it buys is **attention**. Today every command
 prompts, so nothing stands out and a non-technical reader clicks through the tenth prompt of the
-day without reading it. With the four normal commands silent, anything else becomes the only prompt
+day without reading it. With the five normal commands silent, anything else becomes the only prompt
 of the session.
 
-Write only the first one here, from `assets/settings.template.json`:
-
-```json
-{
-  "permissions": {
-    "deny": [
-      "Edit(./.claude/skills/**)", "Write(./.claude/skills/**)",
-      "Edit(./.github/skills/**)", "Write(./.github/skills/**)",
-      "Edit(./design/.ui/**)",     "Write(./design/.ui/**)"
-    ]
-  }
-}
-```
+Write only the first one here, copied from `assets/settings.template.json`. It is not reprinted
+in this file: a list printed in two places is a list that drifts, and this one already had.
 
 The second belongs to **designer onboarding**, on the designer's own laptop, alongside installing
 Node and the skills. It cannot be scaffolded from here — this runs on a developer's machine — so

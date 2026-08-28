@@ -22,8 +22,8 @@ written. `design/HANDOFF.md` is the source of truth for anything the designers b
 
 `design/` is a standalone Astro project: no backend, no docker, no database. It is **permanent**,
 not a phase — designers keep correcting it while development runs, so it is a living source and
-the production code is a copy that drifts from it. `ui-sync` reports that drift; do not go
-looking for it by eye.
+the production code is a copy that drifts from it. `ui-sync` reports which workbench files changed
+since they were last stamped.
 
 ```bash
 cd design && npm run design        # dev server
@@ -34,7 +34,7 @@ npm run design:build               # static HTML in dist/, for a client review
 ### Auditing production code
 
 ```bash
-node design/.ui/ui-audit.mjs --root <folder> --token-file <path> --ignore ui --all
+node design/.ui/ui-audit.mjs --root <folder> --token-file <path> --all
 ```
 
 ### Non-negotiables

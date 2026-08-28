@@ -12,7 +12,7 @@
 | **Designer writes** | `.astro` · `.vue` |
 | **Component kit** | `local` (primitives built here) · `<package-name>` |
 | **Primitive base** | none · shadcn-vue (Reka UI) · Nuxt UI |
-| **Token file** | `design/src/styles/theme.css` |
+| **Token file** | `design/src/styles/theme.css` · `design/app/assets/css/theme.css` |
 | **Production token file** | `<path>` — or `n/a` until the project exists |
 | **Working language** | `<language>` — the one a designer is talked to in, and the one `BRIEF.md` is written in. Everything else stays English |
 
@@ -69,7 +69,7 @@ Only for a project that existed before the workbench did. Not a judgement — th
 can watch move.
 
 ```
-node design/.ui/ui-audit.mjs --root <folder> --token-file <path> --ignore ui
+node design/.ui/ui-audit.mjs --root <folder> --token-file <path>
 ```
 
 | Date | Blocking | Advisory | Note |
