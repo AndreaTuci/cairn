@@ -3,23 +3,44 @@
  *
  * Four pages, and the header and the footer both need to know which one you are
  * on. Written twice they would disagree the first time a page is renamed.
+ *
+ * The hrefs carry the deployment base. Locally that is `/` and nothing changes;
+ * published under a path — GitHub Pages serves this guide from `/cairn/` — every
+ * link needs the prefix, and Astro adds it to assets but never to an href
+ * somebody wrote by hand. Doing it here means it is done once, in the file that
+ * already owns what the routes are.
  */
+
+/** `/` locally, `/cairn/` when the site is published under a path. */
+const BASE = import.meta.env.BASE_URL
 
 export interface NavItem {
   href: string
   label: string
 }
 
-export const pages: NavItem[] = [
+/** The routes themselves, before the base. This is the list a page is added to. */
+const ROUTES: NavItem[] = [
   { href: '/', label: 'Guide' },
   { href: '/getting-started', label: 'Getting started' },
   { href: '/reference', label: 'Reference' },
   { href: '/composition', label: 'Composition' },
 ]
 
-/** `/reference/` and `/reference` are the same page; the router is relaxed about it. */
+export const pages: NavItem[] = ROUTES.map((route) => ({
+  ...route,
+  href: `${BASE.replace(/\/+$/, '')}${route.href}`,
+}))
+
+/**
+ * One spelling for a path, so two of them can be compared.
+ *
+ * `/reference/` and `/reference` are the same page — the router is relaxed about
+ * it — and so are `/cairn/` and `/cairn`.
+ */
 export function normalise(pathname: string): string {
-  return pathname.length > 1 ? pathname.replace(/\/$/, '') : pathname
+  const trimmed = pathname.replace(/\/+$/, '')
+  return trimmed === '' ? '/' : trimmed
 }
 
 /**
@@ -30,6 +51,7 @@ export function normalise(pathname: string): string {
  * meant to be read in.
  */
 export function nextPage(pathname: string): NavItem {
-  const index = pages.findIndex((page) => page.href === normalise(pathname))
+  const here = normalise(pathname)
+  const index = pages.findIndex((page) => normalise(page.href) === here)
   return pages[(index + 1) % pages.length]
 }

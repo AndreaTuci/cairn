@@ -11,7 +11,20 @@ import tailwindcss from '@tailwindcss/vite'
  * printed, on a shared meeting screen and on a laptop with no network - a font
  * that arrives over the wire is a font that sometimes does not.
  */
+/**
+ * Where this guide is published, when it is.
+ *
+ * Empty by default, so `npm run design` and `npm run design:build` behave exactly
+ * as they always have. The Pages workflow sets both, because GitHub serves a
+ * project site from a subpath and every absolute href needs that prefix — Astro
+ * adds it to assets on its own and never to an href somebody wrote by hand.
+ */
+const site = process.env.CAIRN_SITE || undefined
+const base = process.env.CAIRN_BASE || undefined
+
 export default defineConfig({
+  site,
+  base,
   vite: { plugins: [tailwindcss()] },
   fonts: [
     {

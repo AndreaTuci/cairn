@@ -14,7 +14,7 @@ import Blaze from './ui/Blaze.astro'
 import { pages, normalise } from '../lib/navigation'
 
 const current = normalise(Astro.url.pathname)
-const navigation = pages.map((page) => ({ ...page, isCurrent: page.href === current }))
+const navigation = pages.map((page) => ({ ...page, isCurrent: normalise(page.href) === current }))
 
 const linkBase = 'rounded-xs pb-1 text-sm font-medium transition-colors'
 const onCurrentPage = 'border-b-2 border-primary text-foreground'
