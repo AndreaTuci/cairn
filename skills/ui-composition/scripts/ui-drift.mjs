@@ -30,8 +30,6 @@ const DEFAULT_ROOT = 'design'
 /** Drift covers more than the audit does: a token change is the highest-impact drift there is. */
 const TRACKED_EXTENSIONS = ['.astro', '.vue', '.html', '.css', '.ts']
 const HASH_LENGTH = 12
-/** Past this, one --record line per file is longer than it is useful. */
-const MAX_PATHS_IN_COMMAND = 5
 
 const USAGE = [
   'usage: node ui-drift.mjs [options]',
@@ -40,7 +38,7 @@ const USAGE = [
   '  --record <path>     stamp one file as promoted, at its current content',
   '  --to <path>         where it was promoted to, recorded alongside',
   '  --note <text>       why, when the decision was anything other than a plain promotion',
-  '  --record-all        stamp every tracked file as promoted',
+  '  --record-all        stamp every tracked file as promoted (requires --note)',
   '  --json              machine-readable output',
 ].join('\n')
 
@@ -153,24 +151,23 @@ function render({ changed, added, removed, unchanged }, root) {
  * A report ending in `<path>` and `<production path>` asks its reader to recall a
  * syntax they use once a fortnight, which is how stamping quietly stops happening
  * and the whole report turns to noise. So the paths are already in it.
+ *
+ * One complete command per file, however many there are. It used to collapse into
+ * a single `--record-all` past five files: a button that certifies every file as
+ * dealt with without anyone opening one, offered by the tool itself at exactly the
+ * moment the list is long enough to feel tedious. That is how this repository's own
+ * state file came to hold thirty-one promotions that never happened, all carrying
+ * the same note. A long list is the honest output - it says there are thirty-one
+ * decisions, because there are.
  */
 function recordCommand(paths, root) {
   const workbench = root.split('/').at(-1)
   const script = `node ${workbench}/.ui/ui-drift.mjs --root ${workbench}`
 
-  if (paths.length > MAX_PATHS_IN_COMMAND) {
-    return [
-      `  ${script} --record-all \\`,
-      '    --note "<what happened to all of these>"',
-      '',
-      '  Or one at a time, when they landed in different places:',
-      `  ${script} --record <path> --to <production path>`,
-    ]
-  }
-
   return [
-    ...paths.map((path) => `  ${script} --record ${path} \\`),
-    '    --to <where it landed in production>',
+    // `--to` is a single path and cannot be right for two files at once, so it is
+    // never printed once above many: every line here runs on its own.
+    ...paths.map((path) => `  ${script} --record ${path} --to <where it landed>`),
     '',
     '  Drop --to when there is no production copy yet. Add --note when the answer',
     '  was "we are not taking this" - a record without its reason is a small lie.',
@@ -179,18 +176,32 @@ function recordCommand(paths, root) {
 
 function record(root, state, paths, { to, note }, current) {
   const stamped = []
+  const cleared = []
   const missing = []
   const at = new Date().toISOString().slice(0, 10)
 
   for (const path of paths) {
     const hash = current.get(path)
-    if (!hash) { missing.push(path); continue }
-    state.promoted[path] = { hash, at, ...(to ? { to } : {}), ...(note ? { note } : {}) }
+    if (!hash) {
+      // The designer deleted a file after it was promoted. `--record` means "I
+      // have looked at this and dealt with it", and that has to cover the fourth
+      // list too: without this branch a PROMOTED, NOW GONE row could be cleared
+      // by no command the tool offers, and stayed in the report for good.
+      if (state.promoted[path]) { delete state.promoted[path]; cleared.push(path); continue }
+      missing.push(path)
+      continue
+    }
+    // Merged, not replaced: a re-record without --to used to erase where the file
+    // had landed, which is the one fact the stamp exists to carry.
+    state.promoted[path] = {
+      ...state.promoted[path], hash, at,
+      ...(to ? { to } : {}), ...(note ? { note } : {}),
+    }
     stamped.push(path)
   }
 
   saveState(root, state)
-  return { stamped, missing }
+  return { stamped, cleared, missing }
 }
 
 function main() {
@@ -210,10 +221,22 @@ function main() {
   const state = loadState(root)
 
   if (options.recordAll || options.record.length > 0) {
+    // Stamping every file at once says "all of these are dealt with" about files
+    // nobody opened. It stays available for the one case where that is true - a
+    // whole workbench promoted in a single pass - and it costs a sentence saying
+    // which case that was.
+    if (options.recordAll && !options.note) {
+      console.error('ui-drift: --record-all needs --note "<what happened to all of these>".')
+      console.error('  Without it the stamp certifies every file as dealt with and says nothing.')
+      return 1
+    }
     const paths = options.recordAll ? [...current.keys()] : options.record
-    const { stamped, missing } = record(root, state, paths, options, current)
+    const { stamped, cleared, missing } = record(root, state, paths, options, current)
     console.log(`ui-drift: recorded ${stamped.length} file${stamped.length === 1 ? '' : 's'} as promoted.`)
-    for (const path of missing) console.error(`  not found in the workbench: ${path}`)
+    if (cleared.length > 0) {
+      console.log(`ui-drift: cleared ${cleared.length} stamp${cleared.length === 1 ? '' : 's'} for files no longer in the workbench.`)
+    }
+    for (const path of missing) console.error(`  not found in the workbench, and never promoted: ${path}`)
     return missing.length > 0 ? 1 : 0
   }
 
