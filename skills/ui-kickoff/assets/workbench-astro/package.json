@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "design": "astro dev",
-    "design:check": "node .ui/ui-audit.mjs --root .",
+    "design:check": "node .ui/ui-inventory.mjs --root . --write && node .ui/ui-audit.mjs --root .",
     "design:inventory": "node .ui/ui-inventory.mjs --root . --write",
     "design:build": "astro build"
   },

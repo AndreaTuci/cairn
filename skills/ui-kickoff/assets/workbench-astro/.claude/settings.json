@@ -1,5 +1,5 @@
 {
-  "//": "Committed on purpose: this is a fact about the workbench, not about who is sitting at it. Nobody working in this folder needs more than these four commands, whichever role they are. The point is not the wall - a shell can always reach further, and instructions are requests rather than enforcement. The point is that these four go silent, so anything else becomes the only prompt of the session and a non-technical reader actually sees it. defaultMode is pinned so a global acceptEdits does not quietly apply here. Keeping a designer out of the developers' folders is a different restriction, about a person, and lives in .claude/settings.local.json on their machine.",
+  "//": "Committed on purpose: this is a fact about the workbench, not about who is sitting at it. Nobody working in this folder needs more than these five commands, whichever role they are. The point is not the wall - a shell can always reach further, and instructions are requests rather than enforcement. The point is that these five go silent, so anything else becomes the only prompt of the session and a non-technical reader actually sees it. The deny list is here and not only at the repository root because the root file is never loaded: a designer opens THIS folder, so this is the only settings file their session reads. defaultMode is pinned so a global acceptEdits does not quietly apply here. Keeping a designer out of the developers' folders is a different restriction, about a person, and lives in .claude/settings.local.json on their machine.",
   "permissions": {
     "allow": [
       "Bash(npm run design)",
@@ -9,7 +9,12 @@
       "Bash(npm install)"
     ],
     "deny": [
-      "Bash(git *)"
+      "Bash(git *)",
+      "Edit(./.ui/**)",
+      "Write(./.ui/**)",
+      "Edit(./ui-audit.config.json)",
+      "Write(./ui-audit.config.json)",
+      "Bash(node .ui/ui-drift.mjs:*)"
     ],
     "defaultMode": "default"
   }

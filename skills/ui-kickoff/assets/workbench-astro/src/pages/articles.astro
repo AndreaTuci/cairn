@@ -45,7 +45,7 @@ const items: Article[] = state === 'empty' ? noArticles : articles
       </Card>
     )}
 
-    {items.length > 0 && (
+    {state !== 'loading' && state !== 'error' && items.length > 0 && (
       <ul class="mt-8 space-y-4">
         {items.map((article) => (
           <li>
