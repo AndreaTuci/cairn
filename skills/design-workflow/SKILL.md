@@ -52,7 +52,59 @@ asked to reason about it is a designer about to have a bad afternoon.
 
 ## The loop
 
-### 1. Brief 🔴
+### 1. The commission 🔴
+
+**A bare `/design-workflow` is not a request.**
+
+When the command arrives with nothing after it, the designer has told you exactly one thing: that
+they want to work. Read `UI-STACK.md`, `BRIEF.md` and `context/` so you are oriented — and then
+stop. Do not choose a screen. Do not open the visual direction. Do not write a file.
+
+The test is mechanical, so that it cannot be reasoned around: **was there a sentence after the
+command?** If not, the answer is always the same — orient, then ask. There is no folder complete
+enough to change it, and the better prepared the folder, the more dangerous the temptation: with a
+brand manual and a features sheet sitting in `context/`, every question *looks* answered, and an
+agent that starts building has quietly decided the one thing nobody gave it.
+
+> 🔴 — *"Ho letto quello che c'è: manuale di identità, features sheet, e il brief è ancora vuoto.
+>    Dimmi cosa costruiamo. Se ti serve un punto di partenza io proporrei la lista delle buone
+>    pratiche — ma è una proposta, non un piano: dimmi tu."*
+
+The same applies to a request too vague to bound — *"facciamo il sito"*, *"partiamo"*. A direction
+is not a commission.
+
+Two halves, and the order is the whole point.
+
+**First half: ask what you are making. Every session. There is no exception to this one.**
+
+Not *"what is this screen"* — that is a fact, and a document can hold it. This:
+
+> **What do you want to make right now, and how far do you want to get?**
+
+**No document answers it.** A brand manual, a features sheet, a room full of requirements — they
+all describe the *product*. None of them says whether today is a finished page, three versions of
+an opening to choose between, a library of the primitives laid out to look at, or a rough wireframe
+to argue over. That is a decision, not a fact, and it belongs to the person sitting there.
+
+So even when the request looks complete — *"fammi la pagina delle buone pratiche"* — the **scope**
+still is not. Come back with what you understood and what you propose, in a few lines, and stop:
+
+> 🔴 — *"Ho letto i documenti in `context/`: da lì ho il marchio, i colori, i tipi di utente e le
+>    sezioni. Quello che lì dentro non c'è, e me lo devi dire tu, è cosa costruiamo adesso.
+>    Io proporrei la lista delle buone pratiche. Ma se preferisci partire dalla libreria dei
+>    pezzi, o da tre versioni di un'apertura fra cui scegliere, dimmelo e cambio."*
+
+Then wait. **This is what the 🔴 is for.** A session that runs from the first message to a finished
+screen without a single stop has not saved the designer any time — it has taken the decision away
+from them and handed back something they can now only accept or reject whole. Being fast at the
+wrong thing is the most expensive way to be fast.
+
+| | Where it comes from | Do you ask? |
+|---|---|---|
+| What the product is, who uses it, how it speaks, the words it uses | `BRIEF.md`, `context/`, any written brief | **Never.** Read it |
+| **What we are making today, and how far we are taking it** | only the person in front of you | **Always.** Every session |
+
+**Second half: everything about the product, you may take without asking.**
 
 **Read `BRIEF.md` first, every time.** It holds what is true of the project whichever screen you
 are on: what it is, who opens it, how it speaks, the words it uses. Never ask for something that is
@@ -82,7 +134,9 @@ they should be able to correct your reading of it in one message.
 dropped in the folder: its words are used as written rather than rephrased. A designer who has
 already written it down and is then interviewed about it will not write one again.
 
-Then, three answers about *this screen*. If they are already in the message, do not ask again.
+Then, three answers about *this screen*. These are facts, so if the documents or the message
+already hold them, do not ask again — the commission above is the only question that is asked
+regardless.
 
 1. **What is this screen?** Name it in one sentence.
 2. **Who opens it, and what are they trying to do?**
@@ -191,6 +245,15 @@ does not need a report, they need to know where things stand.
 The single biggest way to get this wrong is to ask too much. A designer interrupted every thirty
 seconds stops using the tool; a designer never asked gets a screen full of guesses. The line is
 not about difficulty — it is about **who the decision belongs to**.
+
+**One question is exempt, and it is the one in step 1.** *What are we making, and how far?* is
+never too much, never already answered, and never inferable from a document however complete. Read
+the rest of this section as being about everything else.
+
+The failure this guards against is not hypothetical. Handed a folder of real project documents, an
+agent read them, filled the brief, chose the screen, designed it and built it — competently, in one
+turn, without a single question. The work was good. The designer had wanted to start somewhere
+else entirely, and found out after it was finished.
 
 **Decide alone.** Anything internal, reversible, and invisible to them:
 component names, file structure, which primitive to extend, how a variant is expressed, class
