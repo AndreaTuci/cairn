@@ -70,6 +70,27 @@ never be surprised later.
 | `/pricing` | The "Choose plan" button goes nowhere | Start checkout |
 | `/articles` | Filters are decorative | Filter server-side |
 
+## Checked, and not checked
+
+What actually ran, and what this environment could not run. A check nobody ran and everybody
+assumes passed is worse than one that was never claimed.
+
+| Check | Result |
+|---|---|
+| `npm run design:check` | clean |
+| `npm run design:build` | green |
+| Read in a browser at phone and desktop width | |
+| Printed | |
+
+## Known limitations
+
+What this build does not do, and was never going to. Different from *Faked*: that section is about
+things that look wired and are not.
+
+| | |
+|---|---|
+| — | — |
+
 ## Waivers
 
 Every audit rule silenced, with the reason. A waiver nobody can find is a rule that was quietly

@@ -44,6 +44,11 @@ Generate what can be generated, and do not restate what another file already hol
 - **Faked** — every interaction that is a stub, named specifically. "The filters are decorative"
   beats "some things are not wired up" by a week of somebody's time.
 - **Waivers** — every audit rule silenced, with its reason.
+- **What was checked, and what could not be** — the checks that actually ran, and the ones this
+  environment could not run, named. A gap somebody can see is a gap somebody can close; a check
+  silently skipped reads exactly like a check that passed.
+- **Known limitations** — what this build does not do and was never going to. Different from
+  *Faked*, which is about things that look wired and are not.
 - **Promotion status** — do *not* put it here. It lives in `.promoted.json` and is read with
   `ui-drift`. Two places holding one fact is how both become wrong.
 
