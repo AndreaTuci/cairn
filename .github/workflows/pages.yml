@@ -1,0 +1,68 @@
+# The guide, published.
+#
+# cairn's own workbench is the guide, so this deploys `design/dist` — and it runs
+# the gate first. A guide that argues for a blocking audit and then publishes past
+# its own is an argument nobody has to take seriously; if `design:check` finds a
+# blocking issue, nothing ships.
+name: guide
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'design/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+# The token needs to write Pages and to prove who it is. Nothing else.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time, and a newer push waits rather than racing.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: design
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: design/package-lock.json
+
+      # `ci`, not `install`: the lockfile is the pin that makes a workbench which
+      # built in March build in September, and `install` is allowed to move past it.
+      - run: npm ci
+
+      - name: The gate
+        run: npm run design:check
+
+      - name: Build
+        env:
+          CAIRN_SITE: https://${{ github.repository_owner }}.github.io
+          CAIRN_BASE: /${{ github.event.repository.name }}
+        run: npm run design:build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: design/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
