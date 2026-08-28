@@ -270,11 +270,14 @@ Everything that looks like it works and does not.
 |---|---|
 | `npm run design:check` | clean — 0 blocking, 2 advisory |
 | `npm run design:build` | green — 4 pages, no client JavaScript |
-| Read in a browser at phone and desktop width | TO BE VALIDATED |
+| Read in a browser, desktop, all four pages and every link | checked 2026-08-28, on the published site |
+| Read at phone width | TO BE VALIDATED |
 | Printed | TO BE VALIDATED |
 
-The last two have never been run by an agent in this repository. They are the designer's and they
-are named here rather than assumed.
+The browser pass found one: the site name in the header was a hand-written `href="/"`, the only
+link on the page that did not go through `navigation.ts`, and under a deployment base it left the
+site. Fixed by exporting `withBase()` and routing the logo through it like everything else. No
+agent has run the last two rows; they are named here rather than assumed.
 
 ## Known limitations
 
