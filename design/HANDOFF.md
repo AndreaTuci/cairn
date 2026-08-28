@@ -4,7 +4,7 @@
 > It answers one question ahead of every other: **what here is real, and what is faked?**
 >
 > This document does not track who has promoted what — that lives in `.promoted.json` and is read
-> with `node .ui/ui-drift.mjs --root .`. Two places holding the same fact is how both become wrong.
+> with `node design/.ui/ui-drift.mjs --root design`. Two places holding the same fact is how both become wrong.
 
 Last updated: 2026-08-28 (fourth session — the English pass, and the step list)
 
@@ -264,19 +264,26 @@ Everything that looks like it works and does not.
 |---|---|---|
 | — | nothing | All three pages are static documents. Every link goes where it says, all are internal, and there is no control on any page that pretends to do something |
 
-## Waivers
+## Checked, and not checked
 
-Every audit rule silenced, with the reason. A waiver nobody can find is a rule that was quietly
-deleted.
+| Check | Result |
+|---|---|
+| `npm run design:check` | clean — 0 blocking, 2 advisory |
+| `npm run design:build` | green — 4 pages, no client JavaScript |
+| Read in a browser at phone and desktop width | TO BE VALIDATED |
+| Printed | TO BE VALIDATED |
 
-| File | Rule | Reason | Date |
-|---|---|---|---|
-| — | — | none taken. `npm run design:check` reports no blocking findings | — |
+The last two have never been run by an agent in this repository. They are the designer's and they
+are named here rather than assumed.
 
-Two standing advisories, neither a waiver: `pages/composition.astro` at 209 lines against 250,
-and `components/PartsGallery.astro` at 134 against 150. Both are the same pressure from the same
-place — the gallery grows every time the project does. The next component added to it wants a split
-(primitives and composed, most likely), not a bigger budget.
+## Known limitations
+
+| | |
+|---|---|
+| The four pages are static documents | Nothing is fetched, so three of the four states are n/a rather than drawn |
+| The skills and the audit rules are typed by hand | They exist in the repository and are not read from it — see Open questions, row 1 |
+| `SHOWN_IN_GALLERY` is typed by hand | Adding a component does not add it to the gallery, and the page's arithmetic goes wrong silently — row 5 |
+
 
 ## Islands and interactivity
 
