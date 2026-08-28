@@ -156,7 +156,19 @@ npm run design:check
 
 ### 6. Show it 🔴
 
-Give them the URL, say what to look at, and stop. Something like:
+**First make sure the page is actually being served.** Nothing else in the system starts the dev
+server — the kickoff builds, checks and inventories, but never runs it — so if `npm run design` is
+not already going, start it now and **read the URL off its output** rather than from memory. The
+port is 4321 only when 4321 was free.
+
+```bash
+npm run design
+```
+
+It stays running: it is a server, not a command that finishes. Leave it, and the browser updates
+by itself as you work.
+
+Then give them the URL, say what to look at, and stop. Something like:
 
 > 🔴 Pronto — apri `localhost:4321/pricing`.
 > Ci sono tre piani, quello centrale in evidenza. Gli stati vuoto e errore li vedi cambiando
