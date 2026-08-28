@@ -94,12 +94,15 @@ choices get made in an afternoon.
 
 ## The guide
 
-cairn has a guide, and it is built with cairn: four pages explaining what it is, every step of
-using it, the reference, and how the guide itself is composed. Running the tool on itself is also
-how it gets tested — the audit that gates your project gates that one.
+**[andreatuci.github.io/cairn](https://andreatuci.github.io/cairn)** — four pages: what cairn is,
+every step of using it, the reference, and how the guide itself is composed.
 
-It lives in `design/` **in the repository, not in this package**. It is a product of the tool
-rather than part of it, and shipping it would put a second `src/components/` inside your
+It is built with cairn, which is also how cairn gets tested: the audit that gates your project
+gates that one, and the deployment runs it before publishing. A guide that argues for a blocking
+gate and then ships past its own would be an argument nobody has to take seriously.
+
+The source lives in `design/` **in the repository, not in this package**. It is a product of the
+tool rather than part of it, and shipping it would put a second `src/components/` inside your
 `node_modules` for an agent to find and mistake for yours.
 
 ```bash
