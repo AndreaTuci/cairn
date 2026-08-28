@@ -4,7 +4,7 @@
 > It answers one question ahead of every other: **what here is real, and what is faked?**
 >
 > This document does not track who has promoted what — that lives in `.promoted.json` and is read
-> with `node .ui/ui-drift.mjs --root .`. Two places holding the same fact is how both become wrong.
+> with `node design/.ui/ui-drift.mjs --root design`. Two places holding the same fact is how both become wrong.
 
 Last updated: YYYY-MM-DD
 
@@ -77,10 +77,13 @@ assumes passed is worse than one that was never claimed.
 
 | Check | Result |
 |---|---|
-| `npm run design:check` | clean |
-| `npm run design:build` | green |
-| Read in a browser at phone and desktop width | |
-| Printed | |
+| `npm run design:check` | TO BE VALIDATED |
+| `npm run design:build` | TO BE VALIDATED |
+| Read in a browser at phone and desktop width | TO BE VALIDATED |
+| Printed | TO BE VALIDATED |
+
+Every row starts as `TO BE VALIDATED`, so writing a result is a deliberate act and leaving one is
+visible. Never write a result for a check you did not run.
 
 ## Known limitations
 
@@ -91,13 +94,6 @@ things that look wired and are not.
 |---|---|
 | — | — |
 
-## Waivers
-
-Every audit rule silenced, with the reason. A waiver nobody can find is a rule that was quietly
-deleted.
-
-| File | Rule | Reason | Date |
-|---|---|---|---|
 
 ## Islands and interactivity
 

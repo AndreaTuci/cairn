@@ -43,7 +43,9 @@ Generate what can be generated, and do not restate what another file already hol
   no separate backend skill is needed yet.
 - **Faked** — every interaction that is a stub, named specifically. "The filters are decorative"
   beats "some things are not wired up" by a week of somebody's time.
-- **Waivers** — every audit rule silenced, with its reason.
+- **Waivers** — do *not* put them here either. They live in `UI-STACK.md`, which outlives a batch,
+  and the audit prints every one it honoured on every run so the register is a paste rather than a
+  memory test.
 - **What was checked, and what could not be** — the checks that actually ran, and the ones this
   environment could not run, named. A gap somebody can see is a gap somebody can close; a check
   silently skipped reads exactly like a check that passed.
