@@ -103,7 +103,7 @@
  * These are the only names markup is allowed to use.
  */
 @theme inline {
-  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-sans);
 
   /* The type scale. Six steps, and six is enough: every one-off font size in a

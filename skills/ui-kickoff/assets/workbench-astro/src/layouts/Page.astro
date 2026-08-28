@@ -3,6 +3,7 @@
  * The page shell. Every screen in the workbench uses it, so the theme, the fonts
  * and the document language are declared once.
  */
+import { Font } from 'astro:assets'
 import '../styles/theme.css'
 
 interface Props {
@@ -13,11 +14,17 @@ const { title } = Astro.props
 ---
 
 <!doctype html>
+<!-- Set this to the language the site is actually written in, at kickoff.
+     A page that lies about its language is read wrong by a screen reader and
+     indexed wrong by a search engine, and nothing else ever surfaces it. -->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <!-- Declared in astro.config.mjs, named in theme.css. When the direction
+         calls for a different face, all three change in the same edit. -->
+    <Font cssVariable="--font-body" preload />
   </head>
   <body class="min-h-dvh">
     <slot />
