@@ -8,8 +8,8 @@ Two rules that matter more than the list itself:
 - **Batch them.** Three numbered questions in one message, each with your suggested answer beside
   it, so the fast reply is "1 and 3 fine, on 2 let's do…". The same three questions in three
   messages is three interruptions.
-- **Ask them in Italian**, in the designer's language. The phrasings below are the intent, not the
-  script.
+- **Ask them in the team's working language**, the one recorded in `UI-STACK.md`. The phrasings
+  below are the intent, not the script.
 
 ## Scope — what am I actually building?
 

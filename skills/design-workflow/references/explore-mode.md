@@ -46,8 +46,8 @@ found become tokens, the layout you found becomes components. What does not trav
 
 Say it plainly, so it is obvious to everyone that different rules are in force:
 
-> 🟡 Metto tre versioni in `explore/` — le apri, mi dici quale, e quella la costruisco per davvero.
-> Quelle in explore sono da buttare, servono solo per scegliere.
+> 🟡 I am putting three versions in `explore/` — open them, tell me which one, and that is the one
+> I build for real. The ones in explore are throwaway; they exist only so you can choose.
 
 Name them for what makes them different, not by number: `pricing-dense.astro`,
 `pricing-airy.astro`, `pricing-comparison.astro`. `pricing-1/2/3` tells nobody anything a week
