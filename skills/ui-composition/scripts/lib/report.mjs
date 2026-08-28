@@ -21,11 +21,11 @@ const green = (text) => paint('32', text)
 
 const MAX_VALUES_SHOWN = 8
 
-export function render(findings, { root, showAdvisory }) {
+export function render(findings, { root, showAdvisory, files = [], config = null }) {
   const blocking = findings.filter((finding) => finding.severity === SEVERITY.BLOCKING)
   const advisory = findings.filter((finding) => finding.severity === SEVERITY.ADVISORY)
 
-  const lines = [`${bold('ui-audit')} ${dim(`- ${root}`)}`, '']
+  const lines = [`${bold('ui-audit')} ${dim(`- ${root}`)}`, ...scopeLine(files, config), '']
 
   if (blocking.length > 0) {
     lines.push(red(bold(`BLOCKING - ${blocking.length}`)), '')
@@ -37,6 +37,7 @@ export function render(findings, { root, showAdvisory }) {
     lines.push(...groupsFor(advisory))
   }
 
+  lines.push(...waiverBlock(files))
   lines.push(summary(blocking, advisory, showAdvisory))
   return lines.join('\n')
 }
@@ -78,6 +79,45 @@ function renderRule(rule, group) {
 
   lines.push(`  ${green('->')} ${group[0].fix}`, '')
   return lines
+}
+
+/**
+ * What the run actually looked at.
+ *
+ * Without it, a scan narrowed by `--ignore` and a genuinely clean project print
+ * the same sentence, and a budget moved in `ui-audit.config.json` never appears
+ * anywhere. "Clean" has to be readable as a claim about a known scope.
+ */
+function scopeLine(files, config) {
+  if (files.length === 0 || !config) return []
+  const kinds = config.extensions.join(' ')
+  const budgets = `component ${config.budgets.component} / page ${config.budgets.page}`
+  const extra = config.extraIgnoreDirs?.length
+    ? `  ${dim(`also skipping: ${config.extraIgnoreDirs.join(', ')}`)}`
+    : ''
+  return [dim(`   ${files.length} files (${kinds}) · ${budgets} · tokens ${config.tokenFile}`) + extra]
+}
+
+/**
+ * The waivers this project is carrying, printed every run.
+ *
+ * A waiver is meant to be a decision somebody can find and question later. Kept
+ * only in a register somebody updates by hand, it is a decision that stops being
+ * findable the first time anyone forgets; generated, the register is a paste.
+ */
+function waiverBlock(files) {
+  const taken = files.flatMap((file) => file.waivers.map((waiver) => ({ file: file.rel, ...waiver })))
+  if (taken.length === 0) return []
+  return [
+    yellow(bold(`WAIVED - ${taken.length}`)),
+    '',
+    ...taken.map((waiver) =>
+      `  ${waiver.rule.padEnd(20)} ${dim(`${waiver.file}:${waiver.line}`)}  ${waiver.reason}`),
+    '',
+    dim('  Every one of these is a rule switched off on purpose. Record them in'),
+    dim('  UI-STACK.md; the third identical waiver means the rule is wrong.'),
+    '',
+  ]
 }
 
 function summary(blocking, advisory, showAdvisory) {

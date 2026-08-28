@@ -57,7 +57,12 @@ function loadConfig(root, flags) {
   const path = join(root, CONFIG_FILE)
   const fromFile = existsSync(path) ? JSON.parse(readFileSync(path, 'utf8')) : {}
   const config = resolveConfig({ ...fromFile, ...flags })
-  if (flags.extraIgnoreDirs) config.ignoreDirs = [...config.ignoreDirs, ...flags.extraIgnoreDirs]
+  if (flags.extraIgnoreDirs) {
+    config.ignoreDirs = [...config.ignoreDirs, ...flags.extraIgnoreDirs]
+    // Kept so the report can say the scan was narrowed. A directory excluded
+    // without anyone seeing it is the difference between "clean" and "not read".
+    config.extraIgnoreDirs = flags.extraIgnoreDirs
+  }
   return config
 }
 
@@ -95,7 +100,9 @@ function main() {
   if (options.json) {
     console.log(JSON.stringify({ root: searchRoot, fileCount: files.length, findings }, null, 2))
   } else {
-    console.log(render(findings, { root: searchRoot, showAdvisory: options.showAdvisory }))
+    console.log(render(findings, {
+      root: searchRoot, showAdvisory: options.showAdvisory, files, config,
+    }))
   }
 
   return findings.some((finding) => finding.severity === 'blocking') ? 1 : 0
