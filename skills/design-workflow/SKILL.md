@@ -224,6 +224,42 @@ The same shape works everywhere:
 If they insist after you have explained the trade-off, do it their way and record it. It is their
 design. Silent resistance is worse than a written waiver.
 
+## Working from an attached image
+
+Designers arrive with pictures — it is often the very first thing in the very first message. The
+same screenshot can mean three entirely different things, and **you cannot tell which from the
+pixels**. So ask, once, before reading it properly:
+
+> — *"Prima di guardarlo bene: è un riferimento, tipo «fai che dia questa sensazione»? Oppure è la
+>    struttura che vuoi, come un wireframe? O è una schermata che esiste già?"*
+
+One question, and it changes everything that follows:
+
+| What it is | Take | Leave |
+|---|---|---|
+| **A reference** — something they liked | the direction: the mood of the palette, the personality of the type, the density, the one device that makes it memorable | the layout, the components, the copy, the proportions |
+| **A wireframe** — their own sketch | the structure: what is on the screen, in what order, grouped how, what is a list and what is a card | every measurement, every colour, the typeface. A wireframe is grey on purpose |
+| **A comp** — a finished visual design | both — but snap every value to the scale | anything the scale does not have. That is a token decision to raise, not a number to copy |
+| **An existing screen** — the product as it is today | what exists, and the words it already uses | treat it as a constraint, not a target, unless they say otherwise |
+
+**Never measure an image.** Reading pixel values off a screenshot is exactly where
+`w-[174.706px]` comes from — and a screenshot is worse than a Figma export, because the export was
+at least authoritative about something. Read proportion and hierarchy instead: *"the image takes
+about a third of the width"*, never *"the image is 412 pixels"*.
+
+**Say what you took and what you left**, in one line, before building. It is the cheapest
+correction available, and it arrives before any work is wasted:
+
+> — *"Da questo prendo l'aria e l'abbinamento dei caratteri, non l'impaginazione: la loro ha tre
+>    colonne e a noi ne servono due. Ti torna?"*
+
+**A reference is not a target.** If what they hand you is a competitor's live site, the job is to
+take the direction, not to rebuild it. Say it plainly once and move on — a designer knows this
+better than you do, and hearing it said is reassurance rather than a lecture.
+
+Several images at once are usually one direction plus one structure. Say which you read as which,
+and let them correct you.
+
 ## Working from Figma
 
 Designers will paste exports, screenshots and inspector values. Those values are where
