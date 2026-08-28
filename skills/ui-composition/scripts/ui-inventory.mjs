@@ -14,7 +14,7 @@
  */
 
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
-import { resolve, join, dirname } from 'node:path'
+import { resolve, join, dirname, relative, sep } from 'node:path'
 
 import { resolveConfig } from './lib/config.mjs'
 import { collectFiles } from './lib/scan.mjs'
@@ -127,19 +127,19 @@ function describe(component, files) {
   }
 }
 
-function renderSection(title, entries, note) {
+function renderSection(title, entries, note, linkPrefix) {
   if (entries.length === 0) return []
   const lines = [`## ${title}`, '', note, '', '| Component | Variants | Props | Used | Lines |', '|---|---|---|---|---|']
   for (const entry of entries) {
     lines.push(
-      `| [\`${entry.name}\`](${entry.path}) | ${entry.variants.join('<br>') || '—'} ` +
+      `| [\`${entry.name}\`](${linkPrefix}${entry.path}) | ${entry.variants.join('<br>') || '—'} ` +
       `| ${entry.props.join(', ') || '—'} | ${entry.uses} | ${entry.lines} |`,
     )
   }
   return [...lines, '']
 }
 
-function render(components) {
+function render(components, linkPrefix) {
   const primitives = components.filter((entry) => entry.path.includes('/ui/'))
   const composed = components.filter((entry) => !entry.path.includes('/ui/'))
 
@@ -151,8 +151,8 @@ function render(components) {
     'Read this before building anything. If what you need is here, use it. If it is',
     'nearly here, add a variant to it. Only what is genuinely absent gets a new file.',
     '',
-    ...renderSection('Primitives', primitives, 'The building blocks. Everything else is made of these.'),
-    ...renderSection('Components', composed, 'Built from the primitives, for this project.'),
+    ...renderSection('Primitives', primitives, 'The building blocks. Everything else is made of these.', linkPrefix),
+    ...renderSection('Components', composed, 'Built from the primitives, for this project.', linkPrefix),
     `_${components.length} components — ${components.filter((entry) => entry.uses === 0).length} currently unused._`,
     '',
   ].join('\n')
@@ -194,7 +194,12 @@ function main() {
     .map((file) => describe(file, files))
     .sort((a, b) => b.uses - a.uses || a.name.localeCompare(b.name))
 
-  const markdown = render(components)
+  // Paths are relative to the source root; the file is written at the workbench
+  // root one level up. Without the prefix every link in the generated inventory
+  // is broken, in the one document the rules tell everybody to open first.
+  const linkPrefix = searchRoot === root ? '' : `${relative(root, searchRoot).split(sep).join('/')}/`
+
+  const markdown = render(components, linkPrefix)
   if (options.write) {
     const target = join(root, OUTPUT_FILE)
     const dataTarget = join(root, DATA_FILE)
