@@ -49,8 +49,8 @@ you stopped on purpose or went quiet.
 | 🟡 | Working, with a checkpoint coming |
 | 🟢 | Agreed, going ahead |
 
-No phase documents, no plans, no commit tables. A designer's checkpoint is *"open
-`localhost:4321/pricing` and tell me if that's what you meant"*. That is the whole ceremony.
+No phase documents, no plans, no commit tables. A designer's checkpoint is *"open this address
+and tell me if that's what you meant"*. That is the whole ceremony.
 
 **Never mention git and never run it.** Committing is the developers' job, and a designer being
 asked to reason about it is a designer about to have a bad afternoon.
@@ -164,18 +164,34 @@ is written in `UI-STACK.md`. Read it there.
 Only if the project has no visual direction yet. If `theme.css` already holds the brand, skip
 straight to step 4.
 
-**Use the `frontend-design` skill here, and only here.** It is built to push toward a distinctive
-point of view, which is exactly what this step needs and exactly what every later step does not.
-Take from it two things:
+This step is a conversation, and it is the one place in the whole loop where a proposal is the
+right opening move. You bring a direction, the designer corrects it, and it is settled once. It is
+never skipped: a project with no direction gets one by accident, screen by screen, and that is how
+a product ends up looking like four products.
+
+**Start from the subject, not from a palette.** Whatever the thing *is* — the material it is made
+of, the room it lives in, the words its people use — is where a direction that could only belong to
+this project comes from. A palette chosen before the subject is a palette that would have fitted
+anything, and it usually has: an agent given a free hand reaches for the same warm cream and the
+same serif every time. If the brief already pins the direction down, follow it exactly; its words
+win over anything you would have picked.
+
+Two things come out of this step, and nothing else does:
 
 - a **token set** — 4–6 colours, the typefaces, the type scale, radius and motion
 - a **signature element** — the one thing this design is remembered by
 
-Then close it. From step 4 onward, `ui-composition` is the only authority, and the boldness lives
-in the signature element rather than being spread thin across every screen.
+**Spend the boldness in one place.** The signature element carries it; everything around it stays
+quiet and disciplined. That is what makes it survive step 4, where `ui-composition` becomes the
+only authority and there is no room left for a bold decision — nor any need for one.
 
-Show the direction as a real screen, not a description. A palette swatch tells a designer nothing
-they cannot already imagine.
+**Show it as a real screen, not a description.** A palette swatch tells a designer nothing they
+cannot already imagine, and a direction they cannot see is a direction they will only be able to
+reject after it has been built into twelve components.
+
+**Write down the direction in one paragraph** in `UI-STACK.md` — the subject, what the page is made
+of, what the signature is, and the constraint it has to satisfy. It is the thing the next session
+would otherwise reverse-engineer from the token file, and the token file cannot say why.
 
 ### 3. Tokens 🟢
 
@@ -231,7 +247,7 @@ by itself as you work.
 
 Then give them the URL, say what to look at, and stop. Something like:
 
-> 🔴 Ready — open `localhost:4321/pricing`.
+> 🔴 Ready — open `localhost:<the port it printed>/pricing`.
 > Three plans, the middle one emphasised. You can see the empty and error states by changing
 > `state` at the top of the file, or say the word and I will show you.
 > Tell me whether this is what you had in mind.
@@ -317,6 +333,11 @@ The same shape works everywhere:
 
 If they insist after you have explained the trade-off, do it their way and record it. It is their
 design. Silent resistance is worse than a written waiver.
+
+**The accessibility floor is the exception, and it is the only one.** An alt, an accessible name,
+a heading order, a visible focus ring: those are not two paths, and there is no version of the
+screen where removing one is the designer's call — a waiver silences the audit, not the reader
+using a keyboard. Say what it would cost and offer the design change that keeps it.
 
 ## Working from an attached image
 

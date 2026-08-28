@@ -17,7 +17,7 @@ Explorations route normally, so the designer can open and compare them in the br
 listed on the index page under a separate heading — **Explorations** — marked as throwaway, never
 mixed in with the real screens.
 
-The audit skips `explore/` entirely. That is deliberate and it is the point.
+The audit skips `pages/explore/` entirely. That is deliberate and it is the point — and it is matched as a path rather than as a folder name, so a product that ships a real `/explore` route is still audited like every other route.
 
 ## What is suspended in there
 
