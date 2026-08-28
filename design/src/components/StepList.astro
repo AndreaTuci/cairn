@@ -1,0 +1,41 @@
+---
+/**
+ * StepList — a run of numbered steps, continuing a count that runs across the
+ * whole page.
+ *
+ * Not a `DefinitionRow`, and the difference is worth stating once so nobody
+ * merges them later: a definition is a term and what it means, set in three
+ * columns because a term needs the width. A step number is an ordinal, two
+ * characters wide, and giving it a third of the row would leave a column of
+ * nothing down the length of a procedure.
+ *
+ * The numbering is passed in rather than restarting at 1 per group. A reader
+ * following this with a terminal open needs "step 21", not "step 6 of the fourth
+ * group", so the page owns the running count and this owns the rows.
+ */
+import StepNumber from './ui/StepNumber.astro'
+import RichText from './RichText.astro'
+
+interface Props {
+  /** One imperative line each. Backticked terms are set as code. */
+  steps: string[]
+  /** 1-based number of the first step, continuing the page's running count. */
+  start: number
+  class?: string
+}
+
+const { steps, start, class: extra } = Astro.props
+---
+
+<ol class:list={['border-t border-rule', extra]}>
+  {
+    steps.map((step, index) => (
+      <li class="flex gap-6 border-b border-rule px-3 py-4">
+        <StepNumber index={start + index} class="mt-1.5 shrink-0" />
+        <span class="text-base text-foreground">
+          <RichText copy={step} />
+        </span>
+      </li>
+    ))
+  }
+</ol>

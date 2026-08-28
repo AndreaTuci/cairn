@@ -1,0 +1,83 @@
+---
+/**
+ * Getting started — every step of using cairn, from an empty repository to a
+ * component running in production.
+ *
+ * The other pages argue; this one is a procedure. A reader comes back to it with
+ * a terminal open beside them, which is why the steps are numbered once across
+ * the whole page rather than restarting per group, and why the commands are
+ * verbatim.
+ *
+ * The groups say who does what and how often. The count says that nothing was
+ * left out — a step somebody has to ask a colleague about is a step this page is
+ * missing.
+ */
+import Page from '../layouts/Page.astro'
+import PageIntro from '../components/PageIntro.astro'
+import Section from '../components/Section.astro'
+import StepList from '../components/StepList.astro'
+import DefinitionRow from '../components/DefinitionRow.astro'
+import RoleBadge from '../components/RoleBadge.astro'
+import RichText from '../components/RichText.astro'
+import Text from '../components/ui/Text.astro'
+import Code from '../components/ui/Code.astro'
+import { stepGroups, stepCount } from '../fixtures/steps'
+import { promotionRoutes } from '../fixtures/promotion'
+---
+
+<Page
+  title="Getting started — cairn"
+  description={`${stepCount} steps, in order, from an empty repository to a component running in production.`}
+>
+  <PageIntro
+    title="Getting started"
+    lead={`${stepCount} steps, in order, from an empty repository to a component running in production.`}
+  >
+    <Text class="mt-6 max-w-2xl">
+      The other pages say what cairn is and what each role does with it. This one is the order: who
+      does what, when, and every step there is. Somebody who has never seen cairn should be able to
+      follow it without asking anyone — so nothing is summarised and nothing is left out.
+    </Text>
+  </PageIntro>
+
+  <div class="mt-16 space-y-16">
+    {
+      stepGroups.map((group) => (
+        <Section title={group.title} tone={group.readBy === 'both' ? 'default' : group.readBy}>
+          <RoleBadge slot="eyebrow" role={group.readBy} />
+          <Text slot="eyebrow" variant="note" as="div">
+            {group.cadence}
+          </Text>
+
+          <Text class="max-w-2xl">
+            <RichText copy={group.why} />
+          </Text>
+
+          <StepList class="mt-8" steps={group.steps} start={group.start} />
+        </Section>
+      ))
+    }
+
+    <Section title="Where things land" tone="developer">
+      <Text class="max-w-2xl">
+        The table steps 7 and 25 refer to. Paths are relative to <Code>design/</Code>, and the last
+        row is the one that matters: mock data is never promoted, it is replaced.
+      </Text>
+
+      <dl class="mt-8 border-t border-rule">
+        {
+          promotionRoutes.map((route) => (
+            <DefinitionRow term={route.from}>
+              <RichText copy={route.to} />
+            </DefinitionRow>
+          ))
+        }
+      </dl>
+
+      <Text variant="note" class="mt-6 max-w-2xl">
+        Here the right-hand column is empty, and it says why: in this guide the workbench is the
+        deliverable, so there is no project to carry anything into.
+      </Text>
+    </Section>
+  </div>
+</Page>

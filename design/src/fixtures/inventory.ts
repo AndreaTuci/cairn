@@ -19,12 +19,12 @@ export const componentCount = inventory.components.length
 const unused = inventory.components.filter((component) => component.uses === 0).length
 
 /** By hand until the gallery derives its own list — see handoff, open question 5. */
-const SHOWN_IN_GALLERY = 11
+const SHOWN_IN_GALLERY = 12
 
 export const composition: Metric[] = [
-  { value: String(componentCount), label: 'Componenti in tutta la guida' },
-  { value: String(unused), label: 'Componenti che non usa nessuno — uno solo bloccherebbe il controllo' },
-  { value: String(SHOWN_IN_GALLERY), label: 'Quelli che puoi vedere funzionare qui sotto' },
+  { value: String(componentCount), label: 'Components in the whole guide' },
+  { value: String(unused), label: 'Components nobody uses — one alone would block the check' },
+  { value: String(SHOWN_IN_GALLERY), label: 'The ones you can watch running below' },
 ]
 
 export interface PageFramePart {
@@ -35,12 +35,15 @@ export interface PageFramePart {
 }
 
 export const pageFrame: PageFramePart[] = [
-  { name: 'SiteHeader', where: 'la barra qui sopra, con il nome e le quattro pagine' },
-  { name: 'PageIntro', where: 'il titolo di questa pagina, e il primo segno appeso al filo' },
-  { name: 'Section', where: 'ogni titolo che stai scorrendo, con il suo segno' },
-  { name: 'SiteFooter', where: 'il link in fondo, che porta alla pagina dopo' },
-  { name: 'Specimen', where: 'la cornice di ognuna delle teche qui sopra: la stai già guardando undici volte' },
-  { name: 'PartsGallery', where: 'la griglia che le tiene tutte e undici' },
+  { name: 'SiteHeader', where: 'the bar above, with the name and the four pages' },
+  { name: 'PageIntro', where: "this page's title, and the first mark hung on the rail" },
+  { name: 'Section', where: 'every heading you are scrolling past, with its own mark' },
+  { name: 'SiteFooter', where: 'the link at the bottom, leading to the next page' },
+  {
+    name: 'Specimen',
+    where: `the frame round every case above — you are looking at ${SHOWN_IN_GALLERY} of them`,
+  },
+  { name: 'PartsGallery', where: `the grid holding all ${SHOWN_IN_GALLERY}` },
 ]
 
 export interface StateAnswer {
@@ -57,12 +60,12 @@ export interface StateAnswer {
  */
 export const statesNotDrawn: StateAnswer[] = [
   {
-    name: 'vuoto',
-    why: "Le cinque skill e le dieci regole sono liste chiuse. Una guida senza skill dentro non è uno stato: è una build rotta.",
+    name: 'empty',
+    why: 'The five skills and the ten rules are closed lists. A guide with no skills in it is not a state, it is a broken build.',
   },
   {
-    name: 'in caricamento',
-    why: "Non c'è niente da aspettare. Le pagine sono HTML già scritto, senza una riga di JavaScript.",
+    name: 'loading',
+    why: 'There is nothing to wait for. The pages are HTML already written, without a line of JavaScript.',
   },
-  { name: 'in errore', why: "Stesso motivo: non c'è niente che possa fallire." },
+  { name: 'error', why: 'Same reason: there is nothing here that can fail.' },
 ]
