@@ -29,8 +29,8 @@ kit, budgets, pinned versions, waivers — is in `design/UI-STACK.md`.
 
 `design/` is a standalone Astro project: no backend, no docker, no database. It is **permanent**,
 not a phase — designers keep correcting it while development runs, so it is a living source and
-the production code is a copy that drifts from it. `ui-sync` reports that drift; do not go
-looking for it by eye.
+the production code is a copy that drifts from it. `ui-sync` reports which workbench files changed
+since they were last stamped.
 
 ```bash
 cd design && npm run design        # dev server
@@ -44,7 +44,7 @@ HTML that `design:build` produces. There is no production frontend to promote in
 ### Auditing production code
 
 ```bash
-node design/.ui/ui-audit.mjs --root <folder> --token-file <path> --ignore ui --all
+node design/.ui/ui-audit.mjs --root <folder> --token-file <path> --all
 ```
 
 ### Non-negotiables
