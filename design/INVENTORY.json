@@ -4,7 +4,7 @@
       "name": "Text",
       "path": "components/ui/Text.astro",
       "lines": 32,
-      "uses": 53,
+      "uses": 44,
       "props": [
         "variant?",
         "as?"
@@ -18,7 +18,7 @@
       "name": "Section",
       "path": "components/Section.astro",
       "lines": 36,
-      "uses": 21,
+      "uses": 18,
       "props": [
         "title",
         "id?",
@@ -29,18 +29,10 @@
       ]
     },
     {
-      "name": "Code",
-      "path": "components/ui/Code.astro",
-      "lines": 20,
-      "uses": 15,
-      "props": [],
-      "variants": []
-    },
-    {
       "name": "Specimen",
       "path": "components/Specimen.astro",
       "lines": 61,
-      "uses": 13,
+      "uses": 14,
       "props": [
         "name",
         "note?",
@@ -51,18 +43,12 @@
       ]
     },
     {
-      "name": "CodeBlock",
-      "path": "components/ui/CodeBlock.astro",
-      "lines": 49,
-      "uses": 10,
-      "props": [
-        "code",
-        "label?",
-        "wrap?"
-      ],
-      "variants": [
-        "wrap: none · soft"
-      ]
+      "name": "Code",
+      "path": "components/ui/Code.astro",
+      "lines": 20,
+      "uses": 12,
+      "props": [],
+      "variants": []
     },
     {
       "name": "RoleBadge",
@@ -90,6 +76,16 @@
       ]
     },
     {
+      "name": "RichText",
+      "path": "components/RichText.astro",
+      "lines": 19,
+      "uses": 9,
+      "props": [
+        "copy"
+      ],
+      "variants": []
+    },
+    {
       "name": "Blaze",
       "path": "components/ui/Blaze.astro",
       "lines": 47,
@@ -104,10 +100,24 @@
       ]
     },
     {
+      "name": "CodeBlock",
+      "path": "components/ui/CodeBlock.astro",
+      "lines": 49,
+      "uses": 6,
+      "props": [
+        "code",
+        "label?",
+        "wrap?"
+      ],
+      "variants": [
+        "wrap: none · soft"
+      ]
+    },
+    {
       "name": "LabelledList",
       "path": "components/LabelledList.astro",
       "lines": 42,
-      "uses": 7,
+      "uses": 5,
       "props": [
         "title",
         "items",
@@ -118,27 +128,6 @@
       ]
     },
     {
-      "name": "RichText",
-      "path": "components/RichText.astro",
-      "lines": 19,
-      "uses": 7,
-      "props": [
-        "copy"
-      ],
-      "variants": []
-    },
-    {
-      "name": "StepNumber",
-      "path": "components/ui/StepNumber.astro",
-      "lines": 31,
-      "uses": 7,
-      "props": [
-        "index",
-        "of?"
-      ],
-      "variants": []
-    },
-    {
       "name": "PageIntro",
       "path": "components/PageIntro.astro",
       "lines": 28,
@@ -146,6 +135,16 @@
       "props": [
         "title",
         "lead"
+      ],
+      "variants": []
+    },
+    {
+      "name": "StepNumber",
+      "path": "components/ui/StepNumber.astro",
+      "lines": 27,
+      "uses": 4,
+      "props": [
+        "index"
       ],
       "variants": []
     },
@@ -174,9 +173,20 @@
       "variants": []
     },
     {
+      "name": "StepList",
+      "path": "components/StepList.astro",
+      "lines": 42,
+      "uses": 2,
+      "props": [
+        "steps",
+        "start"
+      ],
+      "variants": []
+    },
+    {
       "name": "PartsGallery",
       "path": "components/PartsGallery.astro",
-      "lines": 121,
+      "lines": 134,
       "uses": 1,
       "props": [],
       "variants": []
@@ -184,7 +194,7 @@
     {
       "name": "SiteFooter",
       "path": "components/SiteFooter.astro",
-      "lines": 27,
+      "lines": 37,
       "uses": 1,
       "props": [],
       "variants": []
