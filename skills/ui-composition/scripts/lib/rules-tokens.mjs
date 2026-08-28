@@ -29,6 +29,7 @@ export function checkTokens(files, config) {
   return [
     ...files.flatMap((file) => rawColors(file, parsed.get(file).ranges, config)),
     ...files.flatMap((file) => inlineStyles(file)),
+    ...files.flatMap((file) => dynamicClassNames(file, parsed.get(file).fragments)),
     ...classIndex.flatMap((entry) => classFindings(entry, repeated, config)),
   ]
 }
@@ -60,7 +61,10 @@ function classFindings(entry, repeated, config) {
     if (!file.waivedAt(line, rule)) found.push({ rule, severity, file: file.rel, line, excerpt: className, message, fix })
   }
 
-  if (important && !entry.bound) {
+  // No `bound` guard: a bound value is mined for its string literals only, so the
+  // JavaScript negation this used to protect (`!dragging`) never reaches here —
+  // and the guard silently exempted every class map in a script block.
+  if (important) {
     add('important', SEVERITY.BLOCKING,
       'Forces a style through specificity instead of fixing the cause.',
       'Remove the `!` and resolve the conflict where it originates.')
@@ -104,6 +108,17 @@ function classFindings(entry, repeated, config) {
   return found
 }
 
+/** A class name built from an interpolated fragment never reaches the stylesheet. */
+function dynamicClassNames(file, fragments) {
+  return (fragments ?? [])
+    .filter(({ line }) => !file.waivedAt(line, 'dynamic-class'))
+    .map(({ fragment, line }) => ({
+      rule: 'dynamic-class', severity: SEVERITY.ADVISORY, file: file.rel, line, excerpt: fragment,
+      message: 'A class name assembled from a fragment. Tailwind never generates it, so the element renders unstyled.',
+      fix: 'Write the whole names in a map and pick one — which is what a variant map already is.',
+    }))
+}
+
 /** Raw colours in markup, script and — the common case — inline SVG attributes. */
 function rawColors(file, classRanges, config) {
   if (file.rel.endsWith(config.tokenFile.split('/').at(-1))) return []
@@ -132,7 +147,6 @@ function rawColors(file, classRanges, config) {
     if (isInsideClassAttribute(classRanges, match.index) || file.isInsideComment(match.index)) continue
     const line = file.lineAt(match.index)
     if (file.waivedAt(line, 'raw-color')) continue
-    if (file.lines[line - 1].includes('var(--')) continue
     found.push({
       rule: 'raw-color', severity: SEVERITY.BLOCKING, file: file.rel, line,
       excerpt: match[0], message: 'A colour written by hand, outside the token file.',

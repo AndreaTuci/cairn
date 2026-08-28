@@ -67,7 +67,14 @@ export function looksLikeColor(value) {
  * Semantic tokens (`bg-primary`, `text-muted-foreground`) never match.
  */
 export function usesDefaultRamp(prefix, { colorUtilities, defaultRamps }) {
-  const match = prefix.match(/^([a-z-]+)-([a-z]+)-\d{2,3}$/)
+  // `bg-gray-100/50` is the same ramp with an opacity modifier, and `text-white`
+  // is a ramp with no step at all. Both used to pass.
+  const base = prefix.split('/')[0]
+  const stepless = base.match(/^([a-z-]+)-(white|black)$/)
+  if (stepless && colorUtilities.includes(stepless[1])) {
+    return { utility: stepless[1], ramp: stepless[2] }
+  }
+  const match = base.match(/^([a-z-]+)-([a-z]+)-\d{2,3}$/)
   if (!match) return null
   const [, utility, ramp] = match
   const isColorUtility = colorUtilities.includes(utility)
@@ -82,6 +89,10 @@ export function usesDefaultRamp(prefix, { colorUtilities, defaultRamps }) {
  */
 export function referencesOnlyTokens(value) {
   const withoutVars = value.replace(/var\(--[\w-]+(?:\s*,[^)]*)?\)/g, '')
+  // A unit-bearing number left over is a hand-written scale step riding along
+  // with a token: `p-[calc(var(--gap)+13px)]` used to pass because the letters
+  // that make `13px` a size are the same letters `calc(` is made of.
+  if (/\d\s*(px|rem|em|ch|ex|vh|vw|vmin|vmax|pt|pc|cm|mm|in)\b/i.test(withoutVars)) return false
   return /^[\s\d.,/_%a-z()+*-]*$/i.test(withoutVars) && value.includes('var(--')
 }
 
@@ -114,8 +125,13 @@ export function isStructuralUtility(prefix) {
  * invisible in the `const` two lines above it.
  */
 export function extractClasses(file) {
+  // A fixture is data, and the data of a project about frontend quotes class names
+  // as prose. Mining it would report the sentence that explains the rule.
+  if (file.kind === 'fixture') return { classes: [], fragments: [], ranges: [] }
+
   const attributePattern = /(^|[\s{,(])(:|v-bind:)?(class|className|class:list)\s*=\s*/g
   const classes = []
+  const fragments = []
   const ranges = []
 
   for (const match of file.text.matchAll(attributePattern)) {
@@ -130,6 +146,7 @@ export function extractClasses(file) {
     for (const className of splitClassList(value, bound)) {
       classes.push({ className, line, bound })
     }
+    for (const fragment of splitFragments(value)) fragments.push({ fragment, line })
   }
 
   for (const literal of scriptLiterals(file)) {
@@ -141,9 +158,42 @@ export function extractClasses(file) {
     for (const className of splitClassList(literal.raw, false)) {
       classes.push({ className, line, bound: true })
     }
+    for (const fragment of splitFragments(literal.raw)) fragments.push({ fragment, line })
   }
 
-  return { classes, ranges }
+  return { classes, fragments, ranges }
+}
+
+/**
+ * Class names assembled from an interpolated fragment — `bg-${role}-500`.
+ *
+ * Tailwind scans source text for whole class names, so a name built at runtime is
+ * never generated and the element renders unstyled with nothing failing. The
+ * parser used to drop these tokens silently, which meant the rule against them
+ * was enforced by nobody.
+ *
+ * Deliberately narrow: the token must begin with an actual Tailwind utility and
+ * then interpolate. `${label}` on its own, and `article-${id}`, are far more often
+ * an id or a sentence than a class, and a gate that cries wolf gets ignored.
+ */
+const INTERPOLATING_UTILITY = new RegExp(
+  `^(?:${[
+    'bg', 'text', 'border', 'ring', 'outline', 'divide', 'fill', 'stroke', 'shadow',
+    'from', 'via', 'to', 'accent', 'caret', 'decoration', 'placeholder',
+    'p', 'px', 'py', 'pt', 'pb', 'pl', 'pr', 'm', 'mx', 'my', 'mt', 'mb', 'ml', 'mr',
+    'w', 'h', 'min-w', 'min-h', 'max-w', 'max-h', 'size', 'gap', 'gap-x', 'gap-y',
+    'rounded', 'opacity', 'z', 'top', 'left', 'right', 'bottom', 'inset',
+    'grid-cols', 'grid-rows', 'col-span', 'row-span', 'order', 'basis', 'flex',
+    'leading', 'tracking', 'indent', 'duration', 'delay', 'translate', 'scale', 'rotate',
+  ].join('|')})-\\$\\{`,
+)
+
+function splitFragments(value) {
+  const body = value.slice(1, -1)
+  return body
+    .split(/\s+/)
+    .map((token) => token.trim().replace(/^[\`'"]+|[\`'"]+$/g, ''))
+    .filter((token) => INTERPOLATING_UTILITY.test(token))
 }
 
 /** The script block: an `.astro` frontmatter, or a `<script>` in an SFC. */
@@ -162,6 +212,8 @@ function scriptRegion(file) {
     const bodyStart = match.index + match[0].indexOf('>') + 1
     return [bodyStart, bodyStart + match[1].length]
   }
+  // A module is script all the way down.
+  if (file.ext === '.ts' || file.ext === '.js') return [0, file.text.length]
   return null
 }
 
@@ -170,7 +222,10 @@ function scriptLiterals(file) {
   const region = scriptRegion(file)
   if (!region) return []
   const [from, to] = region
-  return [...file.text.slice(from, to).matchAll(/(['"])([^'"\n]*)\1/g)].map((match) => ({
+  // Backticks included: a class list written as a template literal is still a
+  // class list, and leaving them out made the gate blind to one spelling of the
+  // very idiom the rules ask for. Multi-line literals stay out — those are text.
+  return [...file.text.slice(from, to).matchAll(/(['"`])([^'"`\n]*)\1/g)].map((match) => ({
     start: from + match.index,
     raw: match[0],
   }))

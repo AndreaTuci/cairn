@@ -11,9 +11,12 @@ import { SEVERITY } from './config.mjs'
 
 const IMAGE_PATTERN = /<img\b[^>]*>/g
 const HEADING_PATTERN = /<h([1-6])\b/g
-const CONTROL_PATTERN = /<(button|a)\b([^>]*)>([\s\S]*?)<\/\1>/g
+// Case-insensitive: a control built from this house's own primitives is
+// `<Button>`, and a lower-case-only pattern could not see a single one of them.
+const CONTROL_PATTERN = /<(button|a)\b([^>]*)>([\s\S]*?)<\/\1>/gi
 const FOCUS_SUPPRESSION = /\boutline-none\b|\bfocus:outline-none\b/
-const FOCUS_RESTORATION = /focus-visible:|focus-within:|\bring-/
+// `ring-0` is not a restored focus ring, it is the same removal spelled twice.
+const FOCUS_RESTORATION = /focus-visible:|focus-within:|\bring-(?!0\b)/
 
 export function checkA11y(files) {
   return files.flatMap((file) => [
