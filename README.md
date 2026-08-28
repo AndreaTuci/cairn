@@ -43,7 +43,7 @@ Read [TEAM.md](TEAM.md) for how the two roles actually work together.
 ## Install
 
 ```bash
-npx @lotrek/cairn install
+npx @andreatuci/cairn install
 ```
 
 Run it inside the project you want to set up. It puts the skill folders where the agents look —
@@ -94,8 +94,18 @@ choices get made in an afternoon.
 
 ## The guide
 
-`design/` in this repository is the workbench for cairn's own guide — built with cairn, which is
-also how it gets tested. `cd design && npm install && npm run design`.
+cairn has a guide, and it is built with cairn: four pages explaining what it is, every step of
+using it, the reference, and how the guide itself is composed. Running the tool on itself is also
+how it gets tested — the audit that gates your project gates that one.
+
+It lives in `design/` **in the repository, not in this package**. It is a product of the tool
+rather than part of it, and shipping it would put a second `src/components/` inside your
+`node_modules` for an agent to find and mistake for yours.
+
+```bash
+git clone https://github.com/AndreaTuci/cairn && cd cairn/design
+npm install && npm run design
+```
 
 ## License
 

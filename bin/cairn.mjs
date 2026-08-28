@@ -28,7 +28,7 @@ const TARGETS = {
 }
 
 const USAGE = [
-  'usage: npx @lotrek/cairn install [options]',
+  'usage: npx @andreatuci/cairn install [options]',
   '',
   '  --claude            install for Claude only  (.claude/skills/)',
   '  --copilot           install for Copilot only (.github/skills/ and .github/prompts/)',
