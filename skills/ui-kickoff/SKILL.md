@@ -80,10 +80,23 @@ Work in this order. Each step depends on the one before it.
 
 ### 1. Scaffold the workbench
 
-Copy `assets/workbench-astro/` or `assets/workbench-nuxt/` to `design/`. Keep the pinned
+```bash
+cp -r <skills-source>/ui-kickoff/assets/workbench-astro design    # NOT workbench-astro/* — see below
+```
+
+**No trailing glob.** `cp -r .../workbench-astro/* design/` silently drops every dotfile, and the
+template's are load-bearing: `.claude/settings.json` carries the command allowlist, `.gitignore`
+keeps `node_modules` out of the repository. Nothing later checks they arrived, so the loss is
+permanent and invisible.
+
+Keep the pinned
 dependency versions exactly as they are — they are pinned because the floating ones broke. If a
 version genuinely needs moving, move it, then verify the build in step 8 and record it in
 `UI-STACK.md`.
+
+**Then set the document language.** `src/layouts/Page.astro` ships `lang="en"`. A page that lies
+about its language is read wrong by a screen reader and indexed wrong by a search engine, and
+nothing else in the system ever surfaces it.
 
 The Nuxt flavour ships an `.npmrc` with `legacy-peer-deps=true`. npm 10.x has an arborist bug that
 crashes on Nuxt's peer graph; the flag walks around it and npm ≥ 11 removes the need. Leave the
@@ -199,10 +212,13 @@ ones least likely to be using the agent this was first tested on.
 ```bash
 mkdir -p design/.claude/skills
 cp -r <skills-source>/{ui-composition,design-workflow,ui-sync} design/.claude/skills/
+cp -r <skills-source>/frontend-design design/.claude/skills/
 ```
 
-Add `frontend-design` too if the project has no visual direction yet — `design-workflow` reaches
-for it once, in step 2.
+`frontend-design` is on the second line rather than in a sentence, because a sentence is what gets
+skipped. It is the whole of step 2 in `design-workflow` — the step whose only job is to make the
+first screen look designed — and if it is missing that step quietly becomes a no-op. Copy it
+whenever the project has no visual direction yet, which is almost always.
 
 Then write `design/CLAUDE.md`: short, addressed to a person rather than a machine — what this
 folder is, the three commands, and the one thing to type (`/design-workflow`).
@@ -217,6 +233,11 @@ cp -r <skills-source>/{ui-composition,dev-workflow,ui-sync} .github/skills/
 
 `<skills-source>` is a checkout of the skills repository. A plain copy, deliberately: everything
 here must work on a machine with nothing installed but Node.
+
+**If the skills are already installed at `.claude/skills/`, that folder *is* `<skills-source>`.**
+Mirror it into `.github/skills/` and skip the first line — running it anyway makes `cp` refuse
+three times with *"are the same file"* and exit non-zero, which reads as a broken scaffold when it
+is nothing of the kind.
 
 **Give Copilot the slash commands too.** A folder of skills is not something Copilot reaches for on
 its own; a prompt file is. One thin file per skill, each a pointer rather than a copy:
