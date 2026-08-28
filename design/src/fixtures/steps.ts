@@ -38,7 +38,7 @@ const GROUPS: StepGroup[] = [
     steps: [
       'Install Node 22.19 or newer.',
       'Build the project the way you always would — docker, the backend, the database, the real frontend. cairn does not enter this part and does not ask you to change any of it.',
-      'Run `npx @lotrek/cairn install` inside the project folder. It puts the skills where Claude and Copilot look for them, and does nothing else.',
+      'Run `npx @andreatuci/cairn install` inside the project folder. It puts the skills where Claude and Copilot look for them, and does nothing else.',
       'Type `/ui-kickoff` in the chat with your agent. A terminal command cannot ask you questions, which is why this is a second step and not a flag on the first.',
       'Answer the five questions: what you are building, whether there is a component kit to build on, where the brand starts, which folders belong to developers, and what language the team works in.',
       'Let it scaffold `design/`, seed the token file with the real brand, write `UI-STACK.md` and `BRIEF.md`, install the audit into `design/.ui/`, and write the instruction files that every later session reads.',
