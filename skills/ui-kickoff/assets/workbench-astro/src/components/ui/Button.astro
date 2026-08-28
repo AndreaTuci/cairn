@@ -6,9 +6,12 @@
  *
  * One base, two variant axes, no second copy. Need a button that is not here?
  * Add a variant. Do not add a file.
+ *
+ * Read it top to bottom: the props, then one named list of classes per axis,
+ * then the tag. Nothing is assembled by a helper, and the markup says only which
+ * lists apply - which is the whole point. A reader should never have to open a
+ * second file to know what this renders.
  */
-import { cx, variants } from '../../lib/cx'
-
 interface Props {
   variant?: 'primary' | 'secondary' | 'ghost' | 'destructive'
   size?: 'sm' | 'md' | 'lg'
@@ -18,29 +21,28 @@ interface Props {
 
 const { variant = 'primary', size = 'md', href, class: extra } = Astro.props
 
-const BASE =
-  'inline-flex items-center justify-center gap-2 rounded-md font-semibold ' +
-  'transition-colors disabled:pointer-events-none disabled:opacity-50 ' +
-  'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+const base = [
+  'inline-flex items-center justify-center gap-2 rounded-md font-semibold transition-colors',
+  'disabled:pointer-events-none disabled:opacity-50',
+  'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+]
 
-const VARIANTS = {
-  variant: {
-    primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
-    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-    ghost: 'text-foreground hover:bg-accent',
-    destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-  },
-  size: {
-    sm: 'h-9 px-3 text-sm',
-    md: 'h-10 px-4 text-sm',
-    lg: 'h-11 px-6 text-base',
-  },
-} as const
+const byVariant = {
+  primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+  secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+  ghost: 'text-foreground hover:bg-accent',
+  destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+}
+
+const bySize = {
+  sm: 'h-9 px-3 text-sm',
+  md: 'h-10 px-4 text-sm',
+  lg: 'h-11 px-6 text-base',
+}
 
 const Tag = href ? 'a' : 'button'
-const classes = cx(BASE, variants(VARIANTS, { variant, size }, { variant: 'primary', size: 'md' }), extra)
 ---
 
-<Tag class={classes} href={href}>
+<Tag class:list={[base, byVariant[variant], bySize[size], extra]} href={href}>
   <slot />
 </Tag>

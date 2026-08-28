@@ -9,19 +9,19 @@
  * Special cases aren't special enough to break the rules; when one turns out to
  * be genuine, it arrives as a declared variant.
  */
-import { cx } from '../../lib/cx'
-
 interface Props {
   title?: string
   class?: string
 }
 
 const { title, class: extra } = Astro.props
+
+const base = 'rounded-lg border bg-card text-card-foreground p-6 shadow-card'
 ---
 
-<article class={cx('rounded-lg border bg-card text-card-foreground p-6 shadow-card', extra)}>
+<article class:list={[base, extra]}>
   {title && <h3 class="text-lg font-semibold">{title}</h3>}
-  <div class={title ? 'mt-2' : ''}>
+  <div class:list={[title && 'mt-2']}>
     <slot />
   </div>
 </article>
