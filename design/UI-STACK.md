@@ -5,14 +5,13 @@
 
 ## What we are building
 
-An internal guide to cairn: four static pages — `/`, `/come-si-parte`, `/riferimento` and
-`/composizione`. Read by designers who do not write code and by developers, on the same page. The
-brief lives at `design/BRIEF-guida.md` and holds the real copy — it is content to use, not a list of
-topics to rewrite. The brief covers the first two pages; the other two were asked for in the design
-sessions of 2026-08-27 and are described in Decisions, rows 12 and 17.
+An internal guide to cairn: four static pages — `/`, `/getting-started`, `/reference` and
+`/composition`. Read by designers who do not write code and by developers, on the same page. The
+brief lives at `design/BRIEF.md`: what the guide is, who opens it and how it speaks. The copy
+itself lives on the pages, not in the brief.
 
-Reading order is the nav order: `/` argues, `/come-si-parte` instructs, `/riferimento` lists,
-`/composizione` shows the workings.
+Reading order is the nav order: `/` argues, `/getting-started` instructs, `/reference` lists,
+`/composition` shows the workings.
 
 | | |
 |---|---|
@@ -23,6 +22,7 @@ Reading order is the nav order: `/` argues, `/come-si-parte` instructs, `/riferi
 | **Primitive base** | none |
 | **Token file** | `design/src/styles/theme.css` |
 | **Production token file** | n/a — the workbench *is* the deliverable for this project |
+| **Working language** | English. The team is Italian, but this repository is public and read by people who were not in the room |
 
 There is no production frontend to promote into. The pages ship as the static HTML that
 `npm run design:build` produces. `HANDOFF.md` and `.promoted.json` still apply the day that
@@ -78,7 +78,7 @@ Overrides live in `design/ui-audit.config.json`, not in someone's memory.
 
 | | |
 |---|---|
-| **Source** | decided in the design session of 2026-08-27, as the brief asked ("colori, caratteri, e l'elemento signature decidili tu con l'agente") |
+| **Source** | decided in the design session of 2026-08-27, as the brief asked ("decide the colours, the typefaces and the signature element yourself, with the agent") |
 | **Direction** | **Segnavia** — stone and a painted trail mark |
 | **Typefaces** | IBM Plex Serif (display), IBM Plex Sans (body), IBM Plex Mono (code and numbers). Self-hosted via Astro's fonts API, not linked from a CDN |
 | **Signature element** | the red-white-red blaze, hung on a hairline rail running down the left of every page |
@@ -113,9 +113,10 @@ number to watch move. The workbench itself is audited clean at kickoff — see D
 | Date | Blocking | Advisory | Note |
 |---|---|---|---|
 | 2026-08-27 | 0 | 0 | scaffold as shipped, before any real screen |
-| 2026-08-27 | 0 | 0 | both pages built: `/` and `/riferimento`, 14 components, 3 fixtures |
-| 2026-08-27 | 0 | 1 | `/composizione` added: 16 components, 4 fixtures. The advisory is the page at 208 of 250 lines |
-| 2026-08-27 | 0 | 2 | `/come-si-parte` added: 17 components, 5 fixtures. Both advisories are budget pressure from the gallery — see `HANDOFF.md`, Waivers |
+| 2026-08-27 | 0 | 0 | both pages built: `/` and `/reference`, 14 components, 3 fixtures |
+| 2026-08-27 | 0 | 1 | `/composition` added: 16 components, 4 fixtures. The advisory is the page at 208 of 250 lines |
+| 2026-08-27 | 0 | 2 | `/getting-started` added: 17 components, 5 fixtures. Both advisories are budget pressure from the gallery — see `HANDOFF.md`, Waivers |
+| 2026-08-28 | 0 | 2 | English pass: routes renamed, `/getting-started` rebuilt as the step list. Same two advisories, same cause |
 
 ## Waivers
 
@@ -138,17 +139,25 @@ Anything a later session would otherwise have to guess.
 | 4 | Node is v22.14.0, below the ≥22.19 the template asks for | Left alone. Install, build, audit and inventory all pass on 22.14. Revisit only if something actually breaks | 2026-08-27 |
 | 5 | Which folders are developer-owned? | `skills/` and `evals/`. Denied to Edit/Write in `.claude/settings.json`; reading stays open | 2026-08-27 |
 | 6 | Does the demo screen stay? | No. `src/pages/index.astro` and `articles.astro` are the template's demo and get deleted at the first real screen | 2026-08-27 |
-| 7 | Page language? | The pages are in Italian, for the team. Everything else in the repo stays English | 2026-08-27 |
+| 7 | Page language? | Italian at first, for the team. **Superseded 2026-08-28**: the pages, the routes and the brief are English. cairn is a public library and its guide is read by people who were not in the room | 2026-08-28 |
 | 8 | What is the visual direction? | *Segnavia* — stone and a painted trail mark. See Brand above; the full reasoning is a comment at the top of `theme.css` | 2026-08-27 |
 | 9 | Fonts from a CDN or self-hosted? | Self-hosted, through Astro's `fonts` config. The guide is printed and projected, and a font that arrives over the wire is a font that sometimes does not | 2026-08-27 |
 | 10 | What happened to `Button.astro`? | Deleted with the demo screens. Neither page has a button on it, and an unused component is a blocking audit finding, not a convenience. It comes back when a screen needs one | 2026-08-27 |
-| 11 | Are the four states answered? | Yes, and the answer is n/a for three of them: every page is a static document with no fetching and no list that can be empty. Recorded in `HANDOFF.md`, and `/composizione` renders the reasoning from `statesNotDrawn` rather than filing it | 2026-08-27 |
-| 12 | What is the third page? | `/composizione` — how the guide itself is built. Two movements: a gallery of the components, then the situations the project had to answer for. Read by whoever is about to inherit the components or ask for a new one. Organisation, reader and name were the designer's call, taken in the session of 2026-08-27 | 2026-08-27 |
-| 13 | Are the examples on `/composizione` live or drawn? | Live — the real components, imported. A page arguing for composition using screenshots of composition would refute itself. It also means the page cannot go stale, which is the property to protect in any rework | 2026-08-27 |
+| 11 | Are the four states answered? | Yes, and the answer is n/a for three of them: every page is a static document with no fetching and no list that can be empty. Recorded in `HANDOFF.md`, and `/composition` renders the reasoning from `statesNotDrawn` rather than filing it | 2026-08-27 |
+| 12 | What is the third page? | `/composition` — how the guide itself is built. Two movements: a gallery of the components, then the situations the project had to answer for. Read by whoever is about to inherit the components or ask for a new one. Organisation, reader and name were the designer's call, taken in the session of 2026-08-27 | 2026-08-27 |
+| 13 | Are the examples on `/composition` live or drawn? | Live — the real components, imported. A page arguing for composition using screenshots of composition would refute itself. It also means the page cannot go stale, which is the property to protect in any rework | 2026-08-27 |
 | 14 | Six of the sixteen components are the page itself. Draw them anyway? | No. `SiteHeader`, `PageIntro`, `Section`, `SiteFooter`, `Specimen` and `PartsGallery` are pointed at, not redrawn. Drawing them twice is the duplication the guide exists to prevent | 2026-08-27 |
 | 15 | `otherPage()` breaks at three pages | Replaced with `nextPage()` — next in file order, wrapping at the end. File order is reading order | 2026-08-27 |
 | 16 | Print regressed when a section grew taller than a sheet | `section { break-inside: avoid }` replaced with per-unit avoidance (`figure`, list rows) plus `break-after: avoid` on headings. Every page prints shorter for it: 6→4, 5→4, and the pages added since at 7 and 5 | 2026-08-27 |
-| 17 | Where does "the order of things" go — a section on the Guida, or a page? | A fourth page, `/come-si-parte`, chosen by the designer over expanding the Guida's closing section. A procedure and an argument have different lifetimes: one is read once, the other is reopened on the first day of every new project. The Guida's `Come si parte` section shrank to a bridge so nothing is said twice | 2026-08-27 |
-| 18 | The page prints `npx @lotrek/cairn install`, which does not exist | Kept, with a closing section that says so plainly and shows the real `cp -r` commands beside it. Describing the intended flow and marking the one gap beats describing a flow nobody wants to keep. That section gets deleted the day the package ships | 2026-08-27 |
+| 17 | Where does "the order of things" go — a section on the home page, or a page of its own? | A fourth page, `/getting-started`, chosen by the designer over expanding the home page's closing section. A procedure and an argument have different lifetimes: one is read once, the other is reopened on the first day of every new project. The home page's closing section shrank to a bridge so nothing is said twice | 2026-08-27 |
+| 18 | The page prints `npx @lotrek/cairn install`, which does not exist | Kept, with a closing section that says so plainly and shows the real `cp -r` commands beside it. **Superseded 2026-08-28**: see row 23 | 2026-08-28 |
 | 19 | `UI-STACK.md` had no "Where things land" section at all | Added, filled with the *no production copy* case the template names. The new page tells readers the map lives here; the first person to look for it would have found nothing | 2026-08-27 |
 | 20 | A `DefinitionRow` term longer than ~20 characters overlapped its description | `break-words` on the `dt`. The content was shortened too, but the component should not be able to overlap itself regardless of what it is fed | 2026-08-27 |
+| 21 | The routes were Italian: `/come-si-parte`, `/riferimento`, `/composizione` | Renamed to `/getting-started`, `/reference`, `/composition`. Nav labels, the handoff and the `.promoted.json` keys follow. The h1 on `/` becomes *Marks on the trail* | 2026-08-28 |
+| 22 | The guide had no complete list of how to use cairn, and that is the single most useful thing it can hold | `/getting-started` was rebuilt around one: numbered steps grouped by who does what, from an empty repository to a component running in production. The four narrative steps it used to be became the one paragraph of reason under each group, so nothing is said twice | 2026-08-28 |
+| 23 | `npx @lotrek/cairn install` still does not exist | The guide now speaks as though it does, and the "what is true today" section is gone. Publishing the package is therefore a release blocker rather than a footnote — `HANDOFF.md`, open question 6 | 2026-08-28 |
+| 24 | Where is the team's working language recorded? | Here, in the table above, from a fifth `ui-kickoff` question. `design-workflow` used to hardcode *"Italian in conversation"*, which is wrong for a library other people install | 2026-08-28 |
+| 25 | `/reference` opened with "one skill is read by both roles"; the data says two | Corrected to two. It had been wrong since the brief, which said one in its introduction and two in its own table one screen below | 2026-08-28 |
+| 26 | The home page carried the developer's three commands, and so does the procedure page | Removed from the home page. `/` argues and `/getting-started` instructs; the designer's three commands stay on `/` because "it runs on its own" is a claim and they are the evidence for it | 2026-08-28 |
+| 27 | The print list on `/composition` claimed a section is never split across two sheets | Corrected. Decision 16 replaced that rule with per-unit avoidance the same day, and the list was never updated — a rule stated in one place and contradicted by the file that implements it | 2026-08-28 |
+| 28 | `design/BRIEF-guida.md` held the page copy a second time, in Italian | Replaced by `design/BRIEF.md`: what the guide is, who opens it, how it speaks. The copy lives on the pages, which are the source. Two copies of one sentence is the failure this project exists to prevent | 2026-08-28 |
