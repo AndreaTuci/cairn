@@ -44,6 +44,14 @@ jobs:
       # built in March build in September, and `install` is allowed to move past it.
       - run: npm ci
 
+      # `design/.ui/` is gitignored in this repository, and deliberately: it is a
+      # copy of `skills/ui-composition/scripts/`, which lives in the same tree ten
+      # lines away, and committing both would be the duplication everything here
+      # argues against. In a client project it is the only copy and *is* committed.
+      # So CI vendors it the same way `ui-kickoff` step 2 does.
+      - name: Vendor the audit
+        run: cp -r ../skills/ui-composition/scripts .ui
+
       - name: The gate
         run: npm run design:check
 
