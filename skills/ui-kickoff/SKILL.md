@@ -3,7 +3,7 @@ name: ui-kickoff
 description: "Set up a project so designers and developers can share one frontend. Interviews the developer about the target stack, scaffolds the design/ workbench (Astro for sites and WordPress, Nuxt for dashboards), seeds the token file, writes UI-STACK.md and the AGENTS.md instruction trio, installs the audit scripts and confines designers to design/. Use at the start of a project, or when adding a design workbench to an existing one — run before any designer opens the repository."
 license: MIT
 metadata:
-  author: Lotrek
+  author: Andrea Tuci
   version: 1.0.0
 ---
 

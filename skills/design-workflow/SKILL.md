@@ -3,7 +3,7 @@ name: design-workflow
 description: "The working loop for a designer building screens in the design/ workbench: brief, visual direction, tokens, inventory, then one screen at a time with its empty/loading/error states, checked by the audit and closed with a handoff. Use whenever a designer asks for a page, a screen, a landing page, a layout, a component or a mockup — and whenever working inside a design/ workbench at all. Talk in the designer's language, never in code."
 license: MIT
 metadata:
-  author: Lotrek
+  author: Andrea Tuci
   version: 1.0.0
 ---
 

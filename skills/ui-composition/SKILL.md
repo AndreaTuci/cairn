@@ -3,7 +3,7 @@ name: ui-composition
 description: "House law for composing frontend UI: semantic tokens instead of raw values, one component per shape, variants instead of copies, every screen answering for its empty/loading/error states, and a blocking audit that proves it. Use whenever writing, reviewing or extending any UI — a component, a screen, a style, a colour — in Astro, Vue/Nuxt or WordPress, whether prototyping a design or building production code. Read this before creating any component or writing any class."
 license: MIT
 metadata:
-  author: Lotrek
+  author: Andrea Tuci
   version: 1.0.0
 ---
 

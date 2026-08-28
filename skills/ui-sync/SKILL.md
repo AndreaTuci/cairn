@@ -3,7 +3,7 @@ name: ui-sync
 description: "The living contract between the design workbench and production: writes HANDOFF.md from what the designer built (screens, components, data contracts, what is faked, waivers), detects drift when designers keep editing after promotion, and guides promoting a prototype into an Astro, Nuxt or WordPress project. Use when closing a design session, when picking up designer work, when promoting components into production, and whenever asking what changed in design/ since last time."
 license: MIT
 metadata:
-  author: Lotrek
+  author: Andrea Tuci
   version: 1.0.0
 ---
 

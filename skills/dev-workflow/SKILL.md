@@ -3,7 +3,7 @@ name: dev-workflow
 description: "How a developer builds frontend from a designer's prototype: start from HANDOFF.md and the drift report, triage before touching anything, wire real data without changing component contracts, review, and feed back into design/ whatever production learns. Use when implementing any UI a designer prototyped, when picking up work in a repository that has a design/ workbench, and when production discovers something the design never answered."
 license: MIT
 metadata:
-  author: Lotrek
+  author: Andrea Tuci
   version: 1.0.0
 ---
 
