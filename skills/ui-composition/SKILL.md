@@ -14,8 +14,11 @@ prototyping a screen and by a developer building the production version, because
 building the same thing and there is no reason for them to obey different rules.
 
 It owns composition only. *What* to build comes from the brief; the *process* comes from
-`design-workflow` or `feature-workflow`; general code style comes from `code-standards`. This
-file answers one question: given that you are about to write UI, what may you write?
+`design-workflow`, or from whatever process skill your setup has for a multi-session feature.
+General code style — small files, descriptive names, named constants, no dead code, errors never
+swallowed — comes from your house standards where they exist; none of it is restated here, and
+none of it is a dependency of this file. This one answers a single question: given that you are
+about to write UI, what may you write?
 
 ## The shape of the problem
 
@@ -39,18 +42,16 @@ Three steps, in this order, every time. They take a minute and they are what the
 file depends on.
 
 1. **Read `INVENTORY.md`.** It lists every component that exists, with its variants and how often
-   it is used. It is generated, so it is never out of date. If what you need is there, use it.
+   it is used. `npm run design:check` regenerates it before it audits, so it is never out of date
+   as long as the check is run. If what you need is there, use it.
 2. **Read the token file** (`src/styles/theme.css` in the workbench, the project's equivalent
    elsewhere). Every colour, size, radius and shadow you are allowed to use is declared there.
 3. **Say what you are about to add**, in one line, before adding it: *"a card with an image and a
    date"*. If that sentence describes something already in the inventory, you are about to
    duplicate it — add a variant instead.
 
-Regenerate the inventory whenever components change:
-
-```bash
-npm run design:inventory
-```
+The check regenerates it. `npm run design:inventory` on its own exists for the case where you want
+the list without the gate.
 
 ## Tokens
 
@@ -319,10 +320,14 @@ These hold regardless of the design, because a design that breaks them is not fi
 |---|---|---|
 | Component | ≤ 150 lines | Past this a component is doing two jobs and one of them wants a name |
 | Screen | ≤ 250 lines | Past this the screen is holding markup that should be a component |
-| Variant axes | ≤ 3 per component | Past this it is configuration, not composition |
 
-Budgets are a smell test, not a law of physics. A 160-line component that is genuinely one thing
-is fine — but check that it is, rather than assuming.
+Three variant axes is the other limit, and it sits above under *Variants, not copies* rather than
+here, because the gate does not check it and a budget nothing enforces has no business in a table
+of budgets.
+
+Budgets block, so treat them as the number and not as a mood: the audit stops at 151 lines
+whatever the component is doing. When one is genuinely a single thing and genuinely over, that is
+what a waiver is for — written on the line above, with the reason, like any other.
 
 ## The gate
 
@@ -337,8 +342,14 @@ npm run design:check -- --all # advisory too
 From the repo root, against production code, point it at the folder you mean:
 
 ```bash
-node design/.ui/ui-audit.mjs --root app --token-file src/styles/global.css --ignore ui
+node design/.ui/ui-audit.mjs --root app --token-file src/styles/global.css
 ```
+
+`--ignore <dirs>` exists for genuinely **vendored** primitives — a shadcn-vue kit you did not
+write and do not maintain. It is not a default: every documented command used to carry
+`--ignore ui`, which deleted `components/ui/` from the scan in the ordinary case where those
+primitives are the project's own, and those are the files every screen is built out of. Pass it
+when the folder is somebody else's code, and the report says so in its header when you do.
 
 It groups by rule and by value, because a long list of findings is usually a short list of
 decisions: 135 findings across 43 distinct values means declaring roughly a dozen tokens, not
@@ -363,8 +374,12 @@ the line above, with the reason:
 <!-- ui-audit-allow: inline-style — third-party embed, the vendor sets this attribute -->
 ```
 
-and record it in the handoff. This is deliberate friction. A waiver is a decision someone should
-be able to find and question later, which a silently disabled rule never is.
+and record it in `UI-STACK.md`. One home, not two: the handoff is rewritten every batch and
+waivers outlive batches, so a waiver kept there is a decision that quietly expires. The audit also
+prints every waiver it honoured on every run, which is what the register is a paste of.
+
+This is deliberate friction. A waiver is a decision someone should be able to find and question
+later, which a silently disabled rule never is.
 
 If you find yourself taking the same waiver a third time, the rule is wrong, not the code — say
 so, and it gets changed.
@@ -379,7 +394,8 @@ needs reading:
 - **`references/vue.md`** — SFC conventions that survive being copied into a Nuxt project
   unchanged, and where Nuxt UI takes over.
 - **`references/wordpress.md`** — which markup patterns port cleanly into PHP and blocks, and
-  which ones trap you.
+  which ones trap you. Read it *with* `astro.md`: the prototype is still `.astro`, and the
+  WordPress file is what it becomes.
 
 ## Source and installed copies
 

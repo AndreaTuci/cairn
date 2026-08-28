@@ -54,7 +54,7 @@ Run the audit against the production folder after promoting. A component that pa
 workbench can fail in production — different token file, different neighbours.
 
 ```bash
-node design/.ui/ui-audit.mjs --root app --token-file src/styles/global.css --ignore ui
+node design/.ui/ui-audit.mjs --root app --token-file src/styles/global.css
 ```
 
 ## Record it
