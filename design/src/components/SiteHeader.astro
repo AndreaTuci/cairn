@@ -11,7 +11,7 @@
  * re-running it in their head.
  */
 import Blaze from './ui/Blaze.astro'
-import { pages, normalise } from '../lib/navigation'
+import { pages, normalise, withBase } from '../lib/navigation'
 
 const current = normalise(Astro.url.pathname)
 const navigation = pages.map((page) => ({ ...page, isCurrent: normalise(page.href) === current }))
@@ -23,7 +23,7 @@ const onOtherPages = 'text-muted-foreground hover:text-foreground'
 
 <header class="border-b border-rule">
   <div class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-x-8 gap-y-4 px-6 py-5">
-    <a href="/" class="flex items-center gap-3 rounded-xs">
+    <a href={withBase('/')} class="flex items-center gap-3 rounded-xs">
       <Blaze size="sm" />
       <span class="font-display text-lg font-semibold text-foreground">cairn</span>
     </a>

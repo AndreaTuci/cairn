@@ -27,10 +27,18 @@ const ROUTES: NavItem[] = [
   { href: '/composition', label: 'Composition' },
 ]
 
-export const pages: NavItem[] = ROUTES.map((route) => ({
-  ...route,
-  href: `${BASE.replace(/\/+$/, '')}${route.href}`,
-}))
+/**
+ * A route with the deployment base on the front.
+ *
+ * Exported because the pages are not the only link to a route: the site name in
+ * the header goes home too, and written as a bare `/` it left the site entirely
+ * the first time this was published under a path.
+ */
+export function withBase(route: string): string {
+  return `${BASE.replace(/\/+$/, '')}${route}`
+}
+
+export const pages: NavItem[] = ROUTES.map((route) => ({ ...route, href: withBase(route.href) }))
 
 /**
  * One spelling for a path, so two of them can be compared.
