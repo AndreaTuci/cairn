@@ -15,8 +15,19 @@ export const DEFAULTS = {
   /** The one file allowed to contain raw colour values. */
   tokenFile: 'src/styles/theme.css',
 
-  /** Extensions the audit reads. */
-  extensions: ['.astro', '.vue', '.html'],
+  /**
+   * Extensions the audit reads.
+   *
+   * `.css` is here so *"no colour outside the token file"* is a rule and not a
+   * hope: without it the audit never opened a stylesheet, and a second design
+   * system living in a second `.css` passed clean. `.php` is here because the
+   * WordPress target ships PHP and had no gate at all — the colour, class and
+   * accessibility rules are regex over markup and read it unchanged. `.ts` is here
+   * because a variant map does not stop being a variant map when it moves one file
+   * over: shadcn-vue keeps it in a sibling `index.ts`, and a class const moved out
+   * of a component used to leave the gate entirely.
+   */
+  extensions: ['.astro', '.vue', '.html', '.css', '.php', '.ts'],
 
   /**
    * Directory *names* excluded from the walk — build output and dependencies.
@@ -26,11 +37,20 @@ export const DEFAULTS = {
    */
   ignoreDirs: [
     'node_modules', 'dist', '.astro', '.git', '.output', '.nuxt', '.svelte-kit',
-    // Explorations are throwaway by design and are never promoted as they stand,
-    // so holding them to rules meant to keep a project coherent over months would
-    // only push the exploring somewhere nobody can see it. See design-workflow.
-    'explore',
   ],
+
+  /**
+   * Paths excluded by where they sit, not by what they are called.
+   *
+   * Explorations are throwaway by design and are never promoted as they stand, so
+   * holding them to rules meant to keep a project coherent over months would only
+   * push the exploring somewhere nobody can see it. See design-workflow.
+   *
+   * Matched as a path fragment rather than a directory name: `explore` on its own
+   * also excused a production route called `/explore`, which is an ordinary thing
+   * for a product to have and was silently never audited.
+   */
+  ignorePaths: ['pages/explore/'],
 
   budgets: {
     /** Max lines for a component before it is doing two jobs. */

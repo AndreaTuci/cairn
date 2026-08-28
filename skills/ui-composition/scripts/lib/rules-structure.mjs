@@ -26,7 +26,11 @@ export function checkStructure(files, config) {
 
 function budgetFor(kind, budgets) {
   if (kind === 'page') return budgets.page
-  if (kind === 'fixture') return null
+  // No budget, because none was ever measured for these: a fixture is data, a
+  // stylesheet is the token file's own shape, and what a PHP template should cost
+  // is a number nobody here has counted. Inventing one is the guess the rules
+  // forbid everywhere else.
+  if (['fixture', 'stylesheet', 'php', 'module'].includes(kind)) return null
   return budgets.component
 }
 
