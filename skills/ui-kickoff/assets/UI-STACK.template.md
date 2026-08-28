@@ -14,6 +14,7 @@
 | **Primitive base** | none · shadcn-vue (Reka UI) · Nuxt UI |
 | **Token file** | `design/src/styles/theme.css` |
 | **Production token file** | `<path>` — or `n/a` until the project exists |
+| **Working language** | `<language>` — the one a designer is talked to in, and the one `BRIEF.md` is written in. Everything else stays English |
 
 ## Where things land
 

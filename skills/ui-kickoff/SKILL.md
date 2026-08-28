@@ -21,7 +21,7 @@ net for what escapes.
 
 ## The interview
 
-Four questions, asked of a developer, in plain sequence. Ask them all before writing anything —
+Five questions, asked of a developer, in plain sequence. Ask them all before writing anything —
 the answers decide the scaffold, and rebuilding it afterwards is wasted work.
 
 1. **What is being built?** A content site, a dashboard or an application, or a WordPress site.
@@ -48,7 +48,15 @@ the answers decide the scaffold, and rebuilding it afterwards is wasted work.
 4. **Which folders belong to developers?** Usually obvious from the repository (`app/`,
    `backoffice/`, `backend/`). Needed for the permission fallback in step 7.
 
-If the project already has an `AGENTS.md`, read it first: the answers to questions 1 and 3 are
+5. **What language does the team work in?** The language a designer would speak in the room. It is
+   recorded in `UI-STACK.md` and every later session reads it from there — `design-workflow` talks
+   to the designer in it, and `BRIEF.md` is written in it. Everything else in the repository stays
+   English: code, comments, the other documents.
+
+   Ask it even when the answer looks obvious. It is one line, and the alternative is every session
+   guessing from how the first message happened to be phrased.
+
+If the project already has an `AGENTS.md`, read it first: the answers to questions 1, 3 and 5 are
 often already written there, and asking a developer to repeat what they have documented is a good
 way to make a skill unpopular.
 
@@ -97,6 +105,10 @@ version genuinely needs moving, move it, then verify the build in step 8 and rec
 **Then set the document language.** `src/layouts/Page.astro` ships `lang="en"`. A page that lies
 about its language is read wrong by a screen reader and indexed wrong by a search engine, and
 nothing else in the system ever surfaces it.
+
+This is the language of the **site's content**, which is not necessarily the answer to question 5:
+a team that works in one language routinely ships a product in another. It is a product decision,
+so it belongs in `BRIEF.md` — and if nobody has taken it yet, ask now rather than defaulting.
 
 The Nuxt flavour ships an `.npmrc` with `legacy-peer-deps=true`. npm 10.x has an arborist bug that
 crashes on Nuxt's peer graph; the flag walks around it and npm ≥ 11 removes the need. Leave the
@@ -184,9 +196,9 @@ An agent re-reading sixty pages of brand manual at the start of every session is
 a one-page distillate is the point. So when documents land in `context/`, they are read once, and
 what matters out of them is written into `BRIEF.md`, with a pointer back to the file it came from.
 
-**Translate the headings into the team's working language.** This is the one file in the system a
-designer is expected to read and possibly edit by hand, so it is written in the language they think
-in. Everything else stays English.
+**Write the headings in the working language from question 5**, the one now recorded in
+`UI-STACK.md`. This is the one file in the system a designer is expected to read and possibly edit
+by hand, so it is written in the language they think in. Everything else stays English.
 
 ### 5. Write the instruction trio
 
