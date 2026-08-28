@@ -105,6 +105,16 @@ the step to the scale, then use its name.
 `duration-[var(--motion-in)]` is how you stay inside the system rather than leave it. That is the
 sanctioned escape hatch, and the audit knows it.
 
+**Never assemble a class name from a fragment.** `bg-${role}-500` and `` `text-${size}` `` do not
+exist as far as the build is concerned: Tailwind scans source text for whole class names, so the
+class is never generated and the element silently renders unstyled. Write the whole names in a map
+and pick one — which is what a variant map already is.
+
+**Dark mode only when it is already in the system, or asked for.** Half a dark mode is worse than
+none: it is the one that ships a white panel into a dark page at the moment somebody demos it. When
+it is supported, every surface, every state and every accent answers for it, and the answer lives
+in the token file like everything else.
+
 **Changing a token's value is free. Adding one costs a sentence.** Designers should retune
 `--primary` whenever the design says so — that is what the layer is for. A *new* token means the
 design has grown a concept it did not have, which is worth one line saying what it is for.
@@ -145,22 +155,10 @@ change is a variant, and it belongs in the original.
 
 ### Variants, not copies
 
-A component has one base and a small set of declared variant axes:
-
-```astro
-const VARIANTS = {
-  variant: {
-    primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
-    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-    ghost: 'text-foreground hover:bg-accent',
-  },
-  size: {
-    sm: 'h-9 px-3 text-sm',
-    md: 'h-10 px-4 text-sm',
-    lg: 'h-11 px-6 text-base',
-  },
-} as const
-```
+A component has one base and a small set of declared variant axes. Each axis is a **finite union
+on the prop** and a **named map in the script block**, and the two are the same sentence said
+twice — the inventory lists an axis by reading its union, so a `variant?: string` is an axis
+nobody can discover.
 
 Variation travels through props. It never travels through a second file, and it never travels
 through a `class` prop that quietly overrides the component's own styling from outside — a
@@ -169,6 +167,60 @@ component whose appearance is decided by its callers has stopped being a compone
 Keep the axes few and orthogonal. When a component grows a fourth axis, or a variant that only
 makes sense combined with one particular value of another, it has become two components wearing
 one name.
+
+### The logic goes in the script block
+
+**Name the values, then let the markup say which ones apply.** A component's classes are declared
+in its frontmatter — a `base`, then one map per axis — and the template composes them with Astro's
+own `class:list`, or Vue's `:class` over a named `computed`. There is no helper to import.
+
+```astro
+---
+const { variant = 'primary', size = 'md', class: extra } = Astro.props
+
+const base = 'inline-flex items-center justify-center rounded-md font-semibold transition-colors'
+
+const byVariant = {
+  primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
+  secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+}
+
+const bySize = {
+  sm: 'h-9 px-3 text-sm',
+  md: 'h-10 px-4 text-sm',
+}
+---
+
+<button class:list={[base, byVariant[variant], bySize[size], extra]}>
+```
+
+A lone literal with nothing to choose between stays where it is — `class:list={['mt-8', extra]}`
+is already as clear as it gets, and naming it adds a hop for nothing. The names are for what is
+*composed*: a base that several axes are added to, and the axes themselves.
+
+**The rule is larger than classes: anything a reader would otherwise have to run in their head
+belongs in the script block, with a name.** A condition decided inside a template, a value derived
+by an expression in an attribute, a lookup that depends on knowing what `String.split` does with a
+capture group — each one is a place where the file stops saying what it does, and each one is
+found by the next person at the worst possible moment.
+
+Three reasons, and none of them is taste:
+
+- **A helper is an indirection you cannot see through.** `cx(BASE, variants(V, {size}, {size:'md'}), extra)`
+  is three files between the reader and the answer to *"what does this render"*. The named form is
+  one screen, top to bottom.
+- **The frontmatter is what ports.** The markup of an `.astro` file copies into a Vue SFC or a PHP
+  template unchanged; an expression buried in an attribute does not.
+- **Clever is where the bugs live.** A contorted route through a value is the one nobody dares
+  change, so it stops being fixed and starts being worked around.
+
+**One exception, and only one.** Where a project is built on **shadcn-vue**, its `cn()` and
+`cva()` stay: that is the vendor's idiom inside vendored components, and rewriting a vendored file
+is worse than what it fixes. `cn()` also earns its place there for a second reason — `tailwind-merge`
+resolves a caller's `class` against the base instead of racing it in the stylesheet.
+
+The gate reads the script block as well as the markup, so a class named in a `const` is checked
+exactly like one written into an attribute. Naming a value has never been a way to hide it.
 
 ### Names
 
@@ -199,6 +251,16 @@ afterwards. Draw them now.
 
 For a static page with no fetching, loading and error may genuinely not apply — say so in the
 handoff rather than skipping the question.
+
+### And a control answers for its own
+
+Different question, different list, and conflating the two is how a screen passes with a button
+nobody can tell is disabled. A control has **default, hover, focus, active, disabled, loading**,
+and **selected** where selection exists. They are declared as variants like any other axis.
+
+Focus is not optional and not the browser's problem — see the floor. The other one that goes
+missing is *loading on the control itself*: a submit that looks identical while it works is a
+submit that gets pressed three times.
 
 ## Data
 
@@ -236,7 +298,20 @@ These hold regardless of the design, because a design that breaks them is not fi
   hole in it. Style an `h3` however the design needs.
 - **Focus stays visible.** Removing the ring is a decision somebody makes on purpose and replaces
   with something else. It is never the starting point.
-- **Responsive down to a phone**, and motion respects `prefers-reduced-motion`.
+- **Never colour alone.** A state carried only by a hue is a state that does not exist for a
+  colour-blind reader, in greyscale print, or on a projector.
+- **A label is a label.** A placeholder disappears the moment somebody types, so it was never one.
+- **A form error is attached, announced, and focused** — the invalid field points at a stable error
+  element, and focus moves to the first one after a failed submit. An error nobody is sent to is an
+  error nobody finds.
+- **Focus order is the document order.** No positive `tabindex`; it reorders the page for one
+  reader and nobody else.
+- **Touch targets stay comfortably operable**, which is a size, not a hope.
+- **Responsive down to a phone**, and motion respects `prefers-reduced-motion`. Mobile-first means
+  the composition changes — what stacks, what hides, where the action goes — not the desktop
+  layout scaled down. Type never scales with the viewport (`text-[4vw]` is a font size that is
+  unreadable at one end of the range and absurd at the other), and no width makes the page scroll
+  sideways.
 
 ## Budgets
 
@@ -268,6 +343,11 @@ node design/.ui/ui-audit.mjs --root app --token-file src/styles/global.css --ign
 It groups by rule and by value, because a long list of findings is usually a short list of
 decisions: 135 findings across 43 distinct values means declaring roughly a dozen tokens, not
 making 135 edits.
+
+**Never report a check as passed unless you ran it.** If it could not run — no browser, no
+network, a command this environment does not have — the result is **`TO BE VALIDATED`**, with the
+missing checks named in the handoff. A check nobody ran and everybody assumes passed is worse than
+one that was never claimed, because the second is visible.
 
 ### Reading it
 

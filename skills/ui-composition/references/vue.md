@@ -8,7 +8,6 @@ project.
 ```vue
 <script setup lang="ts">
 import { computed } from 'vue'
-import { cn } from '../lib/utils'
 
 interface Props {
   title: string
@@ -18,18 +17,27 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), { variant: 'default' })
 
-const classes = computed(() =>
-  cn('rounded-lg border bg-card p-6', props.variant === 'featured' && 'md:p-10', props.class),
-)
+const base = 'rounded-lg border bg-card p-6'
+
+const byVariant = {
+  default: '',
+  featured: 'md:p-10',
+}
+
+const variantClasses = computed(() => byVariant[props.variant])
 </script>
 
 <template>
-  <article :class="classes">
+  <article :class="[base, variantClasses, props.class]">
     <h3 class="text-lg font-semibold">{{ title }}</h3>
     <slot />
   </article>
 </template>
 ```
+
+One named value per axis, and the template says which ones apply. The rule and its reasons are in
+`SKILL.md` under *The logic goes in the script block*; what changes in Vue is only the spelling —
+a `computed` where Astro has a plain `const`, and `:class` where Astro has `class:list`.
 
 ## Import explicitly, always
 
@@ -42,11 +50,15 @@ work in exactly one, and the failure is silent until the file moves.
 
 This applies to components too. In the workbench, import what you use.
 
-## Variants
+## Variants, when the project is on shadcn-vue
 
-The house pattern is `cva` for the variant map and `cn` — `clsx` + `tailwind-merge` — for
-merging. The map lives in a sibling `index.ts` next to the component, which is where shadcn-vue
-puts it and where `ui-inventory.mjs` looks for it.
+**This is the one exception to the rule above, and it is the vendor's, not ours.** Inside a
+shadcn-vue project the variant map is `cva` and the merge is `cn` — `clsx` + `tailwind-merge`.
+Leave them. Rewriting a vendored component into the house idiom is worse than the inconsistency it
+removes, and it reverts on the next install.
+
+The map lives in a sibling `index.ts` next to the component, which is where shadcn-vue puts it and
+where `ui-inventory.mjs` looks for it.
 
 ```ts
 import { cva, type VariantProps } from 'class-variance-authority'
@@ -64,8 +76,11 @@ export const buttonVariants = cva('inline-flex items-center justify-center round
 export type ButtonVariants = VariantProps<typeof buttonVariants>
 ```
 
-`cn` matters more than it looks: `twMerge` resolves Tailwind conflicts by specificity of intent,
-so a `class` prop from a caller can override a base class instead of racing it in the stylesheet.
+`cn` matters more than it looks, and it is the second half of why it stays: `twMerge` resolves
+Tailwind conflicts by specificity of intent, so a `class` prop from a caller overrides a base class
+instead of racing it in the stylesheet. A plain array does not do that — which is fine for a `class`
+prop used the way this house uses it, for margins and grid placement, and is not fine for a
+primitive whose whole job is to be restyled by its callers.
 
 ## Where the primitives come from
 
