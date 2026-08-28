@@ -54,13 +54,23 @@ function unnamedControls(file) {
     if (image) {
       // A literal, non-empty alt already names the control.
       if (/\balt\s*=\s*(["'])(?!\1)[^"']+\1/.test(image[0])) return []
+      // A bound alt is the right thing to write — it just cannot be checked from
+      // here, because whether it can come back empty depends on the data. Saying
+      // so is worth a note; blocking correct markup is not.
+      const bound = /\balt\s*=\s*\{/.test(image[0])
       return finding(file, file.lineAt(match.index), 'a11y-control-name',
         whole.slice(0, 56).replace(/\s+/g, ' '),
-        `An image-only <${tag}>. Its accessible name is the image's alt text, and that alt can come back empty.`,
-        'Name the control itself with `aria-label`, so it works whatever the image turns out to be.')
+        bound
+          ? `An image-only <${tag}> whose name comes from a bound alt. Check that the alt can never arrive empty.`
+          : `An image-only <${tag}> with no alt at all. It is announced as "${tag === 'a' ? 'link' : 'button'}", and nothing more.`,
+        'Either guarantee the alt, or name the control itself with `aria-label`.',
+        bound ? SEVERITY.ADVISORY : SEVERITY.BLOCKING)
     }
 
-    if (!/<svg|<Icon|<[A-Z]/.test(content)) return []
+    // A component child is not evidence of an icon: `<Card title=… />` renders a
+    // heading, and treating every capitalised tag as an icon blocks the most
+    // ordinary markup there is — a linked card. Only ask about actual icons.
+    if (!/<svg|Icon/.test(content)) return []
     return finding(file, file.lineAt(match.index), 'a11y-control-name',
       whole.slice(0, 56).replace(/\s+/g, ' '),
       `An icon-only <${tag}> with no accessible name. A screen reader announces "${tag === 'a' ? 'link' : 'button'}", and nothing more.`,
