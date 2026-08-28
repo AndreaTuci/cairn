@@ -10,8 +10,6 @@
  * was noise rather than orientation, and the prop was left demonstrated by its
  * own specimen and used by nothing. So it is gone.
  */
-import { cx } from '../../lib/cx'
-
 interface Props {
   /** 1-based position in the sequence. */
   index: number
@@ -19,8 +17,8 @@ interface Props {
 }
 
 const { index, class: extra } = Astro.props
+
+const base = 'font-mono text-xs font-semibold tracking-wide text-primary'
 ---
 
-<span class={cx('font-mono text-xs font-semibold tracking-wide text-primary', extra)}>
-  {String(index).padStart(2, '0')}
-</span>
+<span class:list={[base, extra]}>{String(index).padStart(2, '0')}</span>

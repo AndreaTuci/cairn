@@ -12,8 +12,6 @@
  * what an editor does anyway. Printing wraps both, because paper does not
  * scroll; that rule lives in the theme.
  */
-import { cx, variants } from '../../lib/cx'
-
 interface Props {
   code: string
   /** What the reader is looking at, when that is not obvious from the code. */
@@ -24,15 +22,16 @@ interface Props {
 
 const { code, label, wrap = 'none', class: extra } = Astro.props
 
-const VARIANTS = {
-  wrap: {
-    none: 'overflow-x-auto',
-    soft: 'whitespace-pre-wrap',
-  },
-} as const
+const base = 'overflow-hidden rounded-md border bg-card'
+const body = 'p-4 font-mono text-xs text-foreground'
+
+const byWrap = {
+  none: 'overflow-x-auto',
+  soft: 'whitespace-pre-wrap',
+}
 ---
 
-<figure class={cx('overflow-hidden rounded-md border bg-card', extra)}>
+<figure class:list={[base, extra]}>
   {
     label && (
       <figcaption class="border-b bg-muted px-4 py-2 font-mono text-xs text-muted-foreground">
@@ -40,9 +39,5 @@ const VARIANTS = {
       </figcaption>
     )
   }
-  <pre
-    class={cx(
-      'p-4 font-mono text-xs text-foreground',
-      variants(VARIANTS, { wrap }, { wrap: 'none' }),
-    )}><code>{code}</code></pre>
+  <pre class:list={[body, byWrap[wrap]]}><code>{code}</code></pre>
 </figure>

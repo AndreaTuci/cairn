@@ -5,15 +5,13 @@
  * Inline, never a block. The block is CodeBlock, and keeping them apart is what
  * stops one component growing a `block` prop and two layouts.
  */
-import { cx } from '../../lib/cx'
-
 interface Props {
   class?: string
 }
 
 const { class: extra } = Astro.props
+
+const base = 'rounded-xs bg-muted px-1 py-0.5 font-mono text-sm whitespace-nowrap text-foreground'
 ---
 
-<code class={cx('rounded-xs bg-muted px-1 py-0.5 font-mono text-sm whitespace-nowrap text-foreground', extra)}
-  ><slot /></code
->
+<code class:list={[base, extra]}><slot /></code>

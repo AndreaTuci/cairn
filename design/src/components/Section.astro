@@ -11,7 +11,6 @@
  * one moves, the other moves with it.
  */
 import Blaze from './ui/Blaze.astro'
-import { cx } from '../lib/cx'
 
 interface Props {
   title: string
@@ -24,7 +23,7 @@ const { title, id, tone = 'default', class: extra } = Astro.props
 const hasEyebrow = Astro.slots.has('eyebrow')
 ---
 
-<section id={id} class={cx('relative scroll-mt-24', extra)}>
+<section id={id} class:list={['relative scroll-mt-24', extra]}>
   <Blaze tone={tone} class="absolute -left-6 top-1 -translate-x-1/2 md:-left-12" />
 
   {hasEyebrow && <div class="mb-3 flex flex-wrap items-center gap-3"><slot name="eyebrow" /></div>}

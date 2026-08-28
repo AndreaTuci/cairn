@@ -7,8 +7,6 @@
  * with different data, not two components that drift apart the first time
  * somebody adjusts the spacing on one of them.
  */
-import { cx, variants } from '../lib/cx'
-
 interface Props {
   term: string
   /** `strong` is for the row that carries more weight than its neighbours. */
@@ -19,21 +17,15 @@ interface Props {
 const { term, emphasis = 'default', class: extra } = Astro.props
 const hasAside = Astro.slots.has('aside')
 
-const VARIANTS = {
-  emphasis: {
-    default: 'border-rule',
-    strong: 'border-foreground/25 bg-muted',
-  },
-} as const
+const base = 'grid gap-x-8 gap-y-2 border-b px-3 py-4 sm:grid-cols-3'
+
+const byEmphasis = {
+  default: 'border-rule',
+  strong: 'border-foreground/25 bg-muted',
+}
 ---
 
-<div
-  class={cx(
-    'grid gap-x-8 gap-y-2 border-b px-3 py-4 sm:grid-cols-3',
-    variants(VARIANTS, { emphasis }, { emphasis: 'default' }),
-    extra,
-  )}
->
+<div class:list={[base, byEmphasis[emphasis], extra]}>
   <dt class="font-mono text-sm font-medium break-words text-foreground">{term}</dt>
   <dd class="sm:col-span-2">
     {hasAside && <div class="mb-2"><slot name="aside" /></div>}

@@ -10,8 +10,6 @@
  * follows. So it is a declared variant, and the mark is built from the same
  * bands whatever the role turns out to be.
  */
-import { cx } from '../lib/cx'
-
 interface Props {
   role: 'designer' | 'developer' | 'both'
   class?: string
@@ -19,7 +17,9 @@ interface Props {
 
 const { role, class: extra } = Astro.props
 
-const ROLES = {
+const base = 'inline-flex items-center gap-2 rounded-xs border px-2 py-1 text-xs font-medium tracking-wide uppercase'
+
+const byRole = {
   designer: {
     label: 'designer',
     chip: 'border-designer/40 bg-designer-surface text-designer',
@@ -35,20 +35,14 @@ const ROLES = {
     chip: 'border-foreground/30 bg-card text-foreground font-semibold',
     bands: ['bg-designer', 'bg-developer'],
   },
-} as const
+}
 
-const { label, chip, bands } = ROLES[role]
+const { label, chip, bands } = byRole[role]
 ---
 
-<span
-  class={cx(
-    'inline-flex items-center gap-2 rounded-xs border px-2 py-1 text-xs font-medium tracking-wide uppercase',
-    chip,
-    extra,
-  )}
->
+<span class:list={[base, chip, extra]}>
   <span class="flex h-3 w-4 overflow-hidden rounded-xs" aria-hidden="true">
-    {bands.map((band) => <span class={cx('flex-1', band)} />)}
+    {bands.map((band) => <span class:list={['flex-1', band]} />)}
   </span>
   {label}
 </span>

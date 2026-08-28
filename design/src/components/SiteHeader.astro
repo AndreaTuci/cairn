@@ -5,12 +5,20 @@
  * The current page is derived from the URL rather than passed in as a prop: a
  * prop is one more thing to keep true, and it was already wrong the day the
  * third page arrived.
+ *
+ * Which page is current is worked out here, once, and the markup only reads it.
+ * A condition decided inside the template is a condition nobody can see without
+ * re-running it in their head.
  */
 import Blaze from './ui/Blaze.astro'
 import { pages, normalise } from '../lib/navigation'
-import { cx } from '../lib/cx'
 
 const current = normalise(Astro.url.pathname)
+const navigation = pages.map((page) => ({ ...page, isCurrent: page.href === current }))
+
+const linkBase = 'rounded-xs pb-1 text-sm font-medium transition-colors'
+const onCurrentPage = 'border-b-2 border-primary text-foreground'
+const onOtherPages = 'text-muted-foreground hover:text-foreground'
 ---
 
 <header class="border-b border-rule">
@@ -23,17 +31,12 @@ const current = normalise(Astro.url.pathname)
     <nav aria-label="Guide pages">
       <ul class="flex items-center gap-6">
         {
-          pages.map((page) => (
+          navigation.map((page) => (
             <li>
               <a
                 href={page.href}
-                aria-current={page.href === current ? 'page' : undefined}
-                class={cx(
-                  'rounded-xs pb-1 text-sm font-medium transition-colors',
-                  page.href === current
-                    ? 'border-b-2 border-primary text-foreground'
-                    : 'text-muted-foreground hover:text-foreground',
-                )}
+                aria-current={page.isCurrent ? 'page' : undefined}
+                class:list={[linkBase, page.isCurrent ? onCurrentPage : onOtherPages]}
               >
                 {page.label}
               </a>

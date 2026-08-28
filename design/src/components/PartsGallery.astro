@@ -29,7 +29,6 @@ import StepList from './StepList.astro'
 import { auditRules } from '../fixtures/audit-rules'
 import { metrics } from '../fixtures/metrics'
 import { stepGroups } from '../fixtures/steps'
-import { cx } from '../lib/cx'
 
 /**
  * The samples come from the fixtures rather than being written here, so they
@@ -38,7 +37,7 @@ import { cx } from '../lib/cx'
  */
 const sample = auditRules.find((rule) => rule.id === 'arbitrary-scale') ?? auditRules[0]
 const counted = metrics[0]
-const sentenceWithTerms = metrics.find((metric) => metric.label.includes('`--')) ?? metrics[0]
+const sentenceWithTerms = metrics.find((metric) => metric.label.includes('`')) ?? metrics[0]
 
 const NOT_YOUR_JOB = ['What a component is called.', 'Where a file goes.', 'Git.']
 
@@ -52,7 +51,7 @@ interface Props {
 const { class: extra } = Astro.props
 ---
 
-  <div class={cx('grid gap-4 sm:grid-cols-2', extra)}>
+  <div class:list={['grid gap-4 sm:grid-cols-2', extra]}>
     <Specimen name="Text" note="Body copy. Three levels of voice, and nobody re-types them.">
       <Text variant="lead">An opening line</Text>
       <Text>The text you are reading now.</Text>

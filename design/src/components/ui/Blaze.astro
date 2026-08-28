@@ -12,8 +12,6 @@
  *
  * Three stacked bands rather than an SVG, so it prints as solid ink.
  */
-import { cx } from '../../lib/cx'
-
 interface Props {
   size?: 'sm' | 'md'
   /** Whose trail this is. The two audiences read the same page and need to see
@@ -24,23 +22,23 @@ interface Props {
 
 const { size = 'md', tone = 'default', class: extra } = Astro.props
 
-const SIZES = {
+const bySize = {
   sm: { mark: 'h-6 w-2.5', band: 'h-1' },
   md: { mark: 'h-8 w-3.5', band: 'h-1.5' },
-} as const
+}
 
-const TONES = {
+const byTone = {
   default: 'bg-primary',
   designer: 'bg-designer',
   developer: 'bg-developer',
-} as const
+}
 
-const { mark, band } = SIZES[size]
-const paint = TONES[tone]
+const { mark, band } = bySize[size]
+const paint = byTone[tone]
 ---
 
-<span class={cx('flex flex-col rounded-xs', mark, extra)} aria-hidden="true">
-  <span class={cx('flex-1', paint)}></span>
-  <span class={cx('bg-background', band)}></span>
-  <span class={cx('flex-1', paint)}></span>
+<span class:list={['flex flex-col rounded-xs', mark, extra]} aria-hidden="true">
+  <span class:list={['flex-1', paint]}></span>
+  <span class:list={['bg-background', band]}></span>
+  <span class:list={['flex-1', paint]}></span>
 </span>

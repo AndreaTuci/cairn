@@ -6,8 +6,6 @@
  * own class string. The moment they do, changing the reading size means finding
  * all twenty; here it means changing one line.
  */
-import { cx, variants } from '../../lib/cx'
-
 interface Props {
   variant?: 'lead' | 'body' | 'note'
   as?: 'p' | 'div'
@@ -16,16 +14,13 @@ interface Props {
 
 const { variant = 'body', as = 'p', class: extra } = Astro.props
 
-const VARIANTS = {
-  variant: {
-    lead: 'text-lg text-foreground',
-    body: 'text-base text-foreground',
-    note: 'text-sm text-muted-foreground',
-  },
-} as const
+const byVariant = {
+  lead: 'text-lg text-foreground',
+  body: 'text-base text-foreground',
+  note: 'text-sm text-muted-foreground',
+}
 
 const Tag = as
-const classes = cx(variants(VARIANTS, { variant }, { variant: 'body' }), extra)
 ---
 
-<Tag class={classes}><slot /></Tag>
+<Tag class:list={[byVariant[variant], extra]}><slot /></Tag>

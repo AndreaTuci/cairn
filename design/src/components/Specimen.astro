@@ -15,7 +15,6 @@
  */
 import Text from './ui/Text.astro'
 import RichText from './RichText.astro'
-import { cx, variants } from '../lib/cx'
 
 interface Props {
   /** The component being shown, set as code. Two names when the point is the pair. */
@@ -29,25 +28,21 @@ interface Props {
 
 const { name, note, layout = 'compact', class: extra } = Astro.props
 
-const VARIANTS = {
-  layout: {
-    compact: 'p-4',
-    full: 'p-6',
-  },
-} as const
+const base = 'flex h-full flex-col overflow-hidden rounded-md border bg-background'
+const body = 'flex grow flex-col justify-between gap-4'
+
+const byLayout = {
+  compact: 'p-4',
+  full: 'p-6',
+}
 ---
 
-<figure class={cx('flex h-full flex-col overflow-hidden rounded-md border bg-background', extra)}>
+<figure class:list={[base, extra]}>
   <figcaption class="border-b bg-muted px-4 py-2 font-mono text-xs text-muted-foreground">
     {name}
   </figcaption>
 
-  <div
-    class={cx(
-      'flex grow flex-col justify-between gap-4',
-      variants(VARIANTS, { layout }, { layout: 'compact' }),
-    )}
-  >
+  <div class:list={[body, byLayout[layout]]}>
     <div class="space-y-3"><slot /></div>
     {
       note && (

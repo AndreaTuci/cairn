@@ -110,10 +110,19 @@ const GROUPS: StepGroup[] = [
  * Computed here rather than in the page, because the gallery on `/composition`
  * shows a real group too and the two must not disagree about its number.
  */
-export const stepGroups: NumberedGroup[] = GROUPS.map((group, index) => ({
-  ...group,
-  start: GROUPS.slice(0, index).reduce((total, previous) => total + previous.steps.length, 1),
-}))
+function numbered(groups: StepGroup[]): NumberedGroup[] {
+  const counted: NumberedGroup[] = []
+  let next = 1
+
+  for (const group of groups) {
+    counted.push({ ...group, start: next })
+    next += group.steps.length
+  }
+
+  return counted
+}
+
+export const stepGroups: NumberedGroup[] = numbered(GROUPS)
 
 /** Every step on the page, counted once, so the prose cannot disagree with the list. */
 export const stepCount = GROUPS.reduce((total, group) => total + group.steps.length, 0)

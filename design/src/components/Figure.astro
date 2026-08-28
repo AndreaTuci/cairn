@@ -7,7 +7,6 @@
  * digits up down the column. The sentence beside it stays ordinary body text.
  */
 import RichText from './RichText.astro'
-import { cx } from '../lib/cx'
 
 interface Props {
   value: string
@@ -17,11 +16,12 @@ interface Props {
 }
 
 const { value, label, class: extra } = Astro.props
+
+const base = 'flex items-baseline gap-6 border-b border-rule py-4'
+const number = 'w-20 shrink-0 text-right font-mono text-xl font-semibold tabular-nums text-primary'
 ---
 
-<div class={cx('flex items-baseline gap-6 border-b border-rule py-4', extra)}>
-  <span class="w-20 shrink-0 text-right font-mono text-xl font-semibold tabular-nums text-primary">
-    {value}
-  </span>
+<div class:list={[base, extra]}>
+  <span class={number}>{value}</span>
   <span class="text-base text-foreground"><RichText copy={label} /></span>
 </div>
