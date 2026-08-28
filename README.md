@@ -3,6 +3,14 @@
 **Agent skills that let designers prototype production frontend and developers build straight from
 it — one composition law, one workbench, one blocking audit.**
 
+```bash
+npx @andreatuci/cairn install
+```
+
+Run once, inside the project you are setting up. **Not `npm i`** — cairn is a scaffolder rather
+than a dependency, and nothing of it stays in your `package.json`.
+[Read the guide](https://andreatuci.github.io/cairn).
+
 A cairn is a stack of stones on a ridge: someone walked ahead, learned the route, and left marks so
 whoever comes next can find it without a guide present. That is what these five skills are.
 
@@ -42,12 +50,9 @@ Read [TEAM.md](TEAM.md) for how the two roles actually work together.
 
 ## Install
 
-```bash
-npx @andreatuci/cairn install
-```
-
-Run it inside the project you want to set up. It puts the skill folders where the agents look —
-`.claude/skills/` for Claude, `.github/skills/` for Copilot — and does nothing else.
+`npx @andreatuci/cairn install` puts the skill folders where the agents look —
+`.claude/skills/` for Claude, `.github/skills/` for Copilot, plus the slash commands in
+`.github/prompts/` — and does nothing else.
 
 From a checkout, that is a plain copy and you can do it by hand:
 
