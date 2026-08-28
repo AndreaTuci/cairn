@@ -106,6 +106,12 @@ export function isStructuralUtility(prefix) {
  * not a class list. Splitting one on whitespace yields JavaScript (`!dragging`)
  * that looks exactly like a Tailwind important prefix. So a bound value is mined
  * for its string literals and nothing else.
+ *
+ * The script block is mined the same way, and that is not an extra: the house
+ * rule is that a component's classes live there, named, so the template stays
+ * declarative. Reading only attributes made the gate blind to exactly the code
+ * the rules ask people to write — `text-[13px]` was caught in an attribute and
+ * invisible in the `const` two lines above it.
  */
 export function extractClasses(file) {
   const attributePattern = /(^|[\s{,(])(:|v-bind:)?(class|className|class:list)\s*=\s*/g
@@ -126,7 +132,48 @@ export function extractClasses(file) {
     }
   }
 
+  for (const literal of scriptLiterals(file)) {
+    if (file.isInsideComment(literal.start)) continue
+    if (isInsideClassAttribute(ranges, literal.start)) continue
+    ranges.push([literal.start, literal.start + literal.raw.length])
+
+    const line = file.lineAt(literal.start)
+    for (const className of splitClassList(literal.raw, false)) {
+      classes.push({ className, line, bound: true })
+    }
+  }
+
   return { classes, ranges }
+}
+
+/** The script block: an `.astro` frontmatter, or a `<script>` in an SFC. */
+function scriptRegion(file) {
+  if (file.ext === '.astro') {
+    const fence = /^---[ \t]*$/gm
+    const open = fence.exec(file.text)
+    if (!open) return null
+    const close = fence.exec(file.text)
+    if (!close) return null
+    return [open.index + open[0].length, close.index]
+  }
+  if (file.ext === '.vue') {
+    const match = file.text.match(/<script[^>]*>([\s\S]*?)<\/script>/)
+    if (!match) return null
+    const bodyStart = match.index + match[0].indexOf('>') + 1
+    return [bodyStart, bodyStart + match[1].length]
+  }
+  return null
+}
+
+/** Every single-line string literal in the script block, with its offset. */
+function scriptLiterals(file) {
+  const region = scriptRegion(file)
+  if (!region) return []
+  const [from, to] = region
+  return [...file.text.slice(from, to).matchAll(/(['"])([^'"\n]*)\1/g)].map((match) => ({
+    start: from + match.index,
+    raw: match[0],
+  }))
 }
 
 /** Read a quoted or brace-delimited attribute value, respecting nesting. */
