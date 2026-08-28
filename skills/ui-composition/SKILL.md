@@ -314,6 +314,22 @@ These hold regardless of the design, because a design that breaks them is not fi
   unreadable at one end of the range and absurd at the other), and no width makes the page scroll
   sideways.
 
+### Beyond composition
+
+This file owns how UI is put together, and three habits sit just outside that and have nowhere
+else to live when a project installs cairn and nothing else. They are not the subject; they are the
+floor under it, and a house standards document supersedes every one of them.
+
+- **No dead code.** Not a component nobody imports — the gate already catches that — but an export
+  nobody calls, a branch nothing reaches, a block left commented out. Code kept "just in case" is
+  the code nobody dares change later.
+- **Errors never pass silently.** An empty `catch` in a frontmatter or a script setup turns a
+  broken fetch into an empty screen with no explanation, which is the same bug as an undrawn error
+  state and much harder to find.
+- **Comments say why, never what.** The code already says what it does. What it cannot say is the
+  thing that was true when it was written and is not obvious now — and that is the sentence the
+  next reader needs.
+
 ## Budgets
 
 | | Budget | Why |
