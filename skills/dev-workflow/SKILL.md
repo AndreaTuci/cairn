@@ -17,9 +17,13 @@ mockups — and it only stays faster if the two copies keep matching. Most of th
 second half.
 
 This owns the frontend seam. `ui-composition` says how UI is composed; `ui-sync` owns the handoff,
-the triage tables and the per-stack promotion procedures; `feature-workflow` owns the general
-process for a multi-file, multi-session feature — phase plans, `NOTES`, the semaphore, the
-suggested-commits table — and composes with this one rather than being restated here.
+the triage tables and the per-stack promotion procedures. Both ship with cairn.
+
+The general process for a multi-file, multi-session feature — phase plans, a notes document, the
+semaphore — belongs to whatever process skill your setup has, and cairn does not ship one. Where
+there is none, nothing here is blocked: the two things this file actually needs from that process
+are stated below, in *Review* and in *Commits*, rather than delegated to a file that may not
+exist.
 
 ## Start here, every time
 
@@ -34,9 +38,13 @@ node design/.ui/ui-audit.mjs --root design --all
 Read `design/UI-STACK.md` too, once, if you have not: it holds the pinned versions, the budgets and
 every waiver taken on this project.
 
-**If the drift report is not empty, deal with it before starting the feature.** Building on a
-component the designer has already moved past means doing the work twice, and discovering it at
-review is the expensive moment.
+**If anything is listed under CHANGED SINCE PROMOTION, deal with it before starting the feature.**
+Building on a component the designer has already moved past means doing the work twice, and
+discovering it at review is the expensive moment.
+
+The other lists are not a blocker. On a first pickup every file is *new since promotion*, which is
+the normal state of a workbench nobody has taken from yet — reading that as "the report must be
+empty before I start" is what makes stamping everything at once look like progress.
 
 ## Then triage, before touching anything
 
@@ -121,6 +129,11 @@ So: when production learns something design-visible, it goes back into the workb
 | A permission that changes what is on screen | tell the designer; it is a different screen, not a hidden div |
 | A component that had to be rewritten in production | say so, so the designer knows their copy no longer matches what ships |
 
+The first two you may do yourself: a fixture is data, and a type that lies about what the API
+returns is a bug in the seam rather than a design decision. The last three are the designer's,
+because they are the design. Either way you say so — an edit in their folder they find on their
+own is how trust in the arrangement ends.
+
 **What does not go back:** production bug fixes, performance work, refactors, anything invisible.
 The workbench is the design's source of truth, not production's mirror. Round-tripping everything
 would make it a second codebase to maintain, which is exactly what it must not become.
@@ -137,17 +150,24 @@ floor — because the next person reading it has the same problems whether a des
 or not.
 
 What does not apply: there is no handoff to read, no drift to check, nothing to send back. Build
-it in the project, audit it, done.
+it in the project, audit it, done — pointing the audit at wherever the tooling is installed, which
+in a project with no `design/` is the `ui-composition/scripts/` folder of your skills install:
+
+```bash
+node <skills>/ui-composition/scripts/ui-audit.mjs --root <folder> --token-file <path> --all
+```
 
 The one thing worth keeping is the four states question. Admin screens are where undesigned empty
 states go to be embarrassing.
 
 ## Review, before you ask anyone to commit
 
-`feature-workflow` covers the general review pass. Frontend adds these, and they are quick:
+Review the whole work-set before asking for a commit, whatever process you follow: dead code,
+duplication, swallowed errors, anything inconsistent with its siblings. Frontend adds these, and
+they are quick:
 
 ```bash
-node design/.ui/ui-audit.mjs --root <production folder> --token-file <path> --ignore ui
+node design/.ui/ui-audit.mjs --root <production folder> --token-file <path>
 ```
 
 - **Audit clean**, or every waiver written down with a reason.
@@ -162,7 +182,12 @@ node design/.ui/ui-audit.mjs --root <production folder> --token-file <path> --ig
 
 ## Commits
 
-`feature-workflow` owns the suggested-commits table and the rule that the agent never commits.
+**The agent never commits.** It proposes a split — one concern per row, explicit paths, in
+dependency order, each row runnable exactly as written — and the human runs every `git add` and
+every `git commit`. That is cairn's own rule, not a borrowed one: `ui-sync` says the same thing
+about promotion and `design-workflow` says it about design sessions, so there is nowhere in this
+system where an agent commits.
+
 Two things specific to this work:
 
 - **A normalize is its own `refactor(...)` commit.** If a designer's component is renamed or
