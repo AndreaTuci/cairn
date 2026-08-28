@@ -66,6 +66,18 @@ file fills itself and the questions stop.
 
 Do not hand a designer an empty template and wait. Nobody fills in a form to start working.
 
+**Check `context/` for anything new.** That folder holds what the project was *given* — a brand
+manual, the functional requirements, a content model, meeting notes. If a file is there that
+`BRIEF.md` does not yet reflect, read it **once**, write what matters into `BRIEF.md` with a
+pointer back to the file, and say in one line what you took:
+
+> — *"Dal manuale di brand ho preso i due caratteri, la scala dei colori e la regola sul logo. Il
+>    resto — carta intestata, gadget, segnaletica — non tocca il web, l'ho lasciato lì."*
+
+Long documents are read once and distilled, never re-read every session. A designer who hands you
+sixty pages is handing you the *source*, not the brief — turning it into a brief is your job, and
+they should be able to correct your reading of it in one message.
+
 **Any other written brief also wins.** A client document, notes from a meeting, a `BRIEF-*.md`
 dropped in the folder: its words are used as written rather than rephrased. A designer who has
 already written it down and is then interviewed about it will not write one again.
