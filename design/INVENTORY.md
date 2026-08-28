@@ -11,12 +11,12 @@ The building blocks. Everything else is made of these.
 
 | Component | Variants | Props | Used | Lines |
 |---|---|---|---|---|
-| [`Text`](components/ui/Text.astro) | variant: lead · body · note<br>as: p · div | variant?, as? | 44 | 32 |
-| [`Code`](components/ui/Code.astro) | — | — | 12 | 20 |
-| [`Blaze`](components/ui/Blaze.astro) | size: sm · md<br>tone: default · designer · developer | size?, tone? | 8 | 47 |
-| [`CodeBlock`](components/ui/CodeBlock.astro) | wrap: none · soft | code, label?, wrap? | 6 | 49 |
-| [`StepNumber`](components/ui/StepNumber.astro) | — | index | 4 | 27 |
-| [`Card`](components/ui/Card.astro) | elevation: raised · flat | title?, elevation? | 3 | 41 |
+| [`Text`](components/ui/Text.astro) | variant: lead · body · note<br>as: p · div | variant?, as? | 44 | 27 |
+| [`Code`](components/ui/Code.astro) | — | — | 12 | 18 |
+| [`Blaze`](components/ui/Blaze.astro) | size: sm · md<br>tone: default · designer · developer | size?, tone? | 8 | 45 |
+| [`CodeBlock`](components/ui/CodeBlock.astro) | wrap: none · soft | code, label?, wrap? | 6 | 44 |
+| [`StepNumber`](components/ui/StepNumber.astro) | — | index | 4 | 25 |
+| [`Card`](components/ui/Card.astro) | elevation: raised · flat | title?, elevation? | 3 | 33 |
 
 ## Components
 
@@ -24,17 +24,17 @@ Built from the primitives, for this project.
 
 | Component | Variants | Props | Used | Lines |
 |---|---|---|---|---|
-| [`Section`](components/Section.astro) | tone: default · designer · developer | title, id?, tone? | 18 | 36 |
-| [`Specimen`](components/Specimen.astro) | layout: compact · full | name, note?, layout? | 14 | 61 |
-| [`RoleBadge`](components/RoleBadge.astro) | role: designer · developer · both | role | 10 | 55 |
-| [`DefinitionRow`](components/DefinitionRow.astro) | emphasis: default · strong | term, emphasis? | 9 | 43 |
+| [`Section`](components/Section.astro) | tone: default · designer · developer | title, id?, tone? | 18 | 35 |
+| [`Specimen`](components/Specimen.astro) | layout: compact · full | name, note?, layout? | 14 | 56 |
+| [`RoleBadge`](components/RoleBadge.astro) | role: designer · developer · both | role | 10 | 49 |
+| [`DefinitionRow`](components/DefinitionRow.astro) | emphasis: default · strong | term, emphasis? | 9 | 35 |
 | [`RichText`](components/RichText.astro) | — | copy | 9 | 19 |
-| [`LabelledList`](components/LabelledList.astro) | tone: default · designer · developer | title, items, tone? | 5 | 42 |
+| [`LabelledList`](components/LabelledList.astro) | tone: default · designer · developer | title, items, tone? | 5 | 43 |
 | [`PageIntro`](components/PageIntro.astro) | — | title, lead | 4 | 28 |
 | [`Figure`](components/Figure.astro) | — | value, label | 3 | 28 |
 | [`StepList`](components/StepList.astro) | — | steps, start | 2 | 42 |
-| [`PartsGallery`](components/PartsGallery.astro) | — | — | 1 | 134 |
+| [`PartsGallery`](components/PartsGallery.astro) | — | — | 1 | 133 |
 | [`SiteFooter`](components/SiteFooter.astro) | — | — | 1 | 37 |
-| [`SiteHeader`](components/SiteHeader.astro) | — | — | 1 | 47 |
+| [`SiteHeader`](components/SiteHeader.astro) | — | — | 1 | 50 |
 
 _18 components — 0 currently unused._
