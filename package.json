@@ -1,0 +1,48 @@
+{
+  "name": "@lotrek/cairn",
+  "version": "1.0.0",
+  "description": "Agent skills that let designers prototype production frontend and developers build straight from it - one composition law, one workbench, one blocking audit.",
+  "keywords": [
+    "claude-code",
+    "agent-skills",
+    "github-copilot",
+    "design-system",
+    "design-tokens",
+    "astro",
+    "nuxt",
+    "tailwindcss",
+    "design-handoff"
+  ],
+  "license": "MIT",
+  "author": "Lotrek",
+  "homepage": "https://github.com/lotrek/cairn#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lotrek/cairn.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lotrek/cairn/issues"
+  },
+  "type": "module",
+  "bin": {
+    "cairn": "bin/cairn.mjs"
+  },
+  "//": "`files` is an allowlist: only what is listed here ships. design/ is this project's own guide and evals/ is how the skills are tested - neither belongs in somebody else's node_modules. The installer needs Node 20.11 for nothing more exotic than a recursive copy; the workbench it scaffolds wants 22.19, and says so itself.",
+  "files": [
+    "bin",
+    "skills",
+    "assets",
+    "TEAM.md"
+  ],
+  "engines": {
+    "node": ">=20.11"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "check": "node bin/cairn.mjs --help && node skills/ui-composition/scripts/ui-audit.mjs --root design --all",
+    "prepack": "node bin/npm-safe-dotfiles.mjs stage",
+    "postpack": "node bin/npm-safe-dotfiles.mjs clean"
+  }
+}
