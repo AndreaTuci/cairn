@@ -22,15 +22,18 @@ dist/
 PLAN-*.md
 NOTES-*.md
 
-# Skills installed here to work with, not authored here: skill-creator,
-# code-standards, feature-workflow. They belong to skills-repo.
-.claude/skills/
-.github/skills/
-.cursor/skills/
-.gemini/skills/
+# Skills installed here to work with, not authored here — including the copies
+# ui-kickoff puts inside a workbench. The `**/` matters: a pattern with a slash
+# in the middle is anchored to this file's directory, so a bare `.claude/skills/`
+# would cover the root and quietly miss `design/.claude/skills/`.
+**/.claude/skills/
+**/.github/skills/
+**/.cursor/skills/
+**/.gemini/skills/
 
-# Local agent settings
-.claude/settings.local.json
+# Local agent settings. Note that `.claude/settings.json` is NOT ignored: the
+# permission rules it carries are project facts and belong in the repository.
+**/.claude/settings.local.json
 
 # In THIS repository only. `design/.ui/` is a vendored copy of
 # skills/ui-composition/scripts/, which lives ten lines away in the same tree.
