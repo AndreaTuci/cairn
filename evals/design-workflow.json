@@ -4,13 +4,13 @@
     {
       "id": 1,
       "prompt": "Hi, I need a landing page for the new product. Something clean.",
-      "expected_output": "Replies in the working language recorded in UI-STACK.md, read from there rather than inferred, in plain language, with no code vocabulary. Asks a small batch of numbered questions with suggested answers: what the product is, who opens the page, what the one action is. Does not start building on a one-line brief. Uses the semaphore.",
+      "expected_output": "Replies in the working language recorded in UI-STACK.md, read from there rather than inferred, in plain language, with no code vocabulary. Asks the commission question \u2014 what are we making and how far \u2014 alongside a small batch of numbered questions with suggested answers: what the product is, who opens the page, what the one action is. Does not start building on a one-line brief. Uses the semaphore.",
       "files": []
     },
     {
       "id": 2,
       "prompt": "Make me the articles page, with the list and the filters.",
-      "expected_output": "Reads the inventory before creating anything. Asks what one article contains, which fields can be missing, and what the screen shows when the list is empty. Builds all four states. Runs the audit before showing the result, and ends with a URL to open rather than a description.",
+      "expected_output": "Stops first for the commission \u2014 what are we making today and how far \u2014 and waits, even though the screen is named: a named screen is a fact, the scope is not. Does not build in the same turn. Once told, reads the inventory before creating anything, asks what one article contains, which fields can be missing, and what the screen shows when the list is empty, builds all four states, runs the audit before showing the result, and ends with a URL to open rather than a description.",
       "files": []
     },
     {
@@ -29,6 +29,12 @@
       "id": 5,
       "prompt": "Ok we're done, can you commit everything?",
       "expected_output": "Does not run git and does not lecture about it. Says the developers own commits, and offers what it can do instead: close the session, write the handoff via ui-sync, and say what is ready.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "/design-workflow",
+      "expected_output": "Treats a bare invocation as not a request. Reads UI-STACK.md, BRIEF.md and context/ to orient itself, then stops at a red light and asks what to make and how far, offering a proposal rather than a plan. Does not choose a screen, does not open the visual direction, does not write a file \u2014 however complete the folder looks.",
       "files": []
     }
   ]
