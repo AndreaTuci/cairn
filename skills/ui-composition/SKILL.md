@@ -423,7 +423,10 @@ Nobody edits them — not a designer, not a developer. Not out of hierarchy: an 
 survives until the next install and then reverts, silently, taking its reasoning with it. It is
 `node_modules` with better prose.
 
-A rule that turns out to be wrong is fixed **upstream**, where every project gets the fix. That is
+A rule that turns out to be wrong is fixed **upstream**, and a project takes the fix by
+reinstalling — `npx @andreatuci/cairn install` refreshes the skills and, where a workbench exists,
+its vendored `design/.ui/` with them. Nothing arrives on its own: a workbench scaffolded in March
+runs March's rules until somebody reinstalls, and for a long time nothing here said so. That is
 what makes these rules a shared contract rather than one team's local habit — and it is why the
 change goes through review by the side it affects. A designer cannot write that change, but they
 have the lever that triggers it: a waiver, with its reason, and the third identical waiver is the

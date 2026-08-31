@@ -82,6 +82,25 @@ function installPrompts(projectRoot, relativeTarget) {
 }
 
 /**
+ * Refresh the audit a workbench already has.
+ *
+ * `design/.ui/` is a copy of this package's `ui-composition/scripts`, made once at
+ * kickoff. Nothing refreshed it afterwards, so a project that scaffolded in March
+ * ran March's rules for ever while the installed skills said otherwise — and the
+ * first project to use these skills outside this repository hit exactly that: a
+ * rule was added upstream and there was no documented way for it to arrive.
+ *
+ * Reinstalling is the gesture people already reach for, so it is the one that
+ * does this. Only when the folder is there: this never creates a workbench.
+ */
+function refreshVendoredAudit(projectRoot) {
+  const target = join(projectRoot, 'design', '.ui')
+  if (!existsSync(target)) return null
+  cpSync(join(PACKAGE_ROOT, 'skills', 'ui-composition', 'scripts'), target, { recursive: true })
+  return 'design/.ui/       - the audit, refreshed to this version'
+}
+
+/**
  * npm strips `.gitignore` and `.npmrc` from every tarball, and both are
  * load-bearing in the workbench templates. They travel under un-dotted names and
  * get their dot back here, once, on the way in — before `ui-kickoff` ever copies
@@ -123,6 +142,8 @@ function main() {
     written.push(installSkills(projectRoot, TARGETS.copilot.skills))
     written.push(installPrompts(projectRoot, TARGETS.copilot.prompts))
   }
+  const refreshed = refreshVendoredAudit(projectRoot)
+  if (refreshed) written.push(refreshed)
 
   console.log(`cairn ${version()} installed into ${projectRoot}`)
   for (const line of written) console.log(`  ${line}`)
