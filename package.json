@@ -32,6 +32,7 @@
     "bin",
     "skills",
     "assets",
+    "CHANGELOG.md",
     "TEAM.md"
   ],
   "engines": {
