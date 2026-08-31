@@ -21,7 +21,48 @@ export function checkStructure(files, config) {
     ...files.flatMap((file) => propsBudget(file, config)),
     ...duplicates(files, config),
     ...unusedComponents(files),
+    ...domainPrimitives(files),
   ]
+}
+
+/**
+ * A primitive that knows what this project is about.
+ *
+ * `components/ui/` is for shapes that would still make sense on a page that does
+ * not exist yet — a button, a card, a field. The moment one imports the project's
+ * data it has stopped being one, and it belongs a tier up in `components/`, which
+ * is where knowing the domain is the job.
+ *
+ * This was prose for a long time, and prose lost: the first project to use these
+ * skills outside the repository they were written in put all ten of its
+ * components in `ui/`, four of them holding a teacher, a course or a dance. The
+ * inventory made it look tidy, because it splits its two sections on that folder
+ * name. Nothing said anything. The cost lands at promotion, where a component
+ * that knows what a dance is gets carried into a shared production `ui/` folder.
+ *
+ * Deliberately narrow: it fires on an import from the fixtures, which is the one
+ * unambiguous signal. A primitive never needs the project's data, and a component
+ * that does is not one.
+ */
+function domainPrimitives(files) {
+  return files
+    .filter((file) => file.kind === 'component' && file.rel.includes('/ui/'))
+    .filter((file) => !file.waivedAt(1, 'domain-primitive'))
+    .flatMap((file) => {
+      const fromFixtures = file.imports.filter((path) => path.includes('fixtures/'))
+      if (fromFixtures.length === 0) return []
+      return [{
+        rule: 'domain-primitive',
+        severity: SEVERITY.BLOCKING,
+        file: file.rel,
+        line: 1,
+        // The component, not the import path: three primitives importing the same
+        // fixture are three decisions, and the report groups by this value.
+        excerpt: file.rel.split('/').at(-1),
+        message: 'A primitive that imports the project\'s data. `components/ui/` is for shapes that would still make sense on a page that does not exist yet.',
+        fix: 'Move it to `components/` — the tier that is allowed to know the domain — and update its call sites in the same change.',
+      }]
+    })
 }
 
 function budgetFor(kind, budgets) {

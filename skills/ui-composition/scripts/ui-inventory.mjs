@@ -128,7 +128,11 @@ function describe(component, files) {
 }
 
 function renderSection(title, entries, note, linkPrefix) {
-  if (entries.length === 0) return []
+  // An empty tier is a fact worth printing. Saying nothing made a project with
+  // every component in `ui/` read as ten tidy primitives and no problem.
+  if (entries.length === 0) {
+    return [`## ${title}`, '', note, '', '_None yet._', '']
+  }
   const lines = [`## ${title}`, '', note, '', '| Component | Variants | Props | Used | Lines |', '|---|---|---|---|---|']
   for (const entry of entries) {
     lines.push(
