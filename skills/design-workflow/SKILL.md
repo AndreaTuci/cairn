@@ -234,16 +234,24 @@ npm run design:check
 ### 6. Show it 🔴
 
 **First make sure the page is actually being served.** Nothing else in the system starts the dev
-server — the kickoff builds, checks and inventories, but never runs it — so if `npm run design` is
-not already going, start it now and **read the URL off its output** rather than from memory. The
-port is 4321 only when 4321 was free.
+server — the kickoff builds, checks and inventories, but never runs it.
 
 ```bash
 npm run design
 ```
 
-It stays running: it is a server, not a command that finishes. Leave it, and the browser updates
-by itself as you work.
+**Start it in the background, and never in front of you.** A dev server does not finish, so run it
+in the foreground and it takes the whole session with it: the designer is left watching a prompt
+that never comes back, and the one thing they were waiting for is the thing blocking it.
+
+**Then read the address off its output**, rather than from memory. The port is 4321 only when 4321
+was free — and it will not be free the second time.
+
+**One server per workbench.** If one is already serving this folder, use its address instead of
+starting another. Two servers on two ports serve the same files; all the second one adds is a
+designer with two tabs open, wondering which of them is real.
+
+It does not open a browser. Nothing here does — you hand them the address.
 
 Then give them the URL, say what to look at, and stop. Something like:
 
@@ -259,6 +267,11 @@ normal and is not a sign anything went wrong.
 
 When a batch of screens is done, `ui-sync` writes the handoff — what exists, what is faked, what
 data it needs, what is still open. Do not write that document by hand.
+
+**Say that the preview is still running, and on which address.** They did not start it and have no
+terminal to stop it in, so it outlives the session unless somebody says so — and the next session
+finds the port taken and quietly starts a second one. Offer to stop it, and if they are done for
+the day, stop it.
 
 Then say, in one short paragraph, what changed and what is still open. Nothing longer: a designer
 does not need a report, they need to know where things stand.
