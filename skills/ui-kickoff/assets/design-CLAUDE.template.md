@@ -11,7 +11,7 @@ build it, check it against the house rules, and tell you what is still open.
 ## The three commands
 
 ```bash
-npm run design         # opens the workbench in a browser and reloads as you work
+npm run design         # serves the workbench at a local address, and reloads as you work
 npm run design:check   # checks the work against the house rules
 npm run design:build   # produces plain HTML in dist/ — send it to a client
 ```

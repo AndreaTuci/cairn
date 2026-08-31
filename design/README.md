@@ -7,7 +7,7 @@ folder runs on its own — no backend, no database, no docker.
 
 ```bash
 npm install        # once
-npm run design     # opens the workbench in a browser, reloads as you work
+npm run design     # serves the workbench at a local address, reloads as you work
 npm run design:check   # checks the work against the house rules
 npm run design:build   # produces plain HTML in dist/ — send it to a client
 ```
