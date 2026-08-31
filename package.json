@@ -1,6 +1,6 @@
 {
   "name": "@andreatuci/cairn",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Agent skills that let designers prototype production frontend and developers build straight from it - one composition law, one workbench, one blocking audit.",
   "keywords": [
     "claude-code",
